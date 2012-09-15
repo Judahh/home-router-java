@@ -5,7 +5,7 @@ public class IPModel {
 	private String password;
 	private int port;
 
-	public IPModel(String ipAddress, String password, int port) {
+	public IPModel(String ipAddress, int port, String password) {
 		super();
 		this.ipAddress = ipAddress;
 		this.password = password;
