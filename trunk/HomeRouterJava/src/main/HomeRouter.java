@@ -1,7 +1,6 @@
 package main;
 
-import view.MainView;
-
+import view.ConnectWindow;
 
 
 public class HomeRouter {
@@ -11,7 +10,7 @@ public class HomeRouter {
 			@Override
 			public void run(){
 				try {
-					new MainView();
+					new ConnectWindow();
 				} finally{
 					
 				}
