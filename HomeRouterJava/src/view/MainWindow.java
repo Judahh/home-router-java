@@ -24,13 +24,8 @@ import java.awt.Insets;
 import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
-import javax.swing.JLayeredPane;
-import javax.swing.JDesktopPane;
 
 public class MainWindow extends JFrame implements ActionListener {
-
-	private JPanel FastEthernet0Panel;
-	private JPanel Serial0Panel;
 
 	public MainWindow(TelnetClient telnet, String ip, int port) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,127 +37,165 @@ public class MainWindow extends JFrame implements ActionListener {
 		setLocation(200, 200);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 14));
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		JPanel interfacesPanel = new JPanel();
 		tabbedPane.addTab("Interfaces", null, interfacesPanel, null);
-		GridBagLayout gbl_interfacesPanel = new GridBagLayout();
-		gbl_interfacesPanel.columnWidths = new int[] { 111, 410 };
-		gbl_interfacesPanel.rowHeights = new int[] { 353 };
-		gbl_interfacesPanel.columnWeights = new double[] { 0.0, 1.0 };
-		gbl_interfacesPanel.rowWeights = new double[] { 1.0 };
-		interfacesPanel.setLayout(gbl_interfacesPanel);
+		interfacesPanel.setLayout(null);
 
-		JPanel interfacesLeftPanel = new JPanel();
-		interfacesLeftPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		GridBagConstraints gbc_interfacesLeftPanel = new GridBagConstraints();
-		gbc_interfacesLeftPanel.anchor = GridBagConstraints.WEST;
-		gbc_interfacesLeftPanel.fill = GridBagConstraints.VERTICAL;
-		gbc_interfacesLeftPanel.insets = new Insets(0, 0, 0, 5);
-		gbc_interfacesLeftPanel.gridx = 0;
-		gbc_interfacesLeftPanel.gridy = 0;
-		interfacesPanel.add(interfacesLeftPanel, gbc_interfacesLeftPanel);
-		interfacesLeftPanel.setSize(200, 200);
+		interfacesTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+		interfacesTabbedPane.setBounds(0, 11, 789, 343);
+		interfacesPanel.add(interfacesTabbedPane);
 
-		JButton btnSerial0 = new JButton("Serial 0");
-		btnSerial0.addActionListener(this);
-		btnSerial0.setActionCommand("Serial0");
-		interfacesLeftPanel.setLayout(new GridLayout(12, 1, 0, 0));
+		// fast ethernet 0 panel
+		fastEthernet0Panel = new JPanel();
+		interfacesTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Fast Ethernet 0</body></html>",
+				null, fastEthernet0Panel, null);
+		fastEthernet0Panel.setLayout(null);
 
-		JButton btnFastEthernet = new JButton("Fast Ethernet 0");
-		btnFastEthernet.addActionListener(this);
-		btnFastEthernet.setActionCommand("FastEthernet");
-		btnFastEthernet.setHorizontalAlignment(SwingConstants.LEFT);
-		interfacesLeftPanel.add(btnFastEthernet);
-		interfacesLeftPanel.add(btnSerial0);
+		JLabel fe0TitleLabel = new JLabel("Fast Ethernet 0");
+		fe0TitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		fe0TitleLabel.setBounds(137, 11, 124, 24);
+		fastEthernet0Panel.add(fe0TitleLabel);
 
-		JButton btnSerial1 = new JButton("Serial 1");		
-		btnSerial1.addActionListener(this);
-		btnSerial1.setActionCommand("Serial1");
-		interfacesLeftPanel.add(btnSerial1);
+		JLabel fe0PortStatusLabel = new JLabel("Port Status");
+		fe0PortStatusLabel.setBounds(42, 65, 73, 14);
+		fastEthernet0Panel.add(fe0PortStatusLabel);
 
-		FastEthernet0Panel = new JPanel();
-		FastEthernet0Panel.setLayout(null);
-		GridBagConstraints gbc_FastEthernet0Panel = new GridBagConstraints();
-		gbc_FastEthernet0Panel.fill = GridBagConstraints.BOTH;
-		gbc_FastEthernet0Panel.gridx = 1;
-		gbc_FastEthernet0Panel.gridy = 0;
-		interfacesPanel.add(FastEthernet0Panel, gbc_FastEthernet0Panel);
+		JLabel fe0IpAddressLabel = new JLabel("IP Address");
+		fe0IpAddressLabel.setBounds(42, 100, 73, 14);
+		fastEthernet0Panel.add(fe0IpAddressLabel);
 
-		lblFE0PortStatus = new JLabel("Port Status");
-		lblFE0PortStatus.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFE0PortStatus.setBounds(31, 66, 77, 17);
-		FastEthernet0Panel.add(lblFE0PortStatus);
+		JLabel fe0SubnetMaskLabel = new JLabel("Subnet Mask");
+		fe0SubnetMaskLabel.setBounds(42, 135, 83, 14);
+		fastEthernet0Panel.add(fe0SubnetMaskLabel);
 
-		FE0chckbxOn = new JCheckBox("On");
-		FE0chckbxOn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		FE0chckbxOn.setBounds(233, 64, 97, 23);
-		FastEthernet0Panel.add(FE0chckbxOn);
+		JCheckBox fe0PortStatusCheckbox = new JCheckBox("On");
+		fe0PortStatusCheckbox.setBounds(188, 61, 97, 23);
+		fastEthernet0Panel.add(fe0PortStatusCheckbox);
 
-		lblFE0IpAddress = new JLabel("IP Address");
-		lblFE0IpAddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFE0IpAddress.setBounds(31, 106, 77, 14);
-		FastEthernet0Panel.add(lblFE0IpAddress);
+		fe0IpAddressTextField = new JTextField();
+		fe0IpAddressTextField.setBounds(192, 97, 86, 20);
+		fastEthernet0Panel.add(fe0IpAddressTextField);
+		fe0IpAddressTextField.setColumns(10);
 
-		FE0IPTextField = new JTextField();
-		FE0IPTextField.setBounds(233, 104, 86, 20);
-		FastEthernet0Panel.add(FE0IPTextField);
-		FE0IPTextField.setColumns(10);
+		fe0SubnetMaskTextField = new JTextField();
+		fe0SubnetMaskTextField.setBounds(192, 132, 86, 20);
+		fastEthernet0Panel.add(fe0SubnetMaskTextField);
+		fe0SubnetMaskTextField.setColumns(10);
 
-		lblFE0SubnetMask = new JLabel("Subnet Mask");
-		lblFE0SubnetMask.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFE0SubnetMask.setBounds(31, 146, 86, 14);
-		FastEthernet0Panel.add(lblFE0SubnetMask);
+		JButton fe0BtnApply = new JButton("Apply");
+		fe0BtnApply.setBounds(36, 285, 89, 23);
+		fe0BtnApply.setActionCommand("fe0Apply");
+		fe0BtnApply.addActionListener(this);
+		fastEthernet0Panel.add(fe0BtnApply);
 
-		FE0MaskTextField = new JTextField();
-		FE0MaskTextField.setBounds(233, 144, 86, 20);
-		FastEthernet0Panel.add(FE0MaskTextField);
-		FE0MaskTextField.setColumns(10);
-		
-		lblFastEthernet = new JLabel("Fast Ethernet 0");
-		lblFastEthernet.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblFastEthernet.setBounds(136, 25, 125, 17);
-		FastEthernet0Panel.add(lblFastEthernet);
+		JButton fe0BtnClear = new JButton("Clear");
+		fe0BtnClear.setBounds(188, 285, 89, 23);
+		fe0BtnClear.setActionCommand("fe0Clear");
+		fe0BtnClear.addActionListener(this);
+		fastEthernet0Panel.add(fe0BtnClear);
 
-		Serial0Panel = new JPanel();
-		Serial0Panel.setLayout(null);
-		
-		
-		GridBagConstraints gbc_Serial0Panel = new GridBagConstraints();
-		gbc_Serial0Panel.fill = GridBagConstraints.BOTH;
-		gbc_Serial0Panel.gridx = 1;
-		gbc_Serial0Panel.gridy = 0;
-		interfacesPanel.add(Serial0Panel, gbc_Serial0Panel);
+		// serial 0 panel
 
-		lblS0PortStatus = new JLabel("Port Status");
-		lblS0PortStatus.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblS0PortStatus.setBounds(31, 28, 77, 17);
-		Serial0Panel.add(lblS0PortStatus);
+		serial0Panel = new JPanel();
+		interfacesTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Serial 0</body></html>", null,
+				serial0Panel, null);
+		serial0Panel.setLayout(null);
 
-		S0chckbxOn = new JCheckBox("On");
-		S0chckbxOn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		S0chckbxOn.setBounds(233, 26, 97, 23);
-		Serial0Panel.add(S0chckbxOn);
+		JLabel s0TitleLabel = new JLabel("Serial 0");
+		s0TitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		s0TitleLabel.setBounds(137, 11, 124, 24);
+		serial0Panel.add(s0TitleLabel);
 
-		lblS0IpAddress = new JLabel("IP Address");
-		lblS0IpAddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblS0IpAddress.setBounds(31, 68, 77, 14);
-		Serial0Panel.add(lblS0IpAddress);
+		JLabel s0PortStatusLabel = new JLabel("Port Status");
+		s0PortStatusLabel.setBounds(42, 65, 73, 14);
+		serial0Panel.add(s0PortStatusLabel);
 
-		S0IPTextField = new JTextField();
-		S0IPTextField.setBounds(233, 66, 86, 20);
-		Serial0Panel.add(S0IPTextField);
-		S0IPTextField.setColumns(10);
+		JLabel s0IpAddressLabel = new JLabel("IP Address");
+		s0IpAddressLabel.setBounds(42, 100, 73, 14);
+		serial0Panel.add(s0IpAddressLabel);
 
-		lblS0SubnetMask = new JLabel("Subnet Mask");
-		lblS0SubnetMask.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblS0SubnetMask.setBounds(31, 108, 86, 14);
-		Serial0Panel.add(lblS0SubnetMask);
+		JLabel s0SubnetMaskLabel = new JLabel("Subnet Mask");
+		s0SubnetMaskLabel.setBounds(42, 135, 83, 14);
+		serial0Panel.add(s0SubnetMaskLabel);
 
-		s0MaskTextField = new JTextField();
-		s0MaskTextField.setBounds(233, 106, 86, 20);
-		Serial0Panel.add(s0MaskTextField);
-		s0MaskTextField.setColumns(10);
+		JCheckBox s0PortStatusCheckbox = new JCheckBox("On");
+		s0PortStatusCheckbox.setBounds(188, 61, 97, 23);
+		serial0Panel.add(s0PortStatusCheckbox);
+
+		s0IpAddressTextField = new JTextField();
+		s0IpAddressTextField.setBounds(192, 97, 86, 20);
+		serial0Panel.add(s0IpAddressTextField);
+		s0IpAddressTextField.setColumns(10);
+
+		s0SubnetMaskTextField = new JTextField();
+		s0SubnetMaskTextField.setBounds(192, 132, 86, 20);
+		serial0Panel.add(s0SubnetMaskTextField);
+		s0SubnetMaskTextField.setColumns(10);
+
+		JButton s0BtnApply = new JButton("Apply");
+		s0BtnApply.setBounds(36, 285, 89, 23);
+		s0BtnApply.setActionCommand("s0Apply");
+		s0BtnApply.addActionListener(this);
+		serial0Panel.add(s0BtnApply);
+
+		JButton s0BtnClear = new JButton("Clear");
+		s0BtnClear.setBounds(188, 285, 89, 23);
+		s0BtnClear.setActionCommand("s0Clear");
+		s0BtnClear.addActionListener(this);
+		serial0Panel.add(s0BtnClear);
+
+		// serial 1 panel
+
+		serial1Panel = new JPanel();
+		interfacesTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Serial 1</body></html>", null,
+				serial1Panel, null);
+		serial1Panel.setLayout(null);
+
+		JLabel s1TitleLabel = new JLabel("Serial 1");
+		s1TitleLabel.setBounds(137, 11, 124, 24);
+		s1TitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		serial1Panel.add(s1TitleLabel);
+
+		JLabel s1PortStatusLabel = new JLabel("Port Status");
+		s1PortStatusLabel.setBounds(42, 65, 73, 14);
+		serial1Panel.add(s1PortStatusLabel);
+
+		JLabel s1IpAddressLabel = new JLabel("IP Address");
+		s1IpAddressLabel.setBounds(42, 100, 73, 14);
+		serial1Panel.add(s1IpAddressLabel);
+
+		JLabel s1SubnetMaskLabel = new JLabel("Subnet Mask");
+		s1SubnetMaskLabel.setBounds(42, 135, 83, 14);
+		serial1Panel.add(s1SubnetMaskLabel);
+
+		JCheckBox s1PortStatusCheckbox = new JCheckBox("On");
+		s1PortStatusCheckbox.setBounds(188, 61, 97, 23);
+		serial1Panel.add(s1PortStatusCheckbox);
+
+		s1IpAddressTextField = new JTextField();
+		s1IpAddressTextField.setBounds(192, 97, 86, 20);
+		serial1Panel.add(s1IpAddressTextField);
+		s1IpAddressTextField.setColumns(10);
+
+		s1SubnetMaskTextField = new JTextField();
+		s1SubnetMaskTextField.setBounds(192, 132, 86, 20);
+		serial1Panel.add(s1SubnetMaskTextField);
+		s1SubnetMaskTextField.setColumns(10);
+
+		JButton s1BtnApply = new JButton("Apply");
+		s1BtnApply.setBounds(36, 285, 89, 23);
+		s1BtnApply.setActionCommand("s1Apply");
+		s1BtnApply.addActionListener(this);
+		serial1Panel.add(s1BtnApply);
+
+		JButton s1BtnClear = new JButton("Clear");
+		s1BtnClear.setBounds(188, 285, 89, 23);
+		s1BtnClear.setActionCommand("s1Clear");
+		s1BtnClear.addActionListener(this);
+		serial1Panel.add(s1BtnClear);
 
 		JPanel switchingPanel = new JPanel();
 		tabbedPane.addTab("Switching", null, switchingPanel, null);
@@ -172,6 +205,8 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		JPanel settingsPanel = new JPanel();
 		tabbedPane.addTab("Settings", null, settingsPanel, null);
+
+		// painel de baixo
 
 		JPanel infoPanel = new JPanel();
 		getContentPane().add(infoPanel, BorderLayout.SOUTH);
@@ -186,30 +221,38 @@ public class MainWindow extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private JTextField S0IPTextField;
-	private JTextField FE0IPTextField;
-
-	private JTextField s0MaskTextField;
-	private JTextField FE0MaskTextField;
-	private JLabel lblFE0PortStatus;
-	private JCheckBox FE0chckbxOn;
-	private JLabel lblFE0IpAddress;
-	private JLabel lblFE0SubnetMask;
-	private JLabel lblS0PortStatus;
-	private JCheckBox S0chckbxOn;
-	private JLabel lblS0IpAddress;
-	private JLabel lblS0SubnetMask;
-	private JLabel lblFastEthernet;
+	private JTabbedPane interfacesTabbedPane;
+	private JPanel fastEthernet0Panel;
+	private JPanel serial0Panel;
+	private JPanel serial1Panel;
+	private JTextField fe0IpAddressTextField;
+	private JTextField fe0SubnetMaskTextField;
+	private JTextField s0IpAddressTextField;
+	private JTextField s0SubnetMaskTextField;
+	private JTextField s1IpAddressTextField;
+	private JTextField s1SubnetMaskTextField;
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getActionCommand().equals("FastEthernet")) {
-			FastEthernet0Panel.setVisible(true);
-			Serial0Panel.setVisible(false);
-		} else if (arg0.getActionCommand().equals("Serial0")){
-			FastEthernet0Panel.setVisible(false);
-			Serial0Panel.setVisible(true);
+
+		String action = arg0.getActionCommand();
+
+		switch (action) {
+
+		case "fe0Clear":
+			fe0IpAddressTextField.setText("");
+			fe0SubnetMaskTextField.setText("");
+
+		case "s0Clear":
+			s0IpAddressTextField.setText("");
+			s0SubnetMaskTextField.setText("");
+
+		case "s1Clear":
+			s1IpAddressTextField.setText("");
+			s1SubnetMaskTextField.setText("");
+
+		
+
 		}
 
 	}
