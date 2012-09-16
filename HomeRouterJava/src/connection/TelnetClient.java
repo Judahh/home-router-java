@@ -36,9 +36,9 @@ public class TelnetClient {
 		reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-		sendMessage("\r\n");	
+		sendMessage("\r\n");		
+		System.out.println(readMessage());
 		
-
 	}
 
 	public void sendMessage(String message) throws IOException {
@@ -49,6 +49,7 @@ public class TelnetClient {
 
 	public String readMessage() throws IOException {
 		String answer = reader.readLine();
+
 		return answer;
 	}
 
