@@ -44,7 +44,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 		setAlwaysOnTop(true);
 		setTitle("Home Router - Connect");
 		setResizable(false);
-		setVisible(true);
+		
 		setSize(310, 200);
 		
 		
@@ -78,8 +78,8 @@ public class ConnectWindow extends JFrame implements ActionListener {
 		btnConnect.setBounds(10, 136, 89, 23);
 		panel.add(btnConnect);
 
-		JButton btnClean = new JButton("Clean");
-		btnClean.setActionCommand("Clean");
+		JButton btnClean = new JButton("Clear");
+		btnClean.setActionCommand("Clear");
 		btnClean.addActionListener(this);
 		btnClean.setBounds(205, 136, 89, 23);
 		panel.add(btnClean);
@@ -96,7 +96,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 
 		});
 		ipaddressTextField.setBounds(130, 31, 164, 20);
-		ipaddressTextField.setText("127.0.0.1");
+		ipaddressTextField.setText("127.0.0.1");		
 		panel.add(ipaddressTextField);
 
 		passwordTextField = new JTextField();
@@ -111,7 +111,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 
 		});
 		passwordTextField.setBounds(130, 87, 164, 20);
-		passwordTextField.setText("cisco");
+		passwordTextField.setText("cisco");		
 		panel.add(passwordTextField);
 
 		portTextField = new JTextField();
@@ -126,9 +126,11 @@ public class ConnectWindow extends JFrame implements ActionListener {
 
 		});
 		portTextField.setText("2001");
-		portTextField.setBounds(130, 59, 164, 20);
+		portTextField.setBounds(130, 59, 164, 20);		
 		panel.add(portTextField);
 		portTextField.setColumns(10);
+		
+		setVisible(true);
 		
 		
 	}
@@ -149,7 +151,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 
 			}
 
-		} else if (arg0.getActionCommand().equals("Clean")) {
+		} else if (arg0.getActionCommand().equals("Clear")) {
 			ipaddressTextField.setText("");
 			portTextField.setText("");
 			passwordTextField.setText("");
