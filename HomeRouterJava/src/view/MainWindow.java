@@ -99,7 +99,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		fe0BtnClear.setActionCommand("fe0Clear");
 		fe0BtnClear.addActionListener(this);
 		fastEthernet0Panel.add(fe0BtnClear);
-		
+
 		JSeparator fe0Separator = new JSeparator();
 		fe0Separator.setBounds(42, 46, 290, 2);
 		fastEthernet0Panel.add(fe0Separator);
@@ -153,7 +153,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		s0BtnClear.setActionCommand("s0Clear");
 		s0BtnClear.addActionListener(this);
 		serial0Panel.add(s0BtnClear);
-		
+
 		JSeparator s0Separator = new JSeparator();
 		s0Separator.setBounds(42, 46, 290, 2);
 		serial0Panel.add(s0Separator);
@@ -207,30 +207,31 @@ public class MainWindow extends JFrame implements ActionListener {
 		s1BtnClear.setActionCommand("s1Clear");
 		s1BtnClear.addActionListener(this);
 		serial1Panel.add(s1BtnClear);
-		
+
 		JSeparator s1Separator = new JSeparator();
 		s1Separator.setBounds(42, 46, 290, 2);
 		serial1Panel.add(s1Separator);
-		
-		//switching panel
+
+		// switching panel
 
 		JPanel switchingPanel = new JPanel();
 		tabbedPane.addTab("Switching", null, switchingPanel, null);
 		switchingPanel.setLayout(null);
-		
+
 		JTabbedPane swtichingTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 		swtichingTabbedPane.setBounds(0, 11, 789, 343);
 		switchingPanel.add(swtichingTabbedPane);
-		
+
 		JPanel vlanPanel = new JPanel();
-		swtichingTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>VLAN Config</body></html>", null, vlanPanel, null);
+		swtichingTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>VLAN Config</body></html>", null,
+				vlanPanel, null);
 		vlanPanel.setLayout(null);
-		
+
 		JLabel vlanTitleLabel = new JLabel("VLAN Configuration");
 		vlanTitleLabel.setBounds(107, 11, 154, 24);
 		vlanTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		vlanPanel.add(vlanTitleLabel);
-		
+
 		JLabel vlanNumberLabel = new JLabel("VLAN Number");
 		vlanNumberLabel.setBounds(42, 68, 73, 14);
 		vlanPanel.add(vlanNumberLabel);
@@ -238,7 +239,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		JLabel vlanNameLabel = new JLabel("VLAN Name");
 		vlanNameLabel.setBounds(42, 103, 73, 14);
 		vlanPanel.add(vlanNameLabel);
-		
+
 		vlanNumberTextField = new JTextField();
 		vlanNumberTextField.setBounds(192, 65, 86, 20);
 		vlanPanel.add(vlanNumberTextField);
@@ -248,7 +249,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		vlanNameTextField.setBounds(192, 100, 86, 20);
 		vlanPanel.add(vlanNameTextField);
 		vlanNameTextField.setColumns(10);
-		
+
 		JButton vlanBtnApply = new JButton("Apply");
 		vlanBtnApply.setBounds(36, 285, 89, 23);
 		vlanBtnApply.setActionCommand("vlanApply");
@@ -260,32 +261,33 @@ public class MainWindow extends JFrame implements ActionListener {
 		vlanBtnClear.setActionCommand("vlanClear");
 		vlanBtnClear.addActionListener(this);
 		vlanPanel.add(vlanBtnClear);
-		
+
 		JSeparator vlanSeparator = new JSeparator();
 		vlanSeparator.setBounds(42, 46, 290, 2);
 		vlanPanel.add(vlanSeparator);
-		
-		//routing panel
+
+		// routing panel
 
 		JPanel routingPanel = new JPanel();
 		tabbedPane.addTab("Routing", null, routingPanel, null);
 		routingPanel.setLayout(null);
-		
+
 		JTabbedPane routingTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 		routingTabbedPane.setBounds(0, 11, 789, 343);
 		routingPanel.add(routingTabbedPane);
-		
-		//static routing panel
-		
+
+		// static routing panel
+
 		JPanel staticRoutingPanel = new JPanel();
-		routingTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Static</body></html>", null, staticRoutingPanel, null);
+		routingTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Static</body></html>", null,
+				staticRoutingPanel, null);
 		staticRoutingPanel.setLayout(null);
-		
+
 		JLabel staticRoutingTitleLabel = new JLabel("Static Routes");
 		staticRoutingTitleLabel.setBounds(137, 11, 124, 24);
 		staticRoutingTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		staticRoutingPanel.add(staticRoutingTitleLabel);
-		
+
 		JLabel staticRoutingNetworkLabel = new JLabel("Network");
 		staticRoutingNetworkLabel.setBounds(42, 68, 73, 14);
 		staticRoutingPanel.add(staticRoutingNetworkLabel);
@@ -293,11 +295,11 @@ public class MainWindow extends JFrame implements ActionListener {
 		JLabel staticRoutingMaskLabel = new JLabel("Mask");
 		staticRoutingMaskLabel.setBounds(42, 103, 73, 14);
 		staticRoutingPanel.add(staticRoutingMaskLabel);
-		
+
 		JLabel staticRoutingNextHopLabel = new JLabel("Next Hop");
 		staticRoutingNextHopLabel.setBounds(42, 138, 73, 14);
 		staticRoutingPanel.add(staticRoutingNextHopLabel);
-		
+
 		staticRoutingNetworkTextField = new JTextField();
 		staticRoutingNetworkTextField.setBounds(192, 65, 86, 20);
 		staticRoutingPanel.add(staticRoutingNetworkTextField);
@@ -307,12 +309,12 @@ public class MainWindow extends JFrame implements ActionListener {
 		staticRoutingMaskTextField.setBounds(192, 100, 86, 20);
 		staticRoutingPanel.add(staticRoutingMaskTextField);
 		staticRoutingMaskTextField.setColumns(10);
-		
+
 		staticRoutingNextHopTextField = new JTextField();
 		staticRoutingNextHopTextField.setBounds(192, 135, 86, 20);
 		staticRoutingPanel.add(staticRoutingNextHopTextField);
 		staticRoutingNextHopTextField.setColumns(10);
-		
+
 		JButton staticRoutingBtnApply = new JButton("Apply");
 		staticRoutingBtnApply.setBounds(36, 285, 89, 23);
 		staticRoutingBtnApply.setActionCommand("staticRoutingApply");
@@ -324,57 +326,57 @@ public class MainWindow extends JFrame implements ActionListener {
 		staticRoutingBtnClear.setActionCommand("staticRoutingClear");
 		staticRoutingBtnClear.addActionListener(this);
 		staticRoutingPanel.add(staticRoutingBtnClear);
-		
+
 		JScrollPane staticRoutingScrollPane = new JScrollPane();
 		staticRoutingScrollPane.setBounds(390, 65, 288, 211);
 		staticRoutingPanel.add(staticRoutingScrollPane);
-		
+
 		JList staticEstablishedRoutesList = new JList();
 		staticRoutingScrollPane.setViewportView(staticEstablishedRoutesList);
-		
+
 		JLabel staticRoutingTitle2Label = new JLabel("Established Routes");
 		staticRoutingTitle2Label.setBounds(467, 11, 154, 24);
 		staticRoutingTitle2Label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		staticRoutingPanel.add(staticRoutingTitle2Label);
-		
+
 		JSeparator staticRoutingHorizontalSeparator = new JSeparator();
 		staticRoutingHorizontalSeparator.setBounds(42, 46, 290, 2);
 		staticRoutingPanel.add(staticRoutingHorizontalSeparator);
-		
+
 		JSeparator staticRoutingVerticalSeparator = new JSeparator();
 		staticRoutingVerticalSeparator.setOrientation(SwingConstants.VERTICAL);
 		staticRoutingVerticalSeparator.setBounds(369, 21, 2, 300);
 		staticRoutingPanel.add(staticRoutingVerticalSeparator);
-		
+
 		JButton staticRoutingBtnRemove = new JButton("Remove");
 		staticRoutingBtnRemove.setBounds(390, 285, 89, 23);
 		staticRoutingPanel.add(staticRoutingBtnRemove);
-		
+
 		JSeparator staticRoutingHorizontal2Separator = new JSeparator();
 		staticRoutingHorizontal2Separator.setBounds(390, 46, 290, 2);
 		staticRoutingPanel.add(staticRoutingHorizontal2Separator);
-		
-		
-		//dynamic routing panel
-		
+
+		// dynamic routing panel
+
 		JPanel dynamicRoutingPanel = new JPanel();
-		routingTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Dynamic</body></html>", null, dynamicRoutingPanel, null);
+		routingTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Dynamic</body></html>", null,
+				dynamicRoutingPanel, null);
 		dynamicRoutingPanel.setLayout(null);
 
 		JLabel dynamicRoutingTitleLabel = new JLabel("RIP Routing");
 		dynamicRoutingTitleLabel.setBounds(137, 11, 124, 24);
 		dynamicRoutingTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dynamicRoutingPanel.add(dynamicRoutingTitleLabel);
-		
+
 		JLabel dynamicRoutingNetworkLabel = new JLabel("Network");
 		dynamicRoutingNetworkLabel.setBounds(42, 68, 73, 14);
-		dynamicRoutingPanel.add(dynamicRoutingNetworkLabel);		
-		
+		dynamicRoutingPanel.add(dynamicRoutingNetworkLabel);
+
 		dynamicRoutingNetworkTextField = new JTextField();
 		dynamicRoutingNetworkTextField.setBounds(192, 65, 86, 20);
 		dynamicRoutingPanel.add(dynamicRoutingNetworkTextField);
-		dynamicRoutingNetworkTextField.setColumns(10);		
-		
+		dynamicRoutingNetworkTextField.setColumns(10);
+
 		JButton dynamicRoutingBtnApply = new JButton("Apply");
 		dynamicRoutingBtnApply.setBounds(36, 285, 89, 23);
 		dynamicRoutingBtnApply.setActionCommand("dynamicRoutingApply");
@@ -386,45 +388,97 @@ public class MainWindow extends JFrame implements ActionListener {
 		dynamicRoutingBtnClear.setActionCommand("dynamicRoutingClear");
 		dynamicRoutingBtnClear.addActionListener(this);
 		dynamicRoutingPanel.add(dynamicRoutingBtnClear);
-		
+
 		JScrollPane dynamicRoutingScrollPane = new JScrollPane();
 		dynamicRoutingScrollPane.setBounds(390, 65, 288, 211);
 		dynamicRoutingPanel.add(dynamicRoutingScrollPane);
-		
+
 		JList dynamicEstablishedRoutesList = new JList();
 		dynamicRoutingScrollPane.setViewportView(dynamicEstablishedRoutesList);
-		
+
 		JLabel dynamicRoutingTitle2Label = new JLabel("Established Routes");
 		dynamicRoutingTitle2Label.setBounds(467, 11, 154, 24);
 		dynamicRoutingTitle2Label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dynamicRoutingPanel.add(dynamicRoutingTitle2Label);
-		
+
 		JSeparator dynamicRoutingHorizontalSeparator = new JSeparator();
 		dynamicRoutingHorizontalSeparator.setBounds(42, 46, 290, 2);
 		dynamicRoutingPanel.add(dynamicRoutingHorizontalSeparator);
-		
+
 		JSeparator dynamicRoutingVerticalSeparator = new JSeparator();
 		dynamicRoutingVerticalSeparator.setOrientation(SwingConstants.VERTICAL);
 		dynamicRoutingVerticalSeparator.setBounds(369, 21, 2, 300);
 		dynamicRoutingPanel.add(dynamicRoutingVerticalSeparator);
-		
+
 		JButton dynamicRoutingBtnRemove = new JButton("Remove");
 		dynamicRoutingBtnRemove.setBounds(390, 285, 89, 23);
 		dynamicRoutingPanel.add(dynamicRoutingBtnRemove);
-		
+
 		JSeparator dynamicRoutingHorizontal2Separator = new JSeparator();
 		dynamicRoutingHorizontal2Separator.setBounds(390, 46, 290, 2);
 		dynamicRoutingPanel.add(dynamicRoutingHorizontal2Separator);
-		
-		//settings panel
-		
+
+		// settings panel
+
 		JPanel settingsPanel = new JPanel();
 		tabbedPane.addTab("Settings", null, settingsPanel, null);
 		settingsPanel.setLayout(null);
-		
-		JTabbedPane settingsTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
+		JTabbedPane settingsTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 		settingsTabbedPane.setBounds(0, 11, 789, 343);
 		settingsPanel.add(settingsTabbedPane);
+
+		JPanel globalSettingsPanel = new JPanel();
+		settingsTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Global Settings</body></html>", null, globalSettingsPanel, null);
+		globalSettingsPanel.setLayout(null);
+
+		JLabel globalSettingsTitleLabel = new JLabel("Global Settings");
+		globalSettingsTitleLabel.setBounds(137, 11, 124, 24);
+		globalSettingsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		globalSettingsPanel.add(globalSettingsTitleLabel);
+
+		JLabel globalSettingsNetworkLabel = new JLabel("Hostame");
+		globalSettingsNetworkLabel.setBounds(42, 68, 73, 14);
+		globalSettingsPanel.add(globalSettingsNetworkLabel);
+
+		JLabel globalSettingsMaskLabel = new JLabel("Router Date");
+		globalSettingsMaskLabel.setBounds(42, 103, 73, 14);
+		globalSettingsPanel.add(globalSettingsMaskLabel);
+
+		JLabel globalSettingsNextHopLabel = new JLabel("Router Time");
+		globalSettingsNextHopLabel.setBounds(42, 138, 73, 14);
+		globalSettingsPanel.add(globalSettingsNextHopLabel);
+
+		globalSettingsHostnameTextField = new JTextField();
+		globalSettingsHostnameTextField.setBounds(192, 65, 86, 20);
+		globalSettingsPanel.add(globalSettingsHostnameTextField);
+		globalSettingsHostnameTextField.setColumns(10);
+
+		globalSettingsRouterDateTextField = new JTextField();
+		globalSettingsRouterDateTextField.setBounds(192, 100, 86, 20);
+		globalSettingsPanel.add(globalSettingsRouterDateTextField);
+		globalSettingsRouterDateTextField.setColumns(10);
+
+		globalSettingsRouterTimeTextField = new JTextField();
+		globalSettingsRouterTimeTextField.setBounds(192, 135, 86, 20);
+		globalSettingsPanel.add(globalSettingsRouterTimeTextField);
+		globalSettingsRouterTimeTextField.setColumns(10);
+
+		JButton globalSettingsBtnApply = new JButton("Apply");
+		globalSettingsBtnApply.setBounds(36, 285, 89, 23);
+		globalSettingsBtnApply.setActionCommand("globalSettingsApply");
+		globalSettingsBtnApply.addActionListener(this);
+		globalSettingsPanel.add(globalSettingsBtnApply);
+
+		JButton globalSettingsBtnClear = new JButton("Clear");
+		globalSettingsBtnClear.setBounds(188, 285, 89, 23);
+		globalSettingsBtnClear.setActionCommand("globalSettingsClear");
+		globalSettingsBtnClear.addActionListener(this);
+		globalSettingsPanel.add(globalSettingsBtnClear);
+
+		JSeparator globalSettingsHorizontalSeparator = new JSeparator();
+		globalSettingsHorizontalSeparator.setBounds(42, 46, 290, 2);
+		globalSettingsPanel.add(globalSettingsHorizontalSeparator);
 
 		// painel de baixo
 
@@ -457,6 +511,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JTextField staticRoutingMaskTextField;
 	private JTextField staticRoutingNextHopTextField;
 	private JTextField dynamicRoutingNetworkTextField;
+	private JTextField globalSettingsHostnameTextField;
+	private JTextField globalSettingsRouterDateTextField;
+	private JTextField globalSettingsRouterTimeTextField;
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -476,12 +533,24 @@ public class MainWindow extends JFrame implements ActionListener {
 		case "s1Clear":
 			s1IpAddressTextField.setText("");
 			s1SubnetMaskTextField.setText("");
-			
+
 		case "vlanClear":
-			
+
 			vlanNumberTextField.setText("");
 			vlanNameTextField.setText("");
-		
+
+		case "staticRoutingClear":
+			staticRoutingNetworkTextField.setText("");
+			staticRoutingMaskTextField.setText("");
+			staticRoutingNextHopTextField.setText("");
+
+		case "dynamicRoutingClear":
+			dynamicRoutingNetworkTextField.setText("");
+
+		case "globalSettingsClear":
+			globalSettingsHostnameTextField.setText("");
+			globalSettingsRouterDateTextField.setText("");
+			globalSettingsRouterTimeTextField.setText("");
 
 		}
 
