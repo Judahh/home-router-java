@@ -6,33 +6,37 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
+
+import connection.TelnetClient;
+
 import java.awt.Toolkit;
 
-public class MainView extends JFrame implements ActionListener {
+public class MainWindow extends JFrame implements ActionListener {
 	
-	private ConnectWindow cw;
-	public MainView() {
+	
+	public MainWindow(TelnetClient telnet, String ip, int port) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setResizable(false);
 		setTitle("HomeRouter");
 		setVisible(true);
-		setSize(800, 435);
-		setName("Main window");
+		setSize(800, 435);	
 		
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setEnabled(false);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Interfaces", null, panel_1, null);
+		JPanel interfacesPanel = new JPanel();
+		tabbedPane.addTab("Interfaces", null, interfacesPanel, null);
 
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Switching", null, panel_2, null);
+		JPanel switchingPanel = new JPanel();
+		tabbedPane.addTab("Switching", null, switchingPanel, null);
 
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Routing", null, panel_3, null);
@@ -40,7 +44,15 @@ public class MainView extends JFrame implements ActionListener {
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Status", null, panel_4, null);
 		
-		cw = new ConnectWindow();
+		JPanel infoPanel = new JPanel();
+		getContentPane().add(infoPanel, BorderLayout.SOUTH);
+		
+		JLabel connected = new JLabel();
+		connected.setText("Connected at "+ip+" on port "+port);
+		infoPanel.add(connected);
+		
+		
+		
 		
 	}
 
