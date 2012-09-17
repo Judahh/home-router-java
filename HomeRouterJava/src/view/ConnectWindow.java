@@ -39,7 +39,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 	private String password;
 
 	public ConnectWindow() {
-		setType(Type.POPUP);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setAlwaysOnTop(true);
 		setTitle("Home Router - Connect");
@@ -163,26 +163,26 @@ public class ConnectWindow extends JFrame implements ActionListener {
 	private boolean validateFields() {
 		ip = ipaddressTextField.getText();
 		if (ip.equals("")) {
-			JOptionPane.showMessageDialog(null, "Enter an IP address");
+			JOptionPane.showMessageDialog(this, "Enter an IP address");
 			return false;
 		}
 
 		String porttemp = portTextField.getText();
 
 		if (porttemp.equals("")) {
-			JOptionPane.showMessageDialog(null, "Enter a port number");
+			JOptionPane.showMessageDialog(this, "Enter a port number");
 			return false;
 		}
 
 		try {
 			port = Integer.valueOf(porttemp);
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Enter a port number");
+			JOptionPane.showMessageDialog(this, "Enter a port number");
 			return false;
 		}
 
 		if ((port < 1) || (port > 65535)) {
-			JOptionPane.showMessageDialog(null, "Invalid port");
+			JOptionPane.showMessageDialog(this, "Invalid port");
 			return false;
 		}
 
@@ -202,10 +202,10 @@ public class ConnectWindow extends JFrame implements ActionListener {
 
 			e.printStackTrace();
 		} catch (ConnectException e) {
-			JOptionPane.showMessageDialog(null, "Connection refused");
+			JOptionPane.showMessageDialog(this, "Connection refused");
 			e.printStackTrace();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Enter an IP address");
+			JOptionPane.showMessageDialog(this, "Enter an IP address");
 			e.printStackTrace();
 		}
 
