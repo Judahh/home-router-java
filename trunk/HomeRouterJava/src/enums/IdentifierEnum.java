@@ -1,7 +1,7 @@
 package enums;
 
 public enum IdentifierEnum {
-	SERIAL(1), FASTETHERNET(2);
+	FASTETHERNET0(1), SERIAL0 (2), SERIAL1(3);
 
 	private int valor;
 

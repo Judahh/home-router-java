@@ -329,14 +329,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		staticRoutingPanel.add(staticRoutingBtnClear);
 
 		JScrollPane staticRoutingScrollPane = new JScrollPane();
-		staticRoutingScrollPane.setBounds(390, 65, 288, 211);
+		staticRoutingScrollPane.setBounds(380, 65, 288, 211);
 		staticRoutingPanel.add(staticRoutingScrollPane);
 
 		JList staticEstablishedRoutesList = new JList();
 		staticRoutingScrollPane.setViewportView(staticEstablishedRoutesList);
 
 		JLabel staticRoutingTitle2Label = new JLabel("Established Routes");
-		staticRoutingTitle2Label.setBounds(467, 11, 154, 24);
+		staticRoutingTitle2Label.setBounds(457, 11, 154, 24);
 		staticRoutingTitle2Label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		staticRoutingPanel.add(staticRoutingTitle2Label);
 
@@ -346,15 +346,15 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		JSeparator staticRoutingVerticalSeparator = new JSeparator();
 		staticRoutingVerticalSeparator.setOrientation(SwingConstants.VERTICAL);
-		staticRoutingVerticalSeparator.setBounds(369, 21, 2, 300);
+		staticRoutingVerticalSeparator.setBounds(359, 21, 2, 300);
 		staticRoutingPanel.add(staticRoutingVerticalSeparator);
 
 		JButton staticRoutingBtnRemove = new JButton("Remove");
-		staticRoutingBtnRemove.setBounds(390, 285, 89, 23);
+		staticRoutingBtnRemove.setBounds(380, 285, 89, 23);
 		staticRoutingPanel.add(staticRoutingBtnRemove);
 
 		JSeparator staticRoutingHorizontal2Separator = new JSeparator();
-		staticRoutingHorizontal2Separator.setBounds(390, 46, 290, 2);
+		staticRoutingHorizontal2Separator.setBounds(380, 46, 290, 2);
 		staticRoutingPanel.add(staticRoutingHorizontal2Separator);
 
 		// dynamic routing panel
@@ -391,14 +391,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		dynamicRoutingPanel.add(dynamicRoutingBtnClear);
 
 		JScrollPane dynamicRoutingScrollPane = new JScrollPane();
-		dynamicRoutingScrollPane.setBounds(390, 65, 288, 211);
+		dynamicRoutingScrollPane.setBounds(380, 65, 288, 211);
 		dynamicRoutingPanel.add(dynamicRoutingScrollPane);
 
 		JList dynamicEstablishedRoutesList = new JList();
 		dynamicRoutingScrollPane.setViewportView(dynamicEstablishedRoutesList);
 
 		JLabel dynamicRoutingTitle2Label = new JLabel("Established Routes");
-		dynamicRoutingTitle2Label.setBounds(467, 11, 154, 24);
+		dynamicRoutingTitle2Label.setBounds(457, 11, 154, 24);
 		dynamicRoutingTitle2Label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dynamicRoutingPanel.add(dynamicRoutingTitle2Label);
 
@@ -408,15 +408,15 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		JSeparator dynamicRoutingVerticalSeparator = new JSeparator();
 		dynamicRoutingVerticalSeparator.setOrientation(SwingConstants.VERTICAL);
-		dynamicRoutingVerticalSeparator.setBounds(369, 21, 2, 300);
+		dynamicRoutingVerticalSeparator.setBounds(359, 21, 2, 300);
 		dynamicRoutingPanel.add(dynamicRoutingVerticalSeparator);
 
 		JButton dynamicRoutingBtnRemove = new JButton("Remove");
-		dynamicRoutingBtnRemove.setBounds(390, 285, 89, 23);
+		dynamicRoutingBtnRemove.setBounds(380, 285, 89, 23);
 		dynamicRoutingPanel.add(dynamicRoutingBtnRemove);
 
 		JSeparator dynamicRoutingHorizontal2Separator = new JSeparator();
-		dynamicRoutingHorizontal2Separator.setBounds(390, 46, 290, 2);
+		dynamicRoutingHorizontal2Separator.setBounds(380, 46, 290, 2);
 		dynamicRoutingPanel.add(dynamicRoutingHorizontal2Separator);
 
 		// settings panel
@@ -547,6 +547,12 @@ public class MainWindow extends JFrame implements ActionListener {
 		passwordsHorizontalSeparator.setBounds(42, 46, 290, 2);
 		passwordsPanel.add(passwordsHorizontalSeparator);
 		
+		//connectivity panel
+		
+		JPanel connectivityPanel = new JPanel();
+		mainTabbedPane.addTab("Connectivity", null, connectivityPanel, null);
+		connectivityPanel.setLayout(null);
+		
 		// cli panel
 		
 		JPanel cliPanel = new JPanel();
@@ -633,7 +639,6 @@ public class MainWindow extends JFrame implements ActionListener {
 			s1SubnetMaskTextField.setText("");
 
 		case "vlanClear":
-
 			vlanNumberTextField.setText("");
 			vlanNameTextField.setText("");
 
@@ -654,7 +659,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			passwordsConsolePasswordTextField.setText("");
 			passwordsVTYPasswordTextField.setText("");
 			passwordsEnablePasswordTextField.setText("");
-			passwordsEnableSecretPasswordTextField.setText("");
+			passwordsEnableSecretPasswordTextField.setText("");		
 
 		}
 
