@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JTextArea;
 
 public class MainWindow extends JFrame implements ActionListener {
 
@@ -39,12 +40,12 @@ public class MainWindow extends JFrame implements ActionListener {
 		setSize(800, 435);
 		setLocation(200, 200);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 14));
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		JTabbedPane mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		mainTabbedPane.setFont(new Font("Tahoma", Font.BOLD, 14));
+		getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
 
 		JPanel interfacesPanel = new JPanel();
-		tabbedPane.addTab("Interfaces", null, interfacesPanel, null);
+		mainTabbedPane.addTab("Interfaces", null, interfacesPanel, null);
 		interfacesPanel.setLayout(null);
 
 		interfacesTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
@@ -79,14 +80,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		fastEthernet0Panel.add(fe0PortStatusCheckbox);
 
 		fe0IpAddressTextField = new JTextField();
-		fe0IpAddressTextField.setBounds(192, 97, 86, 20);
+		fe0IpAddressTextField.setBounds(192, 97, 100, 20);
 		fastEthernet0Panel.add(fe0IpAddressTextField);
-		fe0IpAddressTextField.setColumns(10);
+		fe0IpAddressTextField.setColumns(12);
 
 		fe0SubnetMaskTextField = new JTextField();
-		fe0SubnetMaskTextField.setBounds(192, 132, 86, 20);
+		fe0SubnetMaskTextField.setBounds(192, 132, 100, 20);
 		fastEthernet0Panel.add(fe0SubnetMaskTextField);
-		fe0SubnetMaskTextField.setColumns(10);
+		fe0SubnetMaskTextField.setColumns(12);
 
 		JButton fe0BtnApply = new JButton("Apply");
 		fe0BtnApply.setBounds(36, 285, 89, 23);
@@ -95,7 +96,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		fastEthernet0Panel.add(fe0BtnApply);
 
 		JButton fe0BtnClear = new JButton("Clear");
-		fe0BtnClear.setBounds(188, 285, 89, 23);
+		fe0BtnClear.setBounds(195, 285, 89, 23);
 		fe0BtnClear.setActionCommand("fe0Clear");
 		fe0BtnClear.addActionListener(this);
 		fastEthernet0Panel.add(fe0BtnClear);
@@ -133,14 +134,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		serial0Panel.add(s0PortStatusCheckbox);
 
 		s0IpAddressTextField = new JTextField();
-		s0IpAddressTextField.setBounds(192, 97, 86, 20);
+		s0IpAddressTextField.setBounds(192, 97, 100, 20);
 		serial0Panel.add(s0IpAddressTextField);
-		s0IpAddressTextField.setColumns(10);
+		s0IpAddressTextField.setColumns(12);
 
 		s0SubnetMaskTextField = new JTextField();
-		s0SubnetMaskTextField.setBounds(192, 132, 86, 20);
+		s0SubnetMaskTextField.setBounds(192, 132, 100, 20);
 		serial0Panel.add(s0SubnetMaskTextField);
-		s0SubnetMaskTextField.setColumns(10);
+		s0SubnetMaskTextField.setColumns(12);
 
 		JButton s0BtnApply = new JButton("Apply");
 		s0BtnApply.setBounds(36, 285, 89, 23);
@@ -149,7 +150,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		serial0Panel.add(s0BtnApply);
 
 		JButton s0BtnClear = new JButton("Clear");
-		s0BtnClear.setBounds(188, 285, 89, 23);
+		s0BtnClear.setBounds(195, 285, 89, 23);
 		s0BtnClear.setActionCommand("s0Clear");
 		s0BtnClear.addActionListener(this);
 		serial0Panel.add(s0BtnClear);
@@ -187,14 +188,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		serial1Panel.add(s1PortStatusCheckbox);
 
 		s1IpAddressTextField = new JTextField();
-		s1IpAddressTextField.setBounds(192, 97, 86, 20);
+		s1IpAddressTextField.setBounds(192, 97, 100, 20);
 		serial1Panel.add(s1IpAddressTextField);
-		s1IpAddressTextField.setColumns(10);
+		s1IpAddressTextField.setColumns(12);
 
 		s1SubnetMaskTextField = new JTextField();
-		s1SubnetMaskTextField.setBounds(192, 132, 86, 20);
+		s1SubnetMaskTextField.setBounds(192, 132, 100, 20);
 		serial1Panel.add(s1SubnetMaskTextField);
-		s1SubnetMaskTextField.setColumns(10);
+		s1SubnetMaskTextField.setColumns(12);
 
 		JButton s1BtnApply = new JButton("Apply");
 		s1BtnApply.setBounds(36, 285, 89, 23);
@@ -203,7 +204,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		serial1Panel.add(s1BtnApply);
 
 		JButton s1BtnClear = new JButton("Clear");
-		s1BtnClear.setBounds(188, 285, 89, 23);
+		s1BtnClear.setBounds(195, 285, 89, 23);
 		s1BtnClear.setActionCommand("s1Clear");
 		s1BtnClear.addActionListener(this);
 		serial1Panel.add(s1BtnClear);
@@ -215,7 +216,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		// switching panel
 
 		JPanel switchingPanel = new JPanel();
-		tabbedPane.addTab("Switching", null, switchingPanel, null);
+		mainTabbedPane.addTab("Switching", null, switchingPanel, null);
 		switchingPanel.setLayout(null);
 
 		JTabbedPane swtichingTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
@@ -241,14 +242,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		vlanPanel.add(vlanNameLabel);
 
 		vlanNumberTextField = new JTextField();
-		vlanNumberTextField.setBounds(192, 65, 86, 20);
+		vlanNumberTextField.setBounds(192, 65, 100, 20);
 		vlanPanel.add(vlanNumberTextField);
-		vlanNumberTextField.setColumns(10);
+		vlanNumberTextField.setColumns(12);
 
 		vlanNameTextField = new JTextField();
-		vlanNameTextField.setBounds(192, 100, 86, 20);
+		vlanNameTextField.setBounds(192, 100, 100, 20);
 		vlanPanel.add(vlanNameTextField);
-		vlanNameTextField.setColumns(10);
+		vlanNameTextField.setColumns(12);
 
 		JButton vlanBtnApply = new JButton("Apply");
 		vlanBtnApply.setBounds(36, 285, 89, 23);
@@ -257,7 +258,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		vlanPanel.add(vlanBtnApply);
 
 		JButton vlanBtnClear = new JButton("Clear");
-		vlanBtnClear.setBounds(188, 285, 89, 23);
+		vlanBtnClear.setBounds(195, 285, 89, 23);
 		vlanBtnClear.setActionCommand("vlanClear");
 		vlanBtnClear.addActionListener(this);
 		vlanPanel.add(vlanBtnClear);
@@ -269,7 +270,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		// routing panel
 
 		JPanel routingPanel = new JPanel();
-		tabbedPane.addTab("Routing", null, routingPanel, null);
+		mainTabbedPane.addTab("Routing", null, routingPanel, null);
 		routingPanel.setLayout(null);
 
 		JTabbedPane routingTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
@@ -301,19 +302,19 @@ public class MainWindow extends JFrame implements ActionListener {
 		staticRoutingPanel.add(staticRoutingNextHopLabel);
 
 		staticRoutingNetworkTextField = new JTextField();
-		staticRoutingNetworkTextField.setBounds(192, 65, 86, 20);
+		staticRoutingNetworkTextField.setBounds(192, 65, 100, 20);
 		staticRoutingPanel.add(staticRoutingNetworkTextField);
-		staticRoutingNetworkTextField.setColumns(10);
+		staticRoutingNetworkTextField.setColumns(12);
 
 		staticRoutingMaskTextField = new JTextField();
-		staticRoutingMaskTextField.setBounds(192, 100, 86, 20);
+		staticRoutingMaskTextField.setBounds(192, 100, 100, 20);
 		staticRoutingPanel.add(staticRoutingMaskTextField);
-		staticRoutingMaskTextField.setColumns(10);
+		staticRoutingMaskTextField.setColumns(12);
 
 		staticRoutingNextHopTextField = new JTextField();
-		staticRoutingNextHopTextField.setBounds(192, 135, 86, 20);
+		staticRoutingNextHopTextField.setBounds(192, 135, 100, 20);
 		staticRoutingPanel.add(staticRoutingNextHopTextField);
-		staticRoutingNextHopTextField.setColumns(10);
+		staticRoutingNextHopTextField.setColumns(12);
 
 		JButton staticRoutingBtnApply = new JButton("Apply");
 		staticRoutingBtnApply.setBounds(36, 285, 89, 23);
@@ -322,7 +323,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		staticRoutingPanel.add(staticRoutingBtnApply);
 
 		JButton staticRoutingBtnClear = new JButton("Clear");
-		staticRoutingBtnClear.setBounds(188, 285, 89, 23);
+		staticRoutingBtnClear.setBounds(195, 285, 89, 23);
 		staticRoutingBtnClear.setActionCommand("staticRoutingClear");
 		staticRoutingBtnClear.addActionListener(this);
 		staticRoutingPanel.add(staticRoutingBtnClear);
@@ -373,9 +374,9 @@ public class MainWindow extends JFrame implements ActionListener {
 		dynamicRoutingPanel.add(dynamicRoutingNetworkLabel);
 
 		dynamicRoutingNetworkTextField = new JTextField();
-		dynamicRoutingNetworkTextField.setBounds(192, 65, 86, 20);
+		dynamicRoutingNetworkTextField.setBounds(192, 65, 100, 20);
 		dynamicRoutingPanel.add(dynamicRoutingNetworkTextField);
-		dynamicRoutingNetworkTextField.setColumns(10);
+		dynamicRoutingNetworkTextField.setColumns(12);
 
 		JButton dynamicRoutingBtnApply = new JButton("Apply");
 		dynamicRoutingBtnApply.setBounds(36, 285, 89, 23);
@@ -384,7 +385,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		dynamicRoutingPanel.add(dynamicRoutingBtnApply);
 
 		JButton dynamicRoutingBtnClear = new JButton("Clear");
-		dynamicRoutingBtnClear.setBounds(188, 285, 89, 23);
+		dynamicRoutingBtnClear.setBounds(195, 285, 89, 23);
 		dynamicRoutingBtnClear.setActionCommand("dynamicRoutingClear");
 		dynamicRoutingBtnClear.addActionListener(this);
 		dynamicRoutingPanel.add(dynamicRoutingBtnClear);
@@ -421,7 +422,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		// settings panel
 
 		JPanel settingsPanel = new JPanel();
-		tabbedPane.addTab("Settings", null, settingsPanel, null);
+		mainTabbedPane.addTab("Settings", null, settingsPanel, null);
 		settingsPanel.setLayout(null);
 
 		JTabbedPane settingsTabbedPane = new JTabbedPane(JTabbedPane.LEFT);
@@ -437,7 +438,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		globalSettingsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		globalSettingsPanel.add(globalSettingsTitleLabel);
 
-		JLabel globalSettingsNetworkLabel = new JLabel("Hostame");
+		JLabel globalSettingsNetworkLabel = new JLabel("Hostname");
 		globalSettingsNetworkLabel.setBounds(42, 68, 73, 14);
 		globalSettingsPanel.add(globalSettingsNetworkLabel);
 
@@ -450,19 +451,21 @@ public class MainWindow extends JFrame implements ActionListener {
 		globalSettingsPanel.add(globalSettingsNextHopLabel);
 
 		globalSettingsHostnameTextField = new JTextField();
-		globalSettingsHostnameTextField.setBounds(192, 65, 86, 20);
+		globalSettingsHostnameTextField.setBounds(192, 65, 100, 20);
 		globalSettingsPanel.add(globalSettingsHostnameTextField);
-		globalSettingsHostnameTextField.setColumns(10);
+		globalSettingsHostnameTextField.setColumns(12);
 
 		globalSettingsRouterDateTextField = new JTextField();
-		globalSettingsRouterDateTextField.setBounds(192, 100, 86, 20);
+		globalSettingsRouterDateTextField.setToolTipText("Use format \"DD/MM/YYYY\"");
+		globalSettingsRouterDateTextField.setBounds(192, 100, 100, 20);
 		globalSettingsPanel.add(globalSettingsRouterDateTextField);
-		globalSettingsRouterDateTextField.setColumns(10);
+		globalSettingsRouterDateTextField.setColumns(12);
 
 		globalSettingsRouterTimeTextField = new JTextField();
-		globalSettingsRouterTimeTextField.setBounds(192, 135, 86, 20);
+		globalSettingsRouterTimeTextField.setToolTipText("Use format \"HH:mm:ss\"");
+		globalSettingsRouterTimeTextField.setBounds(192, 135, 100, 20);
 		globalSettingsPanel.add(globalSettingsRouterTimeTextField);
-		globalSettingsRouterTimeTextField.setColumns(10);
+		globalSettingsRouterTimeTextField.setColumns(12);
 
 		JButton globalSettingsBtnApply = new JButton("Apply");
 		globalSettingsBtnApply.setBounds(36, 285, 89, 23);
@@ -471,7 +474,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		globalSettingsPanel.add(globalSettingsBtnApply);
 
 		JButton globalSettingsBtnClear = new JButton("Clear");
-		globalSettingsBtnClear.setBounds(188, 285, 89, 23);
+		globalSettingsBtnClear.setBounds(195, 285, 89, 23);
 		globalSettingsBtnClear.setActionCommand("globalSettingsClear");
 		globalSettingsBtnClear.addActionListener(this);
 		globalSettingsPanel.add(globalSettingsBtnClear);
@@ -479,6 +482,96 @@ public class MainWindow extends JFrame implements ActionListener {
 		JSeparator globalSettingsHorizontalSeparator = new JSeparator();
 		globalSettingsHorizontalSeparator.setBounds(42, 46, 290, 2);
 		globalSettingsPanel.add(globalSettingsHorizontalSeparator);
+		
+		//passwords panel
+		
+		JPanel passwordsPanel = new JPanel();
+		settingsTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Password Settings</body></html>", null, passwordsPanel, null);
+		passwordsPanel.setLayout(null);
+		
+		JLabel passwordsTitleLabel = new JLabel("Password Settings");
+		passwordsTitleLabel.setBounds(107, 11, 154, 24);
+		passwordsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		passwordsPanel.add(passwordsTitleLabel);
+
+		JLabel passwordsConsolePasswordLabel = new JLabel("Console Password");
+		passwordsConsolePasswordLabel.setBounds(42, 68, 93, 14);
+		passwordsPanel.add(passwordsConsolePasswordLabel);
+
+		JLabel passwordsVTYPasswordLabel = new JLabel("VTY Password");
+		passwordsVTYPasswordLabel.setBounds(42, 103, 73, 14);
+		passwordsPanel.add(passwordsVTYPasswordLabel);		
+		
+		JLabel passwordsEnablePasswordLabel = new JLabel("Enable Password");
+		passwordsEnablePasswordLabel.setBounds(42, 138, 83, 14);
+		passwordsPanel.add(passwordsEnablePasswordLabel);	
+		
+		JLabel passwordsEnableSecretPasswordLabel = new JLabel("Enable Secret Password");
+		passwordsEnableSecretPasswordLabel.setBounds(42, 173, 123, 14);
+		passwordsPanel.add(passwordsEnableSecretPasswordLabel);	
+
+		passwordsConsolePasswordTextField = new JTextField();
+		passwordsConsolePasswordTextField.setBounds(192, 65, 100, 20);
+		passwordsPanel.add(passwordsConsolePasswordTextField);
+		passwordsConsolePasswordTextField.setColumns(12);
+
+		passwordsVTYPasswordTextField = new JTextField();		
+		passwordsVTYPasswordTextField.setBounds(192, 100, 100, 20);
+		passwordsPanel.add(passwordsVTYPasswordTextField);
+		passwordsVTYPasswordTextField.setColumns(12);
+		
+		passwordsEnablePasswordTextField = new JTextField();		
+		passwordsEnablePasswordTextField.setBounds(192, 135, 100, 20);
+		passwordsPanel.add(passwordsEnablePasswordTextField);
+		passwordsEnablePasswordTextField.setColumns(12);
+		
+		passwordsEnableSecretPasswordTextField = new JTextField();		
+		passwordsEnableSecretPasswordTextField.setBounds(192, 170, 100, 20);
+		passwordsPanel.add(passwordsEnableSecretPasswordTextField);
+		passwordsEnableSecretPasswordTextField.setColumns(12);
+		
+
+		JButton passwordsBtnApply = new JButton("Apply");
+		passwordsBtnApply.setBounds(36, 285, 89, 23);
+		passwordsBtnApply.setActionCommand("passwordsApply");
+		passwordsBtnApply.addActionListener(this);
+		passwordsPanel.add(passwordsBtnApply);
+
+		JButton passwordsBtnClear = new JButton("Clear");
+		passwordsBtnClear.setBounds(195, 285, 89, 23);
+		passwordsBtnClear.setActionCommand("passwordsClear");
+		passwordsBtnClear.addActionListener(this);
+		passwordsPanel.add(passwordsBtnClear);
+
+		JSeparator passwordsHorizontalSeparator = new JSeparator();
+		passwordsHorizontalSeparator.setBounds(42, 46, 290, 2);
+		passwordsPanel.add(passwordsHorizontalSeparator);
+		
+		// cli panel
+		
+		JPanel cliPanel = new JPanel();
+		mainTabbedPane.addTab("CLI", null, cliPanel, null);
+		cliPanel.setLayout(null);
+		
+		JScrollPane cliScrollPane = new JScrollPane();
+		cliScrollPane.setBounds(0, 11, 789, 303);
+		cliPanel.add(cliScrollPane);
+		
+		JTextArea cliTextArea = new JTextArea();
+		cliScrollPane.setViewportView(cliTextArea);
+		
+		cliSendCommandTextField = new JTextField();
+		cliSendCommandTextField.setToolTipText("Press Enter to send a command to Router");
+		cliSendCommandTextField.setBounds(10, 319, 608, 20);
+		cliPanel.add(cliSendCommandTextField);
+		cliSendCommandTextField.setColumns(12);
+		
+		
+		// help panel
+		
+		JPanel helpPanel = new JPanel();
+		mainTabbedPane.addTab("Help", null, helpPanel, null);
+		helpPanel.setLayout(null);
 
 		// painel de baixo
 
@@ -486,7 +579,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		getContentPane().add(infoPanel, BorderLayout.SOUTH);
 
 		JLabel connected = new JLabel();
-		connected.setText("Connected at " + ip + " on port " + port);
+		connected.setText("Connected on router 'Router' using IOS version 12.4 at " + ip + " on port " + port);
 		infoPanel.add(connected);
 
 	}
@@ -514,6 +607,11 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JTextField globalSettingsHostnameTextField;
 	private JTextField globalSettingsRouterDateTextField;
 	private JTextField globalSettingsRouterTimeTextField;
+	private JTextField passwordsConsolePasswordTextField;
+	private JTextField passwordsVTYPasswordTextField;
+	private JTextField passwordsEnablePasswordTextField;
+	private JTextField passwordsEnableSecretPasswordTextField;
+	private JTextField cliSendCommandTextField;
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -551,6 +649,12 @@ public class MainWindow extends JFrame implements ActionListener {
 			globalSettingsHostnameTextField.setText("");
 			globalSettingsRouterDateTextField.setText("");
 			globalSettingsRouterTimeTextField.setText("");
+			
+		case "passwordsClear":
+			passwordsConsolePasswordTextField.setText("");
+			passwordsVTYPasswordTextField.setText("");
+			passwordsEnablePasswordTextField.setText("");
+			passwordsEnableSecretPasswordTextField.setText("");
 
 		}
 

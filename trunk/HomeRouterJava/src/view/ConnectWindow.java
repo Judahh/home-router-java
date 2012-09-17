@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.NumberFormat;
-import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
 import java.awt.Dialog.ModalExclusionType;
@@ -208,7 +207,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Enter an IP address");
 			e.printStackTrace();
-		} 
+		}
 
 		
 	}
