@@ -17,8 +17,8 @@ public class LevelHandler {
     private InformationHandler info;
     private CommandHandler prompt;
 
-    public LevelHandler(ConnectionHandler connection) {
-        this.connection = connection;
+    public LevelHandler(String host,int port) {
+        this.connection =new ConnectionHandler(host,port);
         auth=new AuthenticationHandler(0);
         prompt=new CommandHandler(0);
         //info=new InformationHandler(0);
