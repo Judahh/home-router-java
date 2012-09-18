@@ -39,6 +39,7 @@ public class ConnectWindow extends JFrame implements ActionListener {
 	private String password;
 
 	public ConnectWindow() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ConnectWindow.class.getResource("/resources/router icon.png")));
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setAlwaysOnTop(true);
@@ -58,18 +59,18 @@ public class ConnectWindow extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		JLabel lblIpaddress = new JLabel("IP Address");
-		lblIpaddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
 		lblIpaddress.setBounds(20, 32, 100, 14);
 		panel.add(lblIpaddress);
 
 		JLabel lblNewLabel = new JLabel("Port");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
 		lblNewLabel.setBounds(20, 60, 100, 14);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Password");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(20, 88, 100, 14);
+		
+		lblNewLabel_1.setBounds(20, 90, 100, 14);
 		panel.add(lblNewLabel_1);
 
 		JButton btnConnect = new JButton("Connect");
