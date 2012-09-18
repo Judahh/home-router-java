@@ -12,14 +12,14 @@ import org.apache.commons.net.telnet.TelnetClient;
  *
  * @author JH
  */
-//Classe: TelnetHandler
+//Classe: RouterHandler
 //Esta classe sera responsaver pelo manipulamento commandos a alto nivel
 //Ela sera uma Thread para pode fazer varias instancias independentes e assim poder executar este cliente em varios routers distintos
-public class TelnetHandler {
+public class RouterHandler {
     private LevelHandler routerLevel;
 
-    public TelnetHandler(LevelHandler routerLevel) {
-        this.routerLevel = routerLevel;
+    public RouterHandler(String host,int port) {
+        this.routerLevel =new LevelHandler(host,port);
     }
     
     //funcao exclusiva para testes
