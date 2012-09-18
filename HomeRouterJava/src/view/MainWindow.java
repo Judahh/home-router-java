@@ -29,9 +29,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 
+import util.Validation;
+import java.awt.Toolkit;
+
 public class MainWindow extends JFrame implements ActionListener {
 
 	public MainWindow(TelnetClient telnet, String ip, int port) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/resources/router icon.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setResizable(false);
@@ -234,7 +238,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		vlanPanel.add(vlanTitleLabel);
 
 		JLabel vlanNumberLabel = new JLabel("VLAN Number");
-		vlanNumberLabel.setBounds(42, 68, 73, 14);
+		vlanNumberLabel.setBounds(42, 68, 83, 14);
 		vlanPanel.add(vlanNumberLabel);
 
 		JLabel vlanNameLabel = new JLabel("VLAN Name");
@@ -495,19 +499,19 @@ public class MainWindow extends JFrame implements ActionListener {
 		passwordsPanel.add(passwordsTitleLabel);
 
 		JLabel passwordsConsolePasswordLabel = new JLabel("Console Password");
-		passwordsConsolePasswordLabel.setBounds(42, 68, 93, 14);
+		passwordsConsolePasswordLabel.setBounds(42, 68, 108, 14);
 		passwordsPanel.add(passwordsConsolePasswordLabel);
 
 		JLabel passwordsVTYPasswordLabel = new JLabel("VTY Password");
-		passwordsVTYPasswordLabel.setBounds(42, 103, 73, 14);
+		passwordsVTYPasswordLabel.setBounds(42, 103, 88, 14);
 		passwordsPanel.add(passwordsVTYPasswordLabel);		
 		
 		JLabel passwordsEnablePasswordLabel = new JLabel("Enable Password");
-		passwordsEnablePasswordLabel.setBounds(42, 138, 83, 14);
+		passwordsEnablePasswordLabel.setBounds(42, 138, 103, 14);
 		passwordsPanel.add(passwordsEnablePasswordLabel);	
 		
 		JLabel passwordsEnableSecretPasswordLabel = new JLabel("Enable Secret Password");
-		passwordsEnableSecretPasswordLabel.setBounds(42, 173, 123, 14);
+		passwordsEnableSecretPasswordLabel.setBounds(42, 173, 143, 14);
 		passwordsPanel.add(passwordsEnableSecretPasswordLabel);	
 
 		passwordsConsolePasswordTextField = new JTextField();
@@ -625,6 +629,12 @@ public class MainWindow extends JFrame implements ActionListener {
 		String action = arg0.getActionCommand();
 
 		switch (action) {
+		
+		case "fe0Apply":
+			
+			Validation v = new Validation();
+			v.validateIP(fe0IpAddressTextField.getText());
+			v.validateMask(fe0SubnetMaskTextField.getText());
 
 		case "fe0Clear":
 			fe0IpAddressTextField.setText("");
