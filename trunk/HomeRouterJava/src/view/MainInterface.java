@@ -79,8 +79,18 @@ public class MainInterface extends javax.swing.JFrame {
         PortjTextField.setText("2001");
 
         LocalHostCheckBox.setText("Local Host");
+        LocalHostCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LocalHostCheckBoxActionPerformed(evt);
+            }
+        });
 
         TelnetPortCheckBox.setText("Telnet Port");
+        TelnetPortCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TelnetPortCheckBoxActionPerformed(evt);
+            }
+        });
 
         ConnectButton.setText("Connect");
         ConnectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +221,26 @@ public class MainInterface extends javax.swing.JFrame {
 	}
         
     }//GEN-LAST:event_ConnectButtonActionPerformed
+
+    private void LocalHostCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalHostCheckBoxActionPerformed
+        if(LocalHostCheckBox.isSelected()){
+            HostjTextField.setText("localhost");
+            HostjTextField.setEditable(false);
+        }else{
+            HostjTextField.setEditable(true);
+            HostjTextField.setText("10.10.0.151");
+        }
+    }//GEN-LAST:event_LocalHostCheckBoxActionPerformed
+
+    private void TelnetPortCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelnetPortCheckBoxActionPerformed
+        if(TelnetPortCheckBox.isSelected()){
+            PortjTextField.setText("23");
+            PortjTextField.setEditable(false);
+        }else{
+            PortjTextField.setEditable(true);
+            PortjTextField.setText("2001");
+        }
+    }//GEN-LAST:event_TelnetPortCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
