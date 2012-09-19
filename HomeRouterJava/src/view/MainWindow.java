@@ -10,17 +10,13 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
-import connection.TelnetClient;
+import connection.ConnectionHandler;
 
 import javax.swing.border.EtchedBorder;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
@@ -34,13 +30,14 @@ import java.awt.Toolkit;
 
 public class MainWindow extends JFrame implements ActionListener {
 
-	public MainWindow(TelnetClient telnet, String ip, int port) {
+	public MainWindow(ConnectionHandler ch, String ip, int port) {
+		this.ch = ch;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/resources/router icon.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setResizable(false);
 		setTitle("HomeRouter");
-		setVisible(true);
+
 		setSize(800, 435);
 		setLocation(200, 200);
 
@@ -434,7 +431,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		settingsPanel.add(settingsTabbedPane);
 
 		JPanel globalSettingsPanel = new JPanel();
-		settingsTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Global Settings</body></html>", null, globalSettingsPanel, null);
+		settingsTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Global Settings</body></html>",
+				null, globalSettingsPanel, null);
 		globalSettingsPanel.setLayout(null);
 
 		JLabel globalSettingsTitleLabel = new JLabel("Global Settings");
@@ -486,13 +484,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		JSeparator globalSettingsHorizontalSeparator = new JSeparator();
 		globalSettingsHorizontalSeparator.setBounds(42, 46, 290, 2);
 		globalSettingsPanel.add(globalSettingsHorizontalSeparator);
-		
-		//passwords panel
-		
+
+		// passwords panel
+
 		JPanel passwordsPanel = new JPanel();
-		settingsTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Password Settings</body></html>", null, passwordsPanel, null);
+		settingsTabbedPane.addTab("<html><body leftmargin=15 topmargin=8 marginwidth=15 marginheight=5>Password Settings</body></html>",
+				null, passwordsPanel, null);
 		passwordsPanel.setLayout(null);
-		
+
 		JLabel passwordsTitleLabel = new JLabel("Password Settings");
 		passwordsTitleLabel.setBounds(107, 11, 154, 24);
 		passwordsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -504,36 +503,35 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		JLabel passwordsVTYPasswordLabel = new JLabel("VTY Password");
 		passwordsVTYPasswordLabel.setBounds(42, 103, 88, 14);
-		passwordsPanel.add(passwordsVTYPasswordLabel);		
-		
+		passwordsPanel.add(passwordsVTYPasswordLabel);
+
 		JLabel passwordsEnablePasswordLabel = new JLabel("Enable Password");
 		passwordsEnablePasswordLabel.setBounds(42, 138, 103, 14);
-		passwordsPanel.add(passwordsEnablePasswordLabel);	
-		
+		passwordsPanel.add(passwordsEnablePasswordLabel);
+
 		JLabel passwordsEnableSecretPasswordLabel = new JLabel("Enable Secret Password");
 		passwordsEnableSecretPasswordLabel.setBounds(42, 173, 143, 14);
-		passwordsPanel.add(passwordsEnableSecretPasswordLabel);	
+		passwordsPanel.add(passwordsEnableSecretPasswordLabel);
 
 		passwordsConsolePasswordTextField = new JTextField();
 		passwordsConsolePasswordTextField.setBounds(192, 65, 100, 20);
 		passwordsPanel.add(passwordsConsolePasswordTextField);
 		passwordsConsolePasswordTextField.setColumns(12);
 
-		passwordsVTYPasswordTextField = new JTextField();		
+		passwordsVTYPasswordTextField = new JTextField();
 		passwordsVTYPasswordTextField.setBounds(192, 100, 100, 20);
 		passwordsPanel.add(passwordsVTYPasswordTextField);
 		passwordsVTYPasswordTextField.setColumns(12);
-		
-		passwordsEnablePasswordTextField = new JTextField();		
+
+		passwordsEnablePasswordTextField = new JTextField();
 		passwordsEnablePasswordTextField.setBounds(192, 135, 100, 20);
 		passwordsPanel.add(passwordsEnablePasswordTextField);
 		passwordsEnablePasswordTextField.setColumns(12);
-		
-		passwordsEnableSecretPasswordTextField = new JTextField();		
+
+		passwordsEnableSecretPasswordTextField = new JTextField();
 		passwordsEnableSecretPasswordTextField.setBounds(192, 170, 100, 20);
 		passwordsPanel.add(passwordsEnableSecretPasswordTextField);
 		passwordsEnableSecretPasswordTextField.setColumns(12);
-		
 
 		JButton passwordsBtnApply = new JButton("Apply");
 		passwordsBtnApply.setBounds(36, 285, 89, 23);
@@ -550,35 +548,34 @@ public class MainWindow extends JFrame implements ActionListener {
 		JSeparator passwordsHorizontalSeparator = new JSeparator();
 		passwordsHorizontalSeparator.setBounds(42, 46, 290, 2);
 		passwordsPanel.add(passwordsHorizontalSeparator);
-		
-		//connectivity panel
-		
+
+		// connectivity panel
+
 		JPanel connectivityPanel = new JPanel();
 		mainTabbedPane.addTab("Connectivity", null, connectivityPanel, null);
 		connectivityPanel.setLayout(null);
-		
+
 		// cli panel
-		
+
 		JPanel cliPanel = new JPanel();
 		mainTabbedPane.addTab("CLI", null, cliPanel, null);
 		cliPanel.setLayout(null);
-		
+
 		JScrollPane cliScrollPane = new JScrollPane();
 		cliScrollPane.setBounds(0, 11, 789, 303);
 		cliPanel.add(cliScrollPane);
-		
+
 		JTextArea cliTextArea = new JTextArea();
 		cliScrollPane.setViewportView(cliTextArea);
-		
+
 		cliSendCommandTextField = new JTextField();
 		cliSendCommandTextField.setToolTipText("Press Enter to send a command to Router");
 		cliSendCommandTextField.setBounds(10, 319, 608, 20);
 		cliPanel.add(cliSendCommandTextField);
 		cliSendCommandTextField.setColumns(12);
-		
-		
+
 		// help panel
-		
+
 		JPanel helpPanel = new JPanel();
 		mainTabbedPane.addTab("Help", null, helpPanel, null);
 		helpPanel.setLayout(null);
@@ -591,6 +588,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		JLabel connected = new JLabel();
 		connected.setText("Connected on router 'Router' using IOS version 12.4 at " + ip + " on port " + port);
 		infoPanel.add(connected);
+
+		setVisible(true);
 
 	}
 
@@ -622,6 +621,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JTextField passwordsEnablePasswordTextField;
 	private JTextField passwordsEnableSecretPasswordTextField;
 	private JTextField cliSendCommandTextField;
+	private ConnectionHandler ch;
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -629,12 +629,15 @@ public class MainWindow extends JFrame implements ActionListener {
 		String action = arg0.getActionCommand();
 
 		switch (action) {
-		
+
 		case "fe0Apply":
-			
+		
+
 			Validation v = new Validation();
 			v.validateIP(fe0IpAddressTextField.getText());
 			v.validateMask(fe0SubnetMaskTextField.getText());
+			
+			
 
 		case "fe0Clear":
 			fe0IpAddressTextField.setText("");
@@ -664,12 +667,12 @@ public class MainWindow extends JFrame implements ActionListener {
 			globalSettingsHostnameTextField.setText("");
 			globalSettingsRouterDateTextField.setText("");
 			globalSettingsRouterTimeTextField.setText("");
-			
+
 		case "passwordsClear":
 			passwordsConsolePasswordTextField.setText("");
 			passwordsVTYPasswordTextField.setText("");
 			passwordsEnablePasswordTextField.setText("");
-			passwordsEnableSecretPasswordTextField.setText("");		
+			passwordsEnableSecretPasswordTextField.setText("");
 
 		}
 

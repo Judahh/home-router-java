@@ -5,32 +5,32 @@
 package model;
 
 /**
- *
+ * 
  * @author JH
  */
 public class YearModel {
-    private int year;//1993-2035
+	private int year;// 1993-2035
 
-    public YearModel() {
-    }
+	public YearModel() {
+	}
 
-    public int getYear() {
-        return year;
-    }
+	public int getYear() {
+		return year;
+	}
 
-    public void setYear(int year) {
-        if(year<1993){
-            this.year =1993;
-            return;
-        }
-        if(year>2035){
-            this.year =2035;
-            return;
-        }
-        this.year = year;
-    }
-    
-    public void setYear(String day) {
-        this.year = Integer.parseInt(day);
-    }
+	public void setYear(int year) {
+		if (year < 1993) {
+			this.year = 1993;
+			return;
+		}
+		if (year > 2035) {
+			this.year = 2035;
+			return;
+		}
+		this.year = year;
+	}
+
+	public void setYear(String day) {
+		this.year = Integer.parseInt(day);
+	}
 }

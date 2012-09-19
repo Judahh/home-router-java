@@ -4,7 +4,10 @@
  */
 package connection;
 
-import java.io.*;
+
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.apache.commons.net.telnet.TelnetClient;
@@ -18,8 +21,8 @@ import org.apache.commons.net.telnet.TelnetClient;
 public class RouterHandler {
     private LevelHandler routerLevel;
 
-    public RouterHandler(String host,int port) {
-        this.routerLevel =new LevelHandler(host,port);
+    public RouterHandler(String host,int port) throws ConnectException, SocketException, IOException {
+        this.routerLevel = new LevelHandler(host,port);
     }
     
     //funcao exclusiva para testes
