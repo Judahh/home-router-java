@@ -10,6 +10,7 @@ import java.io.PrintStream;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import org.apache.commons.net.telnet.TelnetClient;
 
@@ -21,9 +22,20 @@ public class ConnectionHandler {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
+        JTextArea console;
 
 	public ConnectionHandler(String host, int port) throws ConnectException, SocketException, IOException {
 
+		// Connect to the specified server
+		telnet.connect(host, port);
+		// Get input and output stream references
+		in = telnet.getInputStream();
+		out = new PrintStream(telnet.getOutputStream());
+
+	}
+        
+        public ConnectionHandler(String host, int port,JTextArea console) throws ConnectException, SocketException, IOException {
+                this.console=console;
 		// Connect to the specified server
 		telnet.connect(host, port);
 		// Get input and output stream references
@@ -66,6 +78,7 @@ public class ConnectionHandler {
 
 			while (!found) {
 				System.out.print(ch);
+                                console.append(ch+"");
 				sb.append(ch);
 				if (ch == lastChar) {
 					if (sb.toString().endsWith(pattern)) {
@@ -93,6 +106,7 @@ public class ConnectionHandler {
 
 			while (!found) {
 				System.out.print(ch);
+                                console.append(ch+"");
 				sb.append(ch);
 				for (int i = 0; i < pattern.length; i++) {
 					if (ch == lastChar[i]) {
@@ -123,6 +137,7 @@ public class ConnectionHandler {
 			System.out.println("Recebido:");
 			while (!found) {
 				System.out.print(ch);
+                                console.append(ch+"");
 				sb.append(ch);
 				for (int i = pattern.length - 1; i >= 0; i--) {
 					if (ch == lastChar[i]) {
@@ -156,6 +171,7 @@ public class ConnectionHandler {
 		// for(int i=0;i<100000;i++){}
 		write(value);
 		System.out.println("Enviado:" + value);
+                console.append("Enviado:" + value);
 		System.out.println();
 	}
 

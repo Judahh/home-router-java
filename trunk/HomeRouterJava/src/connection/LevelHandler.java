@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import model.RouterInfoModel;
 
@@ -32,6 +33,15 @@ public class LevelHandler {
 		getAllMsgPossibilities();
 	}
 	
+        public LevelHandler(String host, int port,JTextArea console) throws ConnectException, SocketException, IOException {
+		connection = new ConnectionHandler(host, port, console);
+		auth = new AuthenticationHandler(0);
+		prompt = new CommandHandler(0);
+		routerInfo= new RouterInfoModel();
+		info=new InformationHandler(connection);
+		getAllMsgPossibilities();
+	}
+        
 	public InformationHandler getInfo() {
 		return info;
 	}
