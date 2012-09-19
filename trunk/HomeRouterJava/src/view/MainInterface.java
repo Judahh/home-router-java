@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -22,6 +23,8 @@ public class MainInterface extends javax.swing.JFrame {
      * Creates new form MainInterface
      */
     public MainInterface() {
+    	setTitle("Home Router");
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(ConnectWindow.class.getResource("/resources/router icon.png")));
         initComponents();
     }
 
