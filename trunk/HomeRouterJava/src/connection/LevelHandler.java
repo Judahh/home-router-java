@@ -101,6 +101,7 @@ public class LevelHandler {
 		for (int i = 0; i < possibilitiesV.length; i++) {
 			possibilitiesV[i] = Possibilities.get(i + 1);
 		}
+		
 		this.msgPossibilities=possibilitiesV;
 		return;
 	}
