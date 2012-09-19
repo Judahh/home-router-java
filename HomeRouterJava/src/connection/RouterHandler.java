@@ -25,6 +25,18 @@ public class RouterHandler {
         this.routerLevel = new LevelHandler(host,port);
     }
     
+    private void setInterface(int interfaceCod){
+    	this.routerLevel.getPrompt().getIdentifier().setInterfaceCod(interfaceCod);
+    }
+    
+    private void setInterfacePort(String port){
+    	this.routerLevel.getPrompt().getIdentifier().setPort(port);
+    }
+    
+    private void setInterfaceSubPort(String subPort){
+    	this.routerLevel.getPrompt().getIdentifier().setSubPort(subPort);
+    }
+    
     //funcao exclusiva para testes
     public void goToLevelRouter(int Level){
         routerLevel.goToLevel(Level);
