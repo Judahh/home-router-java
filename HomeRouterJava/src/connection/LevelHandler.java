@@ -24,11 +24,11 @@ public class LevelHandler {
 	private String[] msgPossibilities;
 
 	public LevelHandler(String host, int port) throws ConnectException, SocketException, IOException {
-		this.connection = new ConnectionHandler(host, port);
+		connection = new ConnectionHandler(host, port);
 		auth = new AuthenticationHandler(0);
 		prompt = new CommandHandler(0);
 		routerInfo= new RouterInfoModel();
-		// info=new InformationHandler(0);
+		info=new InformationHandler(connection);
 		getAllMsgPossibilities();
 	}
 	
