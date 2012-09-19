@@ -248,7 +248,7 @@ public class MainInterface extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void startInterface() {
         /*
          * Set the Nimbus look and feel
          */
