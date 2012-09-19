@@ -4,19 +4,32 @@
  */
 package connection;
 
+import model.IdentifierModel;
+
 /**
  * 
  * @author JH
  */
 public class CommandHandler {
 	private Prompt prompt;
+	private IdentifierModel identifier;
 
 	public CommandHandler(Prompt prompt) {
 		this.prompt = prompt;
+		this.identifier=new IdentifierModel(1, "0/1/0");
+		identifier.setSubPort(".2");
 	}
-
+	
 	public CommandHandler(int level) {
 		this.prompt = Prompt.values()[level];
+	}
+
+	public IdentifierModel getIdentifier(){
+		return identifier;
+	}
+
+	public void setIdentifier(IdentifierModel identifier){
+		this.identifier = identifier;
 	}
 
 	public void setLevel(int level) {
@@ -168,7 +181,7 @@ public class CommandHandler {
 		case config_cert_chainB:
 			return "crypto ca certificate\r\n";
 		case config_controllerB:
-			return "controller t1 0/0\r\n";
+			return "controller t1 0/0\r\n";//adicionar esse tipo de interface
 		case config_ctrl_casB:
 			return " cas-custom 1\r\n";
 		case config_crypto_mapB:
@@ -183,13 +196,13 @@ public class CommandHandler {
 		case config_hubB:
 			return "hub ethernet 0 1 3\r\n";
 		case config_ifB:
-			return "interface FastEthernet0/1\r\n";// pode ser Serial tb
+			return "interface "+identifier.getInterface()+" "+identifier.getPort()+"\r\n";
 		case config_if_atm_vcB:
 			return "pvc 0/33\r\n";
 		case config_vc_classB:
 			return "vc-class atm pvc1\r\n";
 		case config_subifB:
-			return "encapsulation frame-relay\r\ninterface serial 0/1/0.2\r\n";
+			return "encapsulation frame-relay\r\ninterface "+identifier.getInterface()+" "+identifier.getPort()+identifier.getSubPort()+"\r\n";
 		case config_ipx_routerB:
 			return "ipx router rip\r\n";
 		case config_isakmpB:
@@ -219,7 +232,7 @@ public class CommandHandler {
 		case config_rtrB:
 			return "rtr 1\r\n";
 		case config_voiceportB:
-			return "voice port 1/1/2\r\n";
+			return "voice port 1/1/2\r\n";//adicionar esse tipo de interface
 		case lane_config_databB:
 			return "lane database red\r\n";
 		case mpoa_client_configB:
