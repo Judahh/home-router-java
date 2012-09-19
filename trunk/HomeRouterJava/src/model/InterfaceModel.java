@@ -5,17 +5,15 @@ import enums.IdentifierEnum;
 public class InterfaceModel {
 	private String ip;
 	private int clockrate;
-	private String port;
+	private IdentifierModel identifier;
 	private boolean shutdown;
-	private IdentifierEnum ident;
 
-	public InterfaceModel(String ip, int clockrate, String port, boolean shutdown, IdentifierEnum ident) {
+	public InterfaceModel(String ip, IdentifierModel identifier, int clockrate, boolean shutdown) {
 		super();
 		this.ip = ip;
 		this.clockrate = clockrate;
-		this.port = port;
 		this.shutdown = shutdown;
-		this.ident = ident;
+		this.identifier = identifier;
 	}
 
 	public String getIp() {
@@ -27,15 +25,15 @@ public class InterfaceModel {
 	}
 
 	public String getPort() {
-		return port;
+		return identifier.getPort();
 	}
 
 	public boolean isShutdown() {
 		return shutdown;
 	}
 
-	public IdentifierEnum getIdent() {
-		return ident;
+	public IdentifierModel getIdentifier() {
+		return identifier;
 	}
 
 	public void setIp(String ip) {
@@ -47,15 +45,15 @@ public class InterfaceModel {
 	}
 
 	public void setPort(String port) {
-		this.port = port;
+		this.identifier.setPort(port);
 	}
 
 	public void setShutdown(boolean shutdown) {
 		this.shutdown = shutdown;
 	}
 
-	public void setIdent(IdentifierEnum ident) {
-		this.ident = ident;
+	public void setIdent(IdentifierModel identifier) {
+		this.identifier = identifier;
 	}
 
 }
