@@ -19,14 +19,16 @@ public class LevelHandler {
 	private AuthenticationHandler auth;
 	private InformationHandler info;
 	private CommandHandler prompt;
+	private String[] msgPossibilities;
 
 	public LevelHandler(String host, int port) throws ConnectException, SocketException, IOException {
 		this.connection = new ConnectionHandler(host, port);
 		auth = new AuthenticationHandler(0);
 		prompt = new CommandHandler(0);
 		// info=new InformationHandler(0);
+		getAllMsgPossibilities();
 	}
-
+	
 	public InformationHandler getInfo() {
 		return info;
 	}
@@ -63,6 +65,8 @@ public class LevelHandler {
 		return routerName;
 	}
 
+	
+	
 	public void setRouterName(String routerName) {
 		// fazer parte pare ir ate # ou > ou (
 		int end = routerName.length() - 1;
@@ -78,27 +82,36 @@ public class LevelHandler {
 			}
 		}
 	}
+	
+	public void getAllMsgPossibilities(){
+		// String[] possibilities=new
+		// String[]{"Login: ","login: ","User: ","user: ","Password: ","password: ","Pass: ","pass: "};
+		ArrayList<String> Possibilities = new ArrayList<>();
+		// Possibilities.addAll(Arrays.asList(possibilities));
+		
+		for (int i = 0; i < this.auth.getAuthValues().length; i++) {
+			Possibilities.add(this.auth.getAuth(this.auth.getAuthValues()[i]));
+		}
+		for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
+			Possibilities.add(this.prompt.getPrompt(this.prompt.getPromptValues()[i]));
+		}
+		
+		String[] possibilitiesV = new String[Possibilities.size() - 1];
 
+		for (int i = 0; i < possibilitiesV.length; i++) {
+			possibilitiesV[i] = Possibilities.get(i + 1);
+		}
+		this.msgPossibilities=possibilitiesV;
+		return;
+	}
+
+	public String[] getMsgPossibilities(){
+		return this.msgPossibilities;
+	}
+	
 	public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		try {
-			// String[] possibilities=new
-			// String[]{"Login: ","login: ","User: ","user: ","Password: ","password: ","Pass: ","pass: "};
-			ArrayList<String> Possibilities = new ArrayList<>();
-			// Possibilities.addAll(Arrays.asList(possibilities));
-			for (int i = 0; i < this.auth.getAuthValues().length; i++) {
-				Possibilities.add(this.auth.getAuth(this.auth.getAuthValues()[i]));
-			}
-
-			for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
-				Possibilities.add(this.prompt.getPrompt(this.prompt.getPromptValues()[i]));
-			}
-			String[] possibilitiesV = new String[Possibilities.size() - 1];
-
-			for (int i = 0; i < possibilitiesV.length; i++) {
-				possibilitiesV[i] = Possibilities.get(i + 1);
-			}
-
-			ArrayList<String> arrayReceived = connection.arrayListReadUntil(possibilitiesV);
+			ArrayList<String> arrayReceived = connection.arrayListReadUntil(getMsgPossibilities());
 			String Sreceived = arrayReceived.get(0);
 			String Mreceived = arrayReceived.get(1);
 			// ---------------------------------------------------------------------------------------------------
