@@ -79,6 +79,7 @@ public class LevelHandler {
 		for (int i = routerName.length() - 1; i >= 0; i--) {
 			if (routerName.charAt(i) == '\n' || routerName.charAt(i) == ' ') {
 				this.routerInfo.setRouterName(routerName.substring(i + 1, end));
+				//mostrar mudanca na GUI
 				return;
 			}
 		}
