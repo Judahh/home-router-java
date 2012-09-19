@@ -9,13 +9,15 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
 
+import model.RouterInfoModel;
+
 /**
  * 
  * @author JH
  */
 public class LevelHandler {
 	private ConnectionHandler connection;
-	private String routerName;
+	private RouterInfoModel routerInfo;
 	private AuthenticationHandler auth;
 	private InformationHandler info;
 	private CommandHandler prompt;
@@ -25,6 +27,7 @@ public class LevelHandler {
 		this.connection = new ConnectionHandler(host, port);
 		auth = new AuthenticationHandler(0);
 		prompt = new CommandHandler(0);
+		routerInfo= new RouterInfoModel();
 		// info=new InformationHandler(0);
 		getAllMsgPossibilities();
 	}
@@ -62,10 +65,8 @@ public class LevelHandler {
 	}
 
 	public String getRouterName() {
-		return routerName;
+		return routerInfo.getRouterName();
 	}
-
-	
 	
 	public void setRouterName(String routerName) {
 		// fazer parte pare ir ate # ou > ou (
@@ -77,7 +78,7 @@ public class LevelHandler {
 		}
 		for (int i = routerName.length() - 1; i >= 0; i--) {
 			if (routerName.charAt(i) == '\n' || routerName.charAt(i) == ' ') {
-				this.routerName = routerName.substring(i + 1, end);
+				this.routerInfo.setRouterName(routerName.substring(i + 1, end));
 				return;
 			}
 		}
