@@ -1,5 +1,8 @@
 package model;
-
+/**
+ * 
+ * @author JH
+ */
 public class IdentifierModel{
 	private String port;
 	private String subPort;
