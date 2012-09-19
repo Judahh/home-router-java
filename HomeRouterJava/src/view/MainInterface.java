@@ -23,8 +23,6 @@ public class MainInterface extends javax.swing.JFrame {
      * Creates new form MainInterface
      */
     public MainInterface() {
-    	setTitle("Home Router");
-    	setIconImage(Toolkit.getDefaultToolkit().getImage(ConnectWindow.class.getResource("/resources/router icon.png")));
         initComponents();
     }
 
@@ -70,6 +68,8 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Home Router 1.0 Beta");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ConnectWindow.class.getResource("/resources/router icon.png")));
 
         jLabel1.setText("New Connection:");
 
