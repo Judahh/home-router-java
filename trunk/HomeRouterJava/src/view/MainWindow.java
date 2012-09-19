@@ -76,7 +76,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		fe0SubnetMaskLabel.setBounds(42, 135, 83, 14);
 		fastEthernet0Panel.add(fe0SubnetMaskLabel);
 
-		JCheckBox fe0PortStatusCheckbox = new JCheckBox("On");
+		fe0PortStatusCheckbox = new JCheckBox("On");
 		fe0PortStatusCheckbox.setBounds(188, 61, 97, 23);
 		fastEthernet0Panel.add(fe0PortStatusCheckbox);
 
@@ -601,6 +601,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JPanel fastEthernet0Panel;
 	private JPanel serial0Panel;
 	private JPanel serial1Panel;
+	private JCheckBox fe0PortStatusCheckbox;
 	private JTextField fe0IpAddressTextField;
 	private JTextField fe0SubnetMaskTextField;
 	private JTextField s0IpAddressTextField;
@@ -631,12 +632,15 @@ public class MainWindow extends JFrame implements ActionListener {
 		switch (action) {
 
 		case "fe0Apply":
-		
 
+			boolean portStatusOnOrOff = fe0PortStatusCheckbox.isSelected();
 			Validation v = new Validation();
 			v.validateIP(fe0IpAddressTextField.getText());
 			v.validateMask(fe0SubnetMaskTextField.getText());
-			
+
+			// judah, aqui dentro eu quero que você trate o caso "fe0apply", que
+			// é quando você deve configurar a porta fast ethernet 0, usando os campos portstatus, ipaddress e subnetmask
+			//o objeto validation trata IP e máscara dentro dele mesmo, não precisa se preocupar com isso
 			
 
 		case "fe0Clear":
