@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import connection.ConnectionHandler;
+import connection.RouterHandler;
 import connection.TelnetClient;
 
 import model.IPModel;
@@ -27,6 +28,7 @@ import java.awt.Dimension;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import model.GUISolutionModel;
 
 public class ConnectWindow extends JFrame implements ActionListener {
 
@@ -185,25 +187,24 @@ public class ConnectWindow extends JFrame implements ActionListener {
 
 	}
 
-	// a conexão em si
+	// a conexï¿½o em si
 	private void connect() {
 		IPModel connection = new IPModel(ip, port, password);
 
-		try {
-
-			ConnectionHandler ch = new ConnectionHandler(connection.getIpAddress(), connection.getPort());
+//		try {
+			//ConnectionHandler ch = new ConnectionHandler(connection.getIpAddress(), connection.getPort(),new GUISolutionModel(ConsolejTextArea));
 			setVisible(false);
-			MainWindow mw = new MainWindow(ch, connection.getIpAddress(), connection.getPort());
-		} catch (UnknownHostException e) {
-
-			e.printStackTrace();
-		} catch (ConnectException e) {
-			JOptionPane.showMessageDialog(this, "Connection refused");
-			e.printStackTrace();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "Enter an IP address");
-			e.printStackTrace();
-		}
+			//MainWindow mw = new MainWindow(ch, connection.getIpAddress(), connection.getPort());
+//		} catch (UnknownHostException e) {
+//
+//			e.printStackTrace();
+//		} catch (ConnectException e) {
+//			JOptionPane.showMessageDialog(this, "Connection refused");
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			JOptionPane.showMessageDialog(this, "Enter an IP address");
+//			e.printStackTrace();
+//		}
 
 	}
 

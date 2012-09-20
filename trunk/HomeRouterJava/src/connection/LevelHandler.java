@@ -9,6 +9,7 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
+import model.GUISolutionModel;
 
 import model.RouterInfoModel;
 
@@ -23,22 +24,13 @@ public class LevelHandler {
 	private InformationHandler info;
 	private CommandHandler prompt;
 	private String[] msgPossibilities;
-
-	public LevelHandler(String host, int port) throws ConnectException, SocketException, IOException {
-		connection = new ConnectionHandler(host, port);
-		auth = new AuthenticationHandler(0);
-		prompt = new CommandHandler(0);
-		routerInfo= new RouterInfoModel();
-		info=new InformationHandler(connection);
-		getAllMsgPossibilities();
-	}
 	
-        public LevelHandler(String host, int port,JTextArea console) throws ConnectException, SocketException, IOException {
-		connection = new ConnectionHandler(host, port, console);
+        public LevelHandler(String host, int port,GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
+		connection = new ConnectionHandler(host, port, GuiSol);
 		auth = new AuthenticationHandler(0);
 		prompt = new CommandHandler(0);
 		routerInfo= new RouterInfoModel();
-		info=new InformationHandler(connection);
+		info=new InformationHandler(connection,GuiSol);
 		getAllMsgPossibilities();
 	}
         

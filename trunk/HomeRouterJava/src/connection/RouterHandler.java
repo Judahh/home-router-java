@@ -4,13 +4,12 @@
  */
 package connection;
 
-
+import model.GUISolutionModel;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.swing.JTextArea;
 import org.apache.commons.net.telnet.TelnetClient;
 /**
  *
@@ -21,13 +20,9 @@ import org.apache.commons.net.telnet.TelnetClient;
 //Ela sera uma Thread para pode fazer varias instancias independentes e assim poder executar este cliente em varios routers distintos
 public class RouterHandler {
     private LevelHandler routerLevel;
-
-    public RouterHandler(String host,int port) throws ConnectException, SocketException, IOException {
-        this.routerLevel = new LevelHandler(host,port);
-    }
     
-    public RouterHandler(String host,int port,JTextArea console) throws ConnectException, SocketException, IOException {
-        this.routerLevel = new LevelHandler(host,port,console);
+    public RouterHandler(String host,int port,GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
+        this.routerLevel = new LevelHandler(host,port,GuiSol);
     }
     
     //estes metodos serao usados para selecionar a interface e porta que sera usada(antes de entrar no level dela (claro)

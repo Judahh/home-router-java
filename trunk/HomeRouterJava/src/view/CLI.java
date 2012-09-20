@@ -10,6 +10,7 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
+import model.GUISolutionModel;
 
 /**
  *
@@ -25,7 +26,7 @@ public class CLI extends javax.swing.JPanel {
     public CLI(String host,int port) throws ConnectException, SocketException, IOException {
         initComponents();
         
-        vTelnet=new RouterHandler(host,port,ConsolejTextArea);
+        vTelnet=new RouterHandler(host,port,new GUISolutionModel(ConsolejTextArea));
         if(vTelnet.Login()){
             //jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
             //Login.setVisible(false);

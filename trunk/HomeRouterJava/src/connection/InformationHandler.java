@@ -5,6 +5,7 @@
 package connection;
 
 import model.ClockModel;
+import model.GUISolutionModel;
 import model.RunModel;
 
 /**
@@ -29,8 +30,10 @@ public class InformationHandler {// --------------------------------------------
 	private ClockModel clock;
 	private RunModel run;
 	private ConnectionHandler connection;
+        private GUISolutionModel GuiSol;
 	
-	public InformationHandler(ConnectionHandler connection){
+	public InformationHandler(ConnectionHandler connection,GUISolutionModel GuiSol){
+                this.GuiSol=GuiSol;
 		this.connection=connection;
 	}
 }
