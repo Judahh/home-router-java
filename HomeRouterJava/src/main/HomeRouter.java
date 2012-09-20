@@ -13,7 +13,7 @@ public class HomeRouter {
 				try {
                                     MainInterface main = new MainInterface();
                                     main.startInterface();
-                                    new ConnectWindow();
+                                    //new ConnectWindow();
 				} finally{
 					
 				}
