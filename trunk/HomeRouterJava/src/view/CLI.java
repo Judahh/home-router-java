@@ -72,10 +72,10 @@ public class CLI extends javax.swing.JPanel {
         InterfacesjFrame = new javax.swing.JFrame();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        FastEthernetjTabbedPane = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
+        SerialjTabbedPane = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         SwitchingjFrame = new javax.swing.JFrame();
         jLabel7 = new javax.swing.JLabel();
@@ -302,7 +302,7 @@ public class CLI extends javax.swing.JPanel {
             .addGap(0, 223, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("0/0", jPanel3);
+        FastEthernetjTabbedPane.addTab("0/0", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -310,14 +310,14 @@ public class CLI extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(FastEthernetjTabbedPane)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(FastEthernetjTabbedPane)
                 .addContainerGap())
         );
 
@@ -334,7 +334,7 @@ public class CLI extends javax.swing.JPanel {
             .addGap(0, 223, Short.MAX_VALUE)
         );
 
-        jTabbedPane3.addTab("0/1/0", jPanel4);
+        SerialjTabbedPane.addTab("0/1/0", jPanel4);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -342,14 +342,14 @@ public class CLI extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane3)
+                .addComponent(SerialjTabbedPane)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane3)
+                .addComponent(SerialjTabbedPane)
                 .addContainerGap())
         );
 
@@ -727,6 +727,7 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JButton DyRRemovejButton;
     private javax.swing.JList DyRjList;
     private javax.swing.JPasswordField EnablejPasswordField;
+    private javax.swing.JTabbedPane FastEthernetjTabbedPane;
     private javax.swing.JButton GlobalCanceljButton;
     private javax.swing.JButton GlobalOkjButton;
     private javax.swing.JTextField HostNamejTextField;
@@ -741,6 +742,7 @@ public class CLI extends javax.swing.JPanel {
     public javax.swing.JFrame RoutingjFrame;
     private javax.swing.JCheckBox SecretjCheckBox;
     private javax.swing.JButton SendjButton;
+    private javax.swing.JTabbedPane SerialjTabbedPane;
     public javax.swing.JFrame SettingsjFrame;
     private javax.swing.JFrame SwitchingjFrame;
     private javax.swing.JFormattedTextField TimejFormattedTextField;
@@ -784,8 +786,6 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JToolBar jToolBar1;

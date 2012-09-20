@@ -4,6 +4,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+import view.Serial;
+import view.FastEthernet;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTabbedPane;
@@ -23,10 +26,16 @@ public class GUISolutionModel {
     private JList DynamicEstablishedRoutes;
     private JList StaticEstablishedRoutes;
     
+    private ArrayList<FastEthernet> FEArray;
+    private ArrayList<Serial> SArray;
+    
+    private JTabbedPane Serial;
+    private JTabbedPane FastEthernet;
+    
     private JTabbedPane Pane;
     private int PaneIndex;
 
-    public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,JList StaticEstablishedRoutes, JTabbedPane Pane, int PaneIndex) {
+    public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,JList StaticEstablishedRoutes, JTabbedPane Serial, JTabbedPane FastEthernet, JTabbedPane Pane, int PaneIndex) {
         this.Console = Console;
         this.Clock = Clock;
         this.Interfaces = Interfaces;
@@ -35,6 +44,9 @@ public class GUISolutionModel {
         
         this.Pane = Pane;
         this.PaneIndex = PaneIndex;
+        
+        this.Serial=Serial;
+        this.FastEthernet=FastEthernet;
         
         this.DynamicEstablishedRoutes=DynamicEstablishedRoutes;
         this.StaticEstablishedRoutes=StaticEstablishedRoutes;
@@ -94,5 +106,17 @@ public class GUISolutionModel {
     
     public void removeStaticRoute(int RouteIndex){
         
+    }
+    
+    public void addFastEthernetInterface(String port){
+        FastEthernet FE=new FastEthernet();
+        FEArray.add(FE);
+        this.FastEthernet.add(port, FE);
+    }
+    
+    public void addSerialInterface(String port){
+        Serial S=new Serial();
+        SArray.add(S);
+        this.FastEthernet.add(port, S);
     }
 }
