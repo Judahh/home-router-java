@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,8 +23,10 @@ public class MainInterface extends javax.swing.JFrame {
     /**
      * Creates new form MainInterface
      */
+    ArrayList<CLI> cliArray;
     public MainInterface() {
         initComponents();
+        cliArray=new ArrayList<>();
     }
 
     /**
@@ -56,7 +59,7 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        SettingsjMenuItem = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -171,8 +174,13 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuItem5.setText("Routing");
         jMenu3.add(jMenuItem5);
 
-        jMenuItem6.setText("Settings");
-        jMenu3.add(jMenuItem6);
+        SettingsjMenuItem.setText("Settings");
+        SettingsjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsjMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(SettingsjMenuItem);
 
         jMenuItem7.setText("Connectivity");
         jMenu3.add(jMenuItem7);
@@ -211,6 +219,7 @@ public class MainInterface extends javax.swing.JFrame {
     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
         try {
             CLI cli=new CLI(HostjTextField.getText(),Integer.parseInt(PortjTextField.getText()));
+            cliArray.add(cli);
             jTabbedPane1.addTab(cli.getRouterName(),cli);
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(this, "Unknown Exception");
@@ -244,6 +253,14 @@ public class MainInterface extends javax.swing.JFrame {
             PortjTextField.setText("2001");
         }
     }//GEN-LAST:event_TelnetPortCheckBoxActionPerformed
+
+    private void SettingsjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsjMenuItemActionPerformed
+        if(jTabbedPane1.getSelectedIndex()==0){
+            
+        }else{
+            cliArray.get(jTabbedPane1.getSelectedIndex()-1).SettingsjFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_SettingsjMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +303,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JTextField HostjTextField;
     private javax.swing.JCheckBox LocalHostCheckBox;
     private javax.swing.JTextField PortjTextField;
+    private javax.swing.JMenuItem SettingsjMenuItem;
     private javax.swing.JCheckBox TelnetPortCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -301,7 +319,6 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

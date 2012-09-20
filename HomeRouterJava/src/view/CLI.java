@@ -48,10 +48,22 @@ public class CLI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        SettingsjFrame = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         ConsolejTextArea = new javax.swing.JTextArea();
         CommandjTextField = new javax.swing.JTextField();
         SendjButton = new javax.swing.JButton();
+
+        javax.swing.GroupLayout SettingsjFrameLayout = new javax.swing.GroupLayout(SettingsjFrame.getContentPane());
+        SettingsjFrame.getContentPane().setLayout(SettingsjFrameLayout);
+        SettingsjFrameLayout.setHorizontalGroup(
+            SettingsjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        SettingsjFrameLayout.setVerticalGroup(
+            SettingsjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         ConsolejTextArea.setColumns(20);
         ConsolejTextArea.setRows(5);
@@ -99,6 +111,7 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JTextField CommandjTextField;
     private javax.swing.JTextArea ConsolejTextArea;
     private javax.swing.JButton SendjButton;
+    public javax.swing.JFrame SettingsjFrame;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
