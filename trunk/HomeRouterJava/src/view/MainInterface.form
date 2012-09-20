@@ -45,17 +45,17 @@
             <Property name="text" type="java.lang.String" value="Edit"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="InterfacesjMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Interfaces"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="SwitchingjMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Switching"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="RoutingjMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Routing"/>
               </Properties>
@@ -68,7 +68,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsjMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+            <MenuItem class="javax.swing.JMenuItem" name="ConnectivityjMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Connectivity"/>
               </Properties>
