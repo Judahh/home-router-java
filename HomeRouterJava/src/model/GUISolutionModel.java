@@ -5,6 +5,7 @@
 package model;
 
 import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 /**
@@ -17,4 +18,12 @@ public class GUISolutionModel {
     private JLabel Interfaces;
     private JLabel Type;//Master ou Slave
     private JLabel Ios;//Ios e versao
+    private JTabbedPane Pane;
+    private int PaneIndex;
+    
+    
+    public void setGUIRouterName(String RouterName){
+        Pane.setTitleAt(PaneIndex, RouterName);
+    }
+    
 }
