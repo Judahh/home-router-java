@@ -149,7 +149,7 @@ public class GUISolutionModel {
     public void addSerialInterface(String port){
         Serial S=new Serial();
         SArray.add(S);
-        this.FastEthernet.add(port, S);
+        this.Serial.add(port, S);
     }
     
     public void setSerialPortStatus(int index,boolean On){
