@@ -173,6 +173,7 @@ public class ConnectionHandler {
 			out.flush();
 			out.flush();
 		} catch (Exception e) {
+			out.flush();
 			e.printStackTrace();
 		}
 	}
