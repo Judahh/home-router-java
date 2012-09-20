@@ -172,6 +172,11 @@ public class MainInterface extends javax.swing.JFrame {
         jMenu3.add(SwitchingjMenuItem);
 
         RoutingjMenuItem.setText("Routing");
+        RoutingjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RoutingjMenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(RoutingjMenuItem);
 
         SettingsjMenuItem.setText("Settings");
@@ -261,6 +266,14 @@ public class MainInterface extends javax.swing.JFrame {
             cliArray.get(jTabbedPane1.getSelectedIndex()-1).SettingsjFrame.setVisible(true);
         }
     }//GEN-LAST:event_SettingsjMenuItemActionPerformed
+
+    private void RoutingjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoutingjMenuItemActionPerformed
+        if(jTabbedPane1.getSelectedIndex()==0){
+            
+        }else{
+            cliArray.get(jTabbedPane1.getSelectedIndex()-1).RoutingjFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_RoutingjMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
