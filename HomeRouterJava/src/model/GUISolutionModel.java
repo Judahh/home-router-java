@@ -114,9 +114,61 @@ public class GUISolutionModel {
         this.FastEthernet.add(port, FE);
     }
     
+    public void setFastEthernetPortStatus(int index,boolean On){
+        FEArray.get(index).PortStatusjCheckBox.setSelected(On);
+    }
+    
+    public void setFastEthernetBandwidth(int index,boolean Auto){
+        FEArray.get(index).BandwidthjCheckBox.setSelected(Auto);
+    }
+    
+    public void setFastEthernetDuplex(int index,boolean Auto){
+        FEArray.get(index).DuplexjCheckBox.setSelected(Auto);
+    }
+    
+    public void setFastEthernetMac(int index,String MAC){
+        FEArray.get(index).MacjTextField.setText(MAC);
+    }
+    
+    public void setFastEthernetIp(int index,String IP){
+        FEArray.get(index).IpjTextField.setText(IP);
+    }
+    
+    public void setFastEthernetMask(int index,String Mask){
+        FEArray.get(index).MaskjTextField.setText(Mask);
+    }
+    
+    public void setFastEthernetTx(int index,int Tx){
+        FEArray.get(index).TxjTextField.setText(Integer.toString(Tx));
+    }
+    
     public void addSerialInterface(String port){
         Serial S=new Serial();
         SArray.add(S);
         this.FastEthernet.add(port, S);
+    }
+    
+    public void setSerialPortStatus(int index,boolean On){
+        SArray.get(index).PortStatusjCheckBox.setSelected(On);
+    }
+    
+    public void setSerialClockRate(int index,int item){
+        SArray.get(index).ClockRatejComboBox.setSelectedIndex(item);
+    }
+    
+    public void setSerialMac(int index,String MAC){
+        SArray.get(index).MacjTextField.setText(MAC);
+    }
+    
+    public void setSerialIp(int index,String IP){
+        SArray.get(index).IpjTextField.setText(IP);
+    }
+    
+    public void setSerialMask(int index,String Mask){
+        SArray.get(index).MaskjTextField.setText(Mask);
+    }
+    
+    public void setSerialTx(int index,int Tx){
+        SArray.get(index).TxjTextField.setText(Integer.toString(Tx));
     }
 }
