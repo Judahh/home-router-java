@@ -73,6 +73,14 @@ public class CLI extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
+        SwitchingjFrame = new javax.swing.JFrame();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        VlanNumberjTextField = new javax.swing.JTextField();
+        VlanNamejTextField = new javax.swing.JTextField();
+        VlanOkjButton = new javax.swing.JButton();
+        VlanCanceljButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ConsolejTextArea = new javax.swing.JTextArea();
         CommandjTextField = new javax.swing.JTextField();
@@ -294,6 +302,64 @@ public class CLI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jLabel7.setText("VLAN Configuration:");
+
+        jLabel8.setText("Number:");
+
+        jLabel9.setText("Name:");
+
+        VlanOkjButton.setText("Ok");
+
+        VlanCanceljButton.setText("Cancel");
+
+        javax.swing.GroupLayout SwitchingjFrameLayout = new javax.swing.GroupLayout(SwitchingjFrame.getContentPane());
+        SwitchingjFrame.getContentPane().setLayout(SwitchingjFrameLayout);
+        SwitchingjFrameLayout.setHorizontalGroup(
+            SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(VlanNamejTextField))
+                                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(VlanNumberjTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))))))
+                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(VlanOkjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(VlanCanceljButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        SwitchingjFrameLayout.setVerticalGroup(
+            SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SwitchingjFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(VlanNumberjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(VlanNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(VlanOkjButton)
+                    .addComponent(VlanCanceljButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         ConsolejTextArea.setColumns(20);
         ConsolejTextArea.setRows(5);
         jScrollPane1.setViewportView(ConsolejTextArea);
@@ -347,14 +413,22 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JCheckBox SecretjCheckBox;
     private javax.swing.JButton SendjButton;
     public javax.swing.JFrame SettingsjFrame;
+    private javax.swing.JFrame SwitchingjFrame;
     private javax.swing.JFormattedTextField TimejFormattedTextField;
     private javax.swing.JPasswordField VTYjPasswordField;
+    private javax.swing.JButton VlanCanceljButton;
+    private javax.swing.JTextField VlanNamejTextField;
+    private javax.swing.JTextField VlanNumberjTextField;
+    private javax.swing.JButton VlanOkjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
