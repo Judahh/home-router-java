@@ -56,11 +56,11 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        InterfacesjMenuItem = new javax.swing.JMenuItem();
+        SwitchingjMenuItem = new javax.swing.JMenuItem();
+        RoutingjMenuItem = new javax.swing.JMenuItem();
         SettingsjMenuItem = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        ConnectivityjMenuItem = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
 
@@ -165,14 +165,14 @@ public class MainInterface extends javax.swing.JFrame {
 
         jMenu3.setText("Edit");
 
-        jMenuItem1.setText("Interfaces");
-        jMenu3.add(jMenuItem1);
+        InterfacesjMenuItem.setText("Interfaces");
+        jMenu3.add(InterfacesjMenuItem);
 
-        jMenuItem3.setText("Switching");
-        jMenu3.add(jMenuItem3);
+        SwitchingjMenuItem.setText("Switching");
+        jMenu3.add(SwitchingjMenuItem);
 
-        jMenuItem5.setText("Routing");
-        jMenu3.add(jMenuItem5);
+        RoutingjMenuItem.setText("Routing");
+        jMenu3.add(RoutingjMenuItem);
 
         SettingsjMenuItem.setText("Settings");
         SettingsjMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -182,8 +182,8 @@ public class MainInterface extends javax.swing.JFrame {
         });
         jMenu3.add(SettingsjMenuItem);
 
-        jMenuItem7.setText("Connectivity");
-        jMenu3.add(jMenuItem7);
+        ConnectivityjMenuItem.setText("Connectivity");
+        jMenu3.add(ConnectivityjMenuItem);
 
         jMenuBar1.add(jMenu3);
 
@@ -300,10 +300,14 @@ public class MainInterface extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConnectButton;
+    private javax.swing.JMenuItem ConnectivityjMenuItem;
     private javax.swing.JTextField HostjTextField;
+    private javax.swing.JMenuItem InterfacesjMenuItem;
     private javax.swing.JCheckBox LocalHostCheckBox;
     private javax.swing.JTextField PortjTextField;
+    private javax.swing.JMenuItem RoutingjMenuItem;
     private javax.swing.JMenuItem SettingsjMenuItem;
+    private javax.swing.JMenuItem SwitchingjMenuItem;
     private javax.swing.JCheckBox TelnetPortCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -313,13 +317,9 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
