@@ -11,6 +11,7 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
+import model.GUISolutionModel;
 
 import org.apache.commons.net.telnet.TelnetClient;
 
@@ -22,20 +23,10 @@ public class ConnectionHandler {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
-	JTextArea console;
+	GUISolutionModel GuiSol;
 
-	public ConnectionHandler(String host, int port) throws ConnectException, SocketException, IOException {
-
-		// Connect to the specified server
-		telnet.connect(host, port);
-		// Get input and output stream references
-		in = telnet.getInputStream();
-		out = new PrintStream(telnet.getOutputStream());
-
-	}
-
-	public ConnectionHandler(String host, int port, JTextArea console) throws ConnectException, SocketException, IOException {
-		this.console = console;
+	public ConnectionHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
+		this.GuiSol = GuiSol;
 		// Connect to the specified server
 		telnet.connect(host, port);
 		// Get input and output stream references
@@ -79,7 +70,7 @@ public class ConnectionHandler {
 
 			while (!found) {
 				System.out.print(ch);
-				console.append(ch + "");
+                                this.GuiSol.appendConsole(ch);
 				sb.append(ch);
 				if (ch == lastChar) {
 					if (sb.toString().endsWith(pattern)) {
@@ -111,7 +102,7 @@ public class ConnectionHandler {
 
 			while (!found) {
 				System.out.print(ch);
-				console.append(ch + "");
+				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
 				for (int i = 0; i < pattern.length; i++) {
 					if (ch == lastChar[i]) {
@@ -144,9 +135,10 @@ public class ConnectionHandler {
 			boolean found = false;
 			char ch = (char) in.read();
 			System.out.println("Recebido:");
+                        this.GuiSol.appendConsole("Recebido:");
 			while (!found) {
 				System.out.print(ch);
-				console.append(ch + "");
+				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
 				for (int i = pattern.length - 1; i >= 0; i--) {
 					if (ch == lastChar[i]) {
@@ -169,20 +161,19 @@ public class ConnectionHandler {
 
 	private void write(String value) {
 		try {
-			out.print(value);
-			out.flush();
-			out.flush();
+                    out.print(value);
+                    out.flush();
+                    out.flush();
 		} catch (Exception e) {
-			out.flush();
-			e.printStackTrace();
+                    out.flush();
+                    e.printStackTrace();
 		}
 	}
 
 	public void send(String value) {
-		// for(int i=0;i<100000;i++){}
 		write(value);
 		System.out.println("Enviado:" + value);
-		console.append("Enviado:" + value);
+                this.GuiSol.appendConsole("Enviado:" + value);
 		System.out.println();
 	}
 
