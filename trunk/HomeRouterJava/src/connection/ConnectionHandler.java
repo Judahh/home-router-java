@@ -22,7 +22,7 @@ public class ConnectionHandler {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
-        JTextArea console;
+	JTextArea console;
 
 	public ConnectionHandler(String host, int port) throws ConnectException, SocketException, IOException {
 
@@ -33,9 +33,9 @@ public class ConnectionHandler {
 		out = new PrintStream(telnet.getOutputStream());
 
 	}
-        
-        public ConnectionHandler(String host, int port,JTextArea console) throws ConnectException, SocketException, IOException {
-                this.console=console;
+
+	public ConnectionHandler(String host, int port, JTextArea console) throws ConnectException, SocketException, IOException {
+		this.console = console;
 		// Connect to the specified server
 		telnet.connect(host, port);
 		// Get input and output stream references
@@ -69,16 +69,17 @@ public class ConnectionHandler {
 	}
 
 	private String readUntil(String pattern) {
+		StringBuffer sb = null;
 		try {
 			char lastChar = pattern.charAt(pattern.length() - 1);
-			StringBuffer sb = new StringBuffer();
+			sb = new StringBuffer();
 
 			boolean found = false;
 			char ch = (char) in.read();
 
 			while (!found) {
 				System.out.print(ch);
-                                console.append(ch+"");
+				console.append(ch + "");
 				sb.append(ch);
 				if (ch == lastChar) {
 					if (sb.toString().endsWith(pattern)) {
@@ -88,25 +89,29 @@ public class ConnectionHandler {
 				ch = (char) in.read();
 			}
 		} catch (Exception e) {
+			sb.setLength(0);
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	private String readUntil(String[] pattern) {
+
+		StringBuffer sb = null;
+
 		try {
 			char lastChar[] = new char[pattern.length];
 			for (int i = 0; i < pattern.length; i++) {
 				lastChar[i] = pattern[i].charAt(pattern[i].length() - 1);
 			}
-			StringBuffer sb = new StringBuffer();
+			sb = new StringBuffer();
 
 			boolean found = false;
 			char ch = (char) in.read();
 
 			while (!found) {
 				System.out.print(ch);
-                                console.append(ch+"");
+				console.append(ch + "");
 				sb.append(ch);
 				for (int i = 0; i < pattern.length; i++) {
 					if (ch == lastChar[i]) {
@@ -118,26 +123,30 @@ public class ConnectionHandler {
 				ch = (char) in.read();
 			}
 		} catch (Exception e) {
+			sb.setLength(0);
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	public ArrayList<String> arrayListReadUntil(String[] pattern) {
+
+		StringBuffer sb = null;
+
 		try {
 			ArrayList<String> Array = new ArrayList<String>();
 			char lastChar[] = new char[pattern.length];
 			for (int i = 0; i < pattern.length; i++) {
 				lastChar[i] = pattern[i].charAt(pattern[i].length() - 1);
 			}
-			StringBuffer sb = new StringBuffer();
+			sb = new StringBuffer();
 
 			boolean found = false;
 			char ch = (char) in.read();
 			System.out.println("Recebido:");
 			while (!found) {
 				System.out.print(ch);
-                                console.append(ch+"");
+				console.append(ch + "");
 				sb.append(ch);
 				for (int i = pattern.length - 1; i >= 0; i--) {
 					if (ch == lastChar[i]) {
@@ -152,6 +161,7 @@ public class ConnectionHandler {
 				ch = (char) in.read();
 			}
 		} catch (Exception e) {
+			sb.setLength(0);
 			e.printStackTrace();
 		}
 		return null;
@@ -171,7 +181,7 @@ public class ConnectionHandler {
 		// for(int i=0;i<100000;i++){}
 		write(value);
 		System.out.println("Enviado:" + value);
-                console.append("Enviado:" + value);
+		console.append("Enviado:" + value);
 		System.out.println();
 	}
 
