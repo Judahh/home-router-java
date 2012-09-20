@@ -101,6 +101,8 @@ public class CLI extends javax.swing.JPanel {
         DyRNetworkjTextField1 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         AddDyRoutejButton1 = new javax.swing.JButton();
+        ConnectivityjFrame = new javax.swing.JFrame();
+        CommandHelpjFrame = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         ConsolejTextArea = new javax.swing.JTextArea();
         CommandjTextField = new javax.swing.JTextField();
@@ -529,6 +531,28 @@ public class CLI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        javax.swing.GroupLayout ConnectivityjFrameLayout = new javax.swing.GroupLayout(ConnectivityjFrame.getContentPane());
+        ConnectivityjFrame.getContentPane().setLayout(ConnectivityjFrameLayout);
+        ConnectivityjFrameLayout.setHorizontalGroup(
+            ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ConnectivityjFrameLayout.setVerticalGroup(
+            ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout CommandHelpjFrameLayout = new javax.swing.GroupLayout(CommandHelpjFrame.getContentPane());
+        CommandHelpjFrame.getContentPane().setLayout(CommandHelpjFrameLayout);
+        CommandHelpjFrameLayout.setHorizontalGroup(
+            CommandHelpjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        CommandHelpjFrameLayout.setVerticalGroup(
+            CommandHelpjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         ConsolejTextArea.setColumns(20);
         ConsolejTextArea.setRows(5);
         jScrollPane1.setViewportView(ConsolejTextArea);
@@ -574,7 +598,9 @@ public class CLI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDyRoutejButton1;
     private javax.swing.JButton AddRoutejButton;
+    private javax.swing.JFrame CommandHelpjFrame;
     private javax.swing.JTextField CommandjTextField;
+    private javax.swing.JFrame ConnectivityjFrame;
     private javax.swing.JPasswordField ConsolejPasswordField;
     private javax.swing.JTextArea ConsolejTextArea;
     private javax.swing.JFormattedTextField DatejFormattedTextField;

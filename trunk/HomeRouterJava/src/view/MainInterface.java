@@ -63,6 +63,7 @@ public class MainInterface extends javax.swing.JFrame {
         ConnectivityjMenuItem = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -197,6 +198,9 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuItem8.setText("Commands");
         jMenu5.add(jMenuItem8);
 
+        jMenuItem1.setText("Info");
+        jMenu5.add(jMenuItem1);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -330,6 +334,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
