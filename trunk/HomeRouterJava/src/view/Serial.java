@@ -37,7 +37,7 @@ public class Serial extends javax.swing.JPanel {
         MaskjTextField = new javax.swing.JTextField();
         TxjTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        ClockRatejComboBox = new javax.swing.JComboBox();
         CanceljButton = new javax.swing.JButton();
         OkjButton = new javax.swing.JButton();
 
@@ -55,7 +55,7 @@ public class Serial extends javax.swing.JPanel {
 
         jLabel2.setText("Clock Rate:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         CanceljButton.setText("Cancel");
 
@@ -82,7 +82,7 @@ public class Serial extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(32, 32, 32)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(ClockRatejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(PortStatusjCheckBox))
                                             .addGap(10, 10, 10))))
                                 .addGroup(layout.createSequentialGroup()
@@ -113,7 +113,7 @@ public class Serial extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ClockRatejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -139,13 +139,13 @@ public class Serial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CanceljButton;
-    private javax.swing.JTextField IpjTextField;
-    private javax.swing.JTextField MacjTextField;
-    private javax.swing.JTextField MaskjTextField;
+    public javax.swing.JComboBox ClockRatejComboBox;
+    public javax.swing.JTextField IpjTextField;
+    public javax.swing.JTextField MacjTextField;
+    public javax.swing.JTextField MaskjTextField;
     private javax.swing.JButton OkjButton;
-    private javax.swing.JCheckBox PortStatusjCheckBox;
-    private javax.swing.JTextField TxjTextField;
-    private javax.swing.JComboBox jComboBox1;
+    public javax.swing.JCheckBox PortStatusjCheckBox;
+    public javax.swing.JTextField TxjTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

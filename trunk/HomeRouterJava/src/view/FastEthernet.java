@@ -149,15 +149,15 @@ public class FastEthernet extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox BandwidthjCheckBox;
+    public javax.swing.JCheckBox BandwidthjCheckBox;
     private javax.swing.JButton CanceljButton;
-    private javax.swing.JCheckBox DuplexjCheckBox;
-    private javax.swing.JTextField IpjTextField;
-    private javax.swing.JTextField MacjTextField;
-    private javax.swing.JTextField MaskjTextField;
+    public javax.swing.JCheckBox DuplexjCheckBox;
+    public javax.swing.JTextField IpjTextField;
+    public javax.swing.JTextField MacjTextField;
+    public javax.swing.JTextField MaskjTextField;
     private javax.swing.JButton OkjButton;
-    private javax.swing.JCheckBox PortStatusjCheckBox;
-    private javax.swing.JTextField TxjTextField;
+    public javax.swing.JCheckBox PortStatusjCheckBox;
+    public javax.swing.JTextField TxjTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
