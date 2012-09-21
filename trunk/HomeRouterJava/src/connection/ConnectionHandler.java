@@ -104,7 +104,7 @@ public class ConnectionHandler {
 				System.out.print(ch);
 				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
-				for (int i = 0; i < pattern.length; i++) {
+				for (int i = pattern.length - 1; i >= 0; i--) {
 					if (ch == lastChar[i]) {
 						if (sb.toString().endsWith(pattern[i])) {
 							return pattern[i];

@@ -92,18 +92,20 @@ public class LevelHandler {
 		// String[]{"Login: ","login: ","User: ","user: ","Password: ","password: ","Pass: ","pass: "};
 		ArrayList<String> Possibilities = new ArrayList<>();
 		// Possibilities.addAll(Arrays.asList(possibilities));
+                Possibilities=this.info.getInfoPossibilities();
+                
 
 		for (int i = 0; i < this.auth.getAuthValues().length; i++) {
-			Possibilities.add(this.auth.getAuth(this.auth.getAuthValues()[i]));
+                    Possibilities.add(this.auth.getAuth(this.auth.getAuthValues()[i]));
 		}
 		for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
-			Possibilities.add(this.prompt.getPrompt(this.prompt.getPromptValues()[i]));
+                    Possibilities.add(this.prompt.getPrompt(this.prompt.getPromptValues()[i]));
 		}
 
 		String[] possibilitiesV = new String[Possibilities.size() - 1];
 
 		for (int i = 0; i < possibilitiesV.length; i++) {
-			possibilitiesV[i] = Possibilities.get(i + 1);
+                    possibilitiesV[i] = Possibilities.get(i + 1);
 		}
 
 		this.msgPossibilities = possibilitiesV;
