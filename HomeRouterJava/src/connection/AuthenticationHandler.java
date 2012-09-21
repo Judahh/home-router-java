@@ -5,9 +5,6 @@
 package connection;
 
 import javax.swing.JOptionPane;
-import view.EnablePassword;
-import view.User;
-import view.VTYPassword;
 
 /**
  *
@@ -78,9 +75,7 @@ public class AuthenticationHandler {
 
     public String getUser() {
         if (user == null) {
-           User vUser=new User();//abrir janela pedindo pass
-           vUser.setVisible(true);
-           user = vUser.getUser();
+           user = JOptionPane.showInputDialog("Enable Password:", "cisco");
         } 
         return user;
     }
