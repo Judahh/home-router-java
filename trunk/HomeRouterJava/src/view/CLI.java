@@ -33,6 +33,7 @@ public class CLI extends javax.swing.JPanel {
         initComponents();
         GUISolutionModel GuiSol=new GUISolutionModel(ConsolejTextArea, Tab, index);
         vTelnet = new RouterHandler(host, port, GuiSol);
+        
         if (vTelnet.Login()) {
             //jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
             //Login.setVisible(false);
