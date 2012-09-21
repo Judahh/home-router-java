@@ -102,10 +102,10 @@ public class LevelHandler {
                     Possibilities.add(this.prompt.getPrompt(this.prompt.getPromptValues()[i]));
 		}
 
-		String[] possibilitiesV = new String[Possibilities.size() - 1];
+		String[] possibilitiesV = new String[Possibilities.size()];
 
 		for (int i = 0; i < possibilitiesV.length; i++) {
-                    possibilitiesV[i] = Possibilities.get(i + 1);
+                    possibilitiesV[i] = Possibilities.get(i);
 		}
 
 		this.msgPossibilities = possibilitiesV;
@@ -151,8 +151,8 @@ public class LevelHandler {
 			// sera algo parecido com:
 			 for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
                             if(Sreceived==this.info.getInfoPossibilities().get(i)){
+                                System.out.println("INFO:"+Sreceived);
                                 this.info.checkInfo(Sreceived);
-                                System.out.println("INFO");
                                 checkLevel();
                                 return true;
                             }
