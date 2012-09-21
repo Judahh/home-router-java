@@ -24,10 +24,6 @@ public class CLI extends javax.swing.JPanel {
      * ....................... Creates new form CLI
      */
     RouterHandler vTelnet;
-
-    public CLI(){
-        initComponents();
-    }
     
     public CLI(String host, int port, JTabbedPane Tab, int index) throws ConnectException, SocketException, IOException {
         initComponents();
