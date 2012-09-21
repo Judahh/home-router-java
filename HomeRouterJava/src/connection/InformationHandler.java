@@ -51,12 +51,24 @@ public class InformationHandler {// --------------------------------------------
     }
     
     public void checkInfo(String FirstPartInfo){
-        String[] possibilities=new String[]{"--More--","Invalid input detected at '^' marker.","end"};
+        String[] possibilities=new String[getEndInfoPossibilities().size()];
+        for(int i=0;i<getEndInfoPossibilities().size();i++){
+            possibilities[i]=getEndInfoPossibilities().get(i);
+        }
         
         ArrayList<String> InfoS=connection.arrayListReadUntil(possibilities);
         if(InfoS.get(0).equals("--More--")){
             connection.send(" ");
         }
+    }
+    
+    private ArrayList<String> getEndInfoPossibilities() {
+        ArrayList<String> possibilities = new ArrayList<>();
+        possibilities.add("--More--");
+        possibilities.add("Invalid input detected at '^' marker.");
+        possibilities.add("end");
+
+        return possibilities;
     }
 
     public ArrayList<String> getInfoPossibilities() {
