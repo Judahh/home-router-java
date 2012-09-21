@@ -140,6 +140,9 @@ public class ConnectionHandler {
 				System.out.print(ch);
 				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
+                                if(ch=='!'){
+                                    System.out.println();
+                                }
 				for (int i = pattern.length - 1; i >= 0; i--) {
 					if (ch == lastChar[i]) {
 						if (sb.toString().endsWith(pattern[i])) {
