@@ -58,7 +58,7 @@
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="OkjButton" min="-2" max="-2" attributes="0"/>
@@ -121,7 +121,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Mac Address:"/>
+        <Property name="text" type="java.lang.String" value="MAC Address:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="PortStatusjCheckBox">
@@ -174,15 +174,13 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="ClockRatejComboBox">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;1200&quot;, &quot;2400&quot;, &quot;4800&quot;, &quot;9600&quot;, &quot;19200&quot;, &quot;38400&quot;, &quot;56000&quot;, &quot;64000&quot;, &quot;72000&quot;, &quot;125000&quot;, &quot;128000&quot;, &quot;148000&quot;, &quot;250000&quot;, &quot;500000&quot;, &quot;800000&quot;, &quot;1000000&quot;, &quot;1300000&quot;, &quot;2000000&quot;, &quot;4000000&quot;, &quot;Not Set&quot; })" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ClockRatejComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -194,7 +192,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="OkjButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ok"/>
+        <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>
     </Component>
   </SubComponents>

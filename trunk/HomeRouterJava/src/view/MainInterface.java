@@ -15,18 +15,22 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import unused.ConnectWindow;
+
 /**
  *
  * @author JH
  */
 public class MainInterface extends javax.swing.JFrame {
+
     /**
      * Creates new form MainInterface
      */
     ArrayList<CLI> cliArray;
+
     public MainInterface() {
         initComponents();
-        cliArray=new ArrayList<>();
+        cliArray = new ArrayList<>();
     }
 
     /**
@@ -227,55 +231,53 @@ public class MainInterface extends javax.swing.JFrame {
 
     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
         try {
-            CLI cli=new CLI(HostjTextField.getText(),Integer.parseInt(PortjTextField.getText()));
+            CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()));
             cliArray.add(cli);
-            jTabbedPane1.addTab(cli.getRouterName(),cli);
+            jTabbedPane1.addTab(cli.getRouterName(), cli);
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(this, "Unknown Exception");
             e.printStackTrace();
-	} catch (ConnectException e) {
+        } catch (ConnectException e) {
             JOptionPane.showMessageDialog(this, "Connection refused");
             e.printStackTrace();
-	} catch (IOException e) {
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Enter an IP address");
             e.printStackTrace();
-	}
-        
+        }
+
     }//GEN-LAST:event_ConnectButtonActionPerformed
 
     private void LocalHostCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalHostCheckBoxActionPerformed
-        if(LocalHostCheckBox.isSelected()){
+        if (LocalHostCheckBox.isSelected()) {
             HostjTextField.setText("localhost");
             HostjTextField.setEditable(false);
-        }else{
+        } else {
             HostjTextField.setEditable(true);
             HostjTextField.setText("10.10.0.151");
         }
     }//GEN-LAST:event_LocalHostCheckBoxActionPerformed
 
     private void TelnetPortCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelnetPortCheckBoxActionPerformed
-        if(TelnetPortCheckBox.isSelected()){
+        if (TelnetPortCheckBox.isSelected()) {
             PortjTextField.setText("23");
             PortjTextField.setEditable(false);
-        }else{
+        } else {
             PortjTextField.setEditable(true);
             PortjTextField.setText("2001");
         }
     }//GEN-LAST:event_TelnetPortCheckBoxActionPerformed
 
     private void SettingsjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsjMenuItemActionPerformed
-        if(jTabbedPane1.getSelectedIndex()==0){
-            
-        }else{
-            cliArray.get(jTabbedPane1.getSelectedIndex()-1).SettingsjFrame.setVisible(true);
+        if (jTabbedPane1.getSelectedIndex() == 0) {
+        } else {
+            cliArray.get(jTabbedPane1.getSelectedIndex() - 1).SettingsjFrame.setVisible(true);
         }
     }//GEN-LAST:event_SettingsjMenuItemActionPerformed
 
     private void RoutingjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoutingjMenuItemActionPerformed
-        if(jTabbedPane1.getSelectedIndex()==0){
-            
-        }else{
-            cliArray.get(jTabbedPane1.getSelectedIndex()-1).RoutingjFrame.setVisible(true);
+        if (jTabbedPane1.getSelectedIndex() == 0) {
+        } else {
+            cliArray.get(jTabbedPane1.getSelectedIndex() - 1).RoutingjFrame.setVisible(true);
         }
     }//GEN-LAST:event_RoutingjMenuItemActionPerformed
 
@@ -309,7 +311,6 @@ public class MainInterface extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new MainInterface().setVisible(true);
             }

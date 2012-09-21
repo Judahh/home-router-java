@@ -43,7 +43,7 @@ public class Serial extends javax.swing.JPanel {
 
         jLabel1.setText("Port Status:");
 
-        jLabel4.setText("Mac Address:");
+        jLabel4.setText("MAC Address:");
 
         PortStatusjCheckBox.setText("On");
 
@@ -55,11 +55,16 @@ public class Serial extends javax.swing.JPanel {
 
         jLabel2.setText("Clock Rate:");
 
-        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1200", "2400", "4800", "9600", "19200", "38400", "56000", "64000", "72000", "125000", "128000", "148000", "250000", "500000", "800000", "1000000", "1300000", "2000000", "4000000", "Not Set" }));
+        ClockRatejComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClockRatejComboBoxActionPerformed(evt);
+            }
+        });
 
         CanceljButton.setText("Cancel");
 
-        OkjButton.setText("Ok");
+        OkjButton.setText("OK");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,7 +101,7 @@ public class Serial extends javax.swing.JPanel {
                                         .addComponent(IpjTextField)
                                         .addComponent(MaskjTextField))))
                             .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 17, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(OkjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,6 +142,11 @@ public class Serial extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ClockRatejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClockRatejComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClockRatejComboBoxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CanceljButton;
     public javax.swing.JComboBox ClockRatejComboBox;
