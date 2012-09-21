@@ -4,6 +4,10 @@
  */
 package connection;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketException;
 import model.ClockModel;
 import model.GUISolutionModel;
 import model.RunModel;
@@ -32,8 +36,12 @@ public class InformationHandler {// --------------------------------------------
 	private ConnectionHandler connection;
         private GUISolutionModel GuiSol;
 	
-	public InformationHandler(ConnectionHandler connection,GUISolutionModel GuiSol){
+	public InformationHandler(String host, int port,GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException{
                 this.GuiSol=GuiSol;
-		this.connection=connection;
+		this.connection=new ConnectionHandler(host, port, GuiSol);
 	}
+
+        public ConnectionHandler getConnection() {
+            return connection;
+        }   
 }
