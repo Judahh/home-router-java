@@ -82,7 +82,7 @@ public class AuthenticationHandler {
         if (user == null) {
            User vUser=new User();//abrir janela pedindo pass
            user = vUser.getUser();
-        }
+        } 
         return user;
     }
 
