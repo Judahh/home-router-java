@@ -182,7 +182,8 @@ public class LevelHandler {
                             auth.setUser(null);
                             userError = true;
                         }
-                        sendCommand("ciscoUser\r\n");// pegar user por GUI
+                        sendCommand(auth.getUser()+"\r\n");
+                        //sendCommand("ciscoUser\r\n");// pegar user por GUI
                         
                     } else {
                         // -------------senha errada ou
@@ -192,7 +193,8 @@ public class LevelHandler {
                             auth.setPassword(null,(level>0));
                             passError = true;
                         }
-                        sendCommand("cisco\r\n");// pegar pass por GUI
+                        sendCommand(auth.getPassword(level>0)+"\r\n");
+                        //sendCommand("cisco\r\n");// pegar pass por GUI
                     }
                     checkCount = 0;
                     checkPCount = 0;
