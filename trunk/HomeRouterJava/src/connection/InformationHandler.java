@@ -44,4 +44,8 @@ public class InformationHandler {// --------------------------------------------
         public ConnectionHandler getConnection() {
             return connection;
         }   
+        
+        public GUISolutionModel getGUISol(){
+            return GuiSol;
+        }
 }
