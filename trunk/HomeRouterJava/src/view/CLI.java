@@ -155,6 +155,11 @@ public class CLI extends javax.swing.JPanel {
         GlobalCanceljButton.setText("Cancel");
 
         GlobalOkjButton.setText("OK");
+        GlobalOkjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GlobalOkjButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -741,6 +746,10 @@ public class CLI extends javax.swing.JPanel {
     private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DyRRemovejButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DyRRemovejButtonActionPerformed
+
+    private void GlobalOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalOkjButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GlobalOkjButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDyRoutejButton1;

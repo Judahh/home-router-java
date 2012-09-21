@@ -149,14 +149,14 @@ public class LevelHandler {
 			// Aqui em baixo ele ira verificar se foi uma informacao se for ele
 			// manda para o metodo que a tratara
 			// sera algo parecido com:
-			// for (int i = 0; i < this.cmd.getCMDvalues().length; i++) {
-			// if(Sreceived==this.cmd.getCMD(this.cmd.getCMDvalues()[i])){
-			// System.out.println("PEGOU O NOME!!!");
-			// setName(Mreceived);
-			// this.cmd.setLevel(i);
-			// return true;
-			// }
-			// }
+			 for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
+                            if(Sreceived==this.info.getInfoPossibilities().get(i)){
+                                this.info.checkInfo(Sreceived);
+                                System.out.println("INFO");
+                                checkLevel();
+                                return true;
+                            }
+			 }
 			// ---------------------------------------------------------------------------------------------------
 			for (int i = 0; i < this.auth.getAuthValues().length; i++) {
 				if (Sreceived.equals(this.auth.getAuth(this.auth.getAuthValues()[i]))) {

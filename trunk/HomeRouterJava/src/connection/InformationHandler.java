@@ -49,13 +49,17 @@ public class InformationHandler {// --------------------------------------------
     public GUISolutionModel getGUISol() {
         return GuiSol;
     }
+    
+    public void checkInfo(String FirstPartInfo){
+        
+    }
 
     public ArrayList<String> getInfoPossibilities() {
         ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("!");
         possibilities.add("*");
         possibilities.add("<");
-        possibilities.add("(");
+        possibilities.add("domain server (");
         possibilities.add("--More--");
         possibilities.add("%");
         possibilities.add("Jan");

@@ -53,6 +53,13 @@ public class RouterHandler {
         return this.routerLevel.getLevel();
     }
     
+    //usar isso como base, copicolar l[ogica
+    
+    public void setRouterName(String Name){
+        this.goToLevelRouter(3);
+        this.routerLevel.sendCommand("hostname "+Name+"\r\n");
+    }
+    
     public String getRouterName(){
         return routerLevel.getRouterName();
     }
