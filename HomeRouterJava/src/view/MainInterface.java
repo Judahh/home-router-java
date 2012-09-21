@@ -27,10 +27,13 @@ public class MainInterface extends javax.swing.JFrame {
      * Creates new form MainInterface
      */
     ArrayList<CLI> cliArray;
+    ArrayList<String> connections;
+    int CLICount;
 
     public MainInterface() {
         initComponents();
-        cliArray = new ArrayList<>();
+        cliArray = new ArrayList<CLI>();
+        connections = new ArrayList<String>();
     }
 
     /**
@@ -228,12 +231,18 @@ public class MainInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
+    
+     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
         try {
-            CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()));
-            cliArray.add(cli);
-            jTabbedPane1.addTab(cli.getRouterName(), cli);
+            if (connections.contains(HostjTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "This connection is already open");
+            } else {
+                connections.add(HostjTextField.getText());
+                CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()));
+                cliArray.add(cli);
+                jTabbedPane1.addTab(cli.getRouterName(), cli);
+            }
+
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(this, "Unknown Exception");
             e.printStackTrace();
