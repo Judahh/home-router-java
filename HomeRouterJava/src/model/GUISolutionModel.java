@@ -23,8 +23,8 @@ public class GUISolutionModel {
     private JLabel Type;//Master ou Slave
     private JLabel Ios;//Ios e versao
     
-    private JList DynamicEstablishedRoutes;
-    private JList StaticEstablishedRoutes;
+    private JList<String> DynamicEstablishedRoutes;
+    private JList<String> StaticEstablishedRoutes;
     
     private ArrayList<FastEthernet> FEArray;
     private ArrayList<Serial> SArray;
@@ -92,7 +92,7 @@ public class GUISolutionModel {
     }
     
     public void addDynamicRoute(String Route){
-        
+        //this.DynamicEstablishedRoutes.add
     }
     
     public void removeDynamicRoute(String Route){
