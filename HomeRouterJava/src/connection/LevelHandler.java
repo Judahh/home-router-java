@@ -18,7 +18,6 @@ import model.RouterInfoModel;
  * @author JH
  */
 public class LevelHandler {
-	private ConnectionHandler connection;
 	private RouterInfoModel routerInfo;
 	private AuthenticationHandler auth;
 	private InformationHandler info;
@@ -26,11 +25,10 @@ public class LevelHandler {
 	private String[] msgPossibilities;
 
 	public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
-		connection = new ConnectionHandler(host, port, GuiSol);
 		auth = new AuthenticationHandler(0);
 		prompt = new CommandHandler(0);
 		routerInfo = new RouterInfoModel();
-		info = new InformationHandler(connection, GuiSol);
+		info = new InformationHandler(host, port, GuiSol);
 		getAllMsgPossibilities();
 	}
 
@@ -59,11 +57,7 @@ public class LevelHandler {
 	}
 
 	public ConnectionHandler getConnection() {
-		return connection;
-	}
-
-	public void setConnection(ConnectionHandler connection) {
-		this.connection = connection;
+		return this.info.getConnection();
 	}
 
 	public String getRouterName() {
@@ -116,7 +110,7 @@ public class LevelHandler {
 
 	public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		try {
-			ArrayList<String> arrayReceived = connection.arrayListReadUntil(getMsgPossibilities());
+			ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
 			String Sreceived = arrayReceived.get(0);
 			String Mreceived = arrayReceived.get(1);
 			// ---------------------------------------------------------------------------------------------------
@@ -179,7 +173,7 @@ public class LevelHandler {
 	}
 
 	public void sendCommand(String command) {
-		connection.send(command);
+		this.info.getConnection().send(command);
 		checkLevel();
 	}
 
