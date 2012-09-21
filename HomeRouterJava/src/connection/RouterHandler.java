@@ -79,4 +79,8 @@ public class RouterHandler {
         }
         return false;
     }
+    
+    public void disconnect(){
+        this.routerLevel.getInfo().getConnection().disconnect();
+    }
 }
