@@ -48,8 +48,7 @@ public class AuthenticationHandler {
 
     public String getPassword() {
         if (passwordVTY == null) {
-            VTYPassword vPass=new VTYPassword();//abrir janela pedindo pass
-            passwordVTY = vPass.getPassword();
+            passwordVTY = JOptionPane.showInputDialog("VTY Password:", "cisco");
         }
         return passwordVTY;
     }
@@ -68,8 +67,7 @@ public class AuthenticationHandler {
 
     public String getPasswordB() {
         if (passwordEnable == null) {
-            EnablePassword vPass=new EnablePassword();//abrir janela pedindo pass
-            passwordEnable = vPass.getPassword();
+            passwordEnable = JOptionPane.showInputDialog("Enable Password:", "cisco");
         }
         return passwordEnable;
     }
@@ -81,6 +79,7 @@ public class AuthenticationHandler {
     public String getUser() {
         if (user == null) {
            User vUser=new User();//abrir janela pedindo pass
+           vUser.setVisible(true);
            user = vUser.getUser();
         } 
         return user;

@@ -72,7 +72,8 @@ public class InformationHandler {// --------------------------------------------
         possibilities.add("--More--");
         possibilities.add("Invalid input detected at '^' marker.");
         possibilities.add("end");
-
+        possibilities.add("Unknown command or computer name, or unable to find computer address");
+        
         return possibilities;
     }
 
