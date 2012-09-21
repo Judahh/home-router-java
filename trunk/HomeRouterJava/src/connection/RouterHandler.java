@@ -49,6 +49,10 @@ public class RouterHandler {
 //        routerLevel.sendCommand(x);
 //    }
     
+    public int getLevel(){
+        return this.routerLevel.getLevel();
+    }
+    
     public String getRouterName(){
         return routerLevel.getRouterName();
     }
