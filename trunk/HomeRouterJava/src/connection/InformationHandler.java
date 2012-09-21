@@ -36,6 +36,7 @@ public class InformationHandler {// --------------------------------------------
     private RunModel run;
     private ConnectionHandler connection;
     private GUISolutionModel GuiSol;
+    
 
     public InformationHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
         this.GuiSol = GuiSol;
@@ -57,7 +58,11 @@ public class InformationHandler {// --------------------------------------------
         }
         
         ArrayList<String> InfoS=connection.arrayListReadUntil(possibilities);
+        
+        String FullInfo=FirstPartInfo+InfoS;
+        
         if(InfoS.get(0).equals("--More--")){
+            
             connection.send(" ");
         }
     }
