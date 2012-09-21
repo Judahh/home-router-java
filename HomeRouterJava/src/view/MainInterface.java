@@ -87,7 +87,7 @@ public class MainInterface extends javax.swing.JFrame {
 
         jLabel2.setText("Host:");
 
-        HostjTextField.setText("10.10.0.151");
+        HostjTextField.setText("10.20.0.20");
 
         jLabel3.setText("Port:");
 
@@ -138,7 +138,7 @@ public class MainInterface extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TelnetPortCheckBox)
                             .addComponent(LocalHostCheckBox))))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +219,7 @@ public class MainInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -266,7 +266,7 @@ public class MainInterface extends javax.swing.JFrame {
             HostjTextField.setEditable(false);
         } else {
             HostjTextField.setEditable(true);
-            HostjTextField.setText("10.10.0.151");
+            HostjTextField.setText("10.20.0.20");
         }
     }//GEN-LAST:event_LocalHostCheckBoxActionPerformed
 
