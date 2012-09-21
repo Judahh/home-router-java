@@ -75,7 +75,7 @@ public class AuthenticationHandler {
 
     public String getUser() {
         if (user == null) {
-           user = JOptionPane.showInputDialog("Enable Password:", "cisco");
+           user = JOptionPane.showInputDialog("User:", "Cisco");
         } 
         return user;
     }
