@@ -18,6 +18,7 @@ import model.RouterInfoModel;
  * @author JH
  */
 public class LevelHandler {
+        private int level;
 	private RouterInfoModel routerInfo;
 	private AuthenticationHandler auth;
 	private InformationHandler info;
@@ -31,6 +32,11 @@ public class LevelHandler {
 		info = new InformationHandler(host, port, GuiSol);
 		getAllMsgPossibilities();
 	}
+
+        public int getLevel() {
+            this.checkLevel();
+            return level;
+        }
 
 	public InformationHandler getInfo() {
 		return info;
@@ -119,7 +125,8 @@ public class LevelHandler {
 				if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[i]))) {
 					this.prompt.setLevel(i);
 					System.out.println("Level:" + i);
-
+                                        this.level=i;
+                                        
 					if (i > 0 && i < this.prompt.getPromptValues().length - 2) {
 						setRouterName(Mreceived);
 					}
