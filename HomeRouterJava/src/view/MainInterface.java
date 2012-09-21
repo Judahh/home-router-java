@@ -33,6 +33,7 @@ public class MainInterface extends javax.swing.JFrame {
     public MainInterface() {
         initComponents();
         cliArray = new ArrayList<CLI>();
+        CLICount=0;
         connections = new ArrayList<String>();
     }
 
@@ -237,8 +238,9 @@ public class MainInterface extends javax.swing.JFrame {
             if (connections.contains(HostjTextField.getText())) {
                 JOptionPane.showMessageDialog(this, "This connection is already open");
             } else {
+                CLICount++;
                 connections.add(HostjTextField.getText());
-                CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()));
+                CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()),jTabbedPane1,CLICount);
                 cliArray.add(cli);
                 jTabbedPane1.addTab(cli.getRouterName(), cli);
             }

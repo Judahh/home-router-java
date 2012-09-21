@@ -11,6 +11,7 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import model.GUISolutionModel;
 
 /**
@@ -24,10 +25,10 @@ public class CLI extends javax.swing.JPanel {
      */
     RouterHandler vTelnet;
 
-    public CLI(String host, int port) throws ConnectException, SocketException, IOException {
+    public CLI(String host, int port, JTabbedPane Tab, int index) throws ConnectException, SocketException, IOException {
         initComponents();
-
-        vTelnet = new RouterHandler(host, port, new GUISolutionModel(ConsolejTextArea));
+        GUISolutionModel GuiSol=new GUISolutionModel(ConsolejTextArea, Tab, index);
+        vTelnet = new RouterHandler(host, port, GuiSol);
         if (vTelnet.Login()) {
             //jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
             //Login.setVisible(false);
@@ -724,7 +725,7 @@ public class CLI extends javax.swing.JPanel {
     }//GEN-LAST:event_CommandjTextFieldActionPerformed
 
     private void CommandjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandjTextFieldKeyPressed
-        //se apertar enter, fazer o mesmo do botão send
+        //se apertar enter, fazer o mesmo do botï¿½o send
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
             vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");

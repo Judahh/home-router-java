@@ -35,8 +35,11 @@ public class GUISolutionModel {
     private JTabbedPane Pane;
     private int PaneIndex;
     
-    public GUISolutionModel(JTextArea Console) {//temporario
+    public GUISolutionModel(JTextArea Console, JTabbedPane Pane, int PaneIndex) {//temporario
         this.Console = Console;
+        
+        this.Pane = Pane;
+        this.PaneIndex = PaneIndex;
     }
 
     public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,JList StaticEstablishedRoutes, JTabbedPane Serial, JTabbedPane FastEthernet, JTabbedPane Pane, int PaneIndex) {
