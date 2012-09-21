@@ -1,6 +1,6 @@
 package main;
 
-import view.ConnectWindow;
+import unused.ConnectWindow;
 import view.MainInterface;
 
 

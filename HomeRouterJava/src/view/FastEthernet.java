@@ -11,6 +11,10 @@ package view;
 public class FastEthernet extends javax.swing.JPanel {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form FastEthernet
      */
     public FastEthernet() {
@@ -55,7 +59,7 @@ public class FastEthernet extends javax.swing.JPanel {
 
         DuplexjCheckBox.setText("Auto");
 
-        jLabel4.setText("Mac Address:");
+        jLabel4.setText("MAC Address:");
 
         jLabel5.setText("IP Address:");
 
@@ -63,7 +67,7 @@ public class FastEthernet extends javax.swing.JPanel {
 
         jLabel7.setText("Tx Ring Limit:");
 
-        OkjButton.setText("Ok");
+        OkjButton.setText("OK");
 
         CanceljButton.setText("Cancel");
 

@@ -159,7 +159,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Mac Address:"/>
+        <Property name="text" type="java.lang.String" value="MAC Address:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -199,7 +199,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="OkjButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ok"/>
+        <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="CanceljButton">

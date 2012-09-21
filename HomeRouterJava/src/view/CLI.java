@@ -5,6 +5,7 @@
 package view;
 
 import connection.RouterHandler;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -18,16 +19,16 @@ import model.GUISolutionModel;
  */
 public class CLI extends javax.swing.JPanel {
 
-    /**.......................
-     * Creates new form CLI
+    /**
+     * ....................... Creates new form CLI
      */
     RouterHandler vTelnet;
-    
-    public CLI(String host,int port) throws ConnectException, SocketException, IOException {
+
+    public CLI(String host, int port) throws ConnectException, SocketException, IOException {
         initComponents();
-        
-        vTelnet=new RouterHandler(host,port,new GUISolutionModel(ConsolejTextArea));
-        if(vTelnet.Login()){
+
+        vTelnet = new RouterHandler(host, port, new GUISolutionModel(ConsolejTextArea));
+        if (vTelnet.Login()) {
             //jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
             //Login.setVisible(false);
             //jName.setText(vTelnet.getRouterName()+":");
@@ -35,8 +36,8 @@ public class CLI extends javax.swing.JPanel {
             //vTelnet.goToLevelRouter(3); //teste
         }
     }
-    
-    public String getRouterName(){
+
+    public String getRouterName() {
         return vTelnet.getRouterName();
     }
 
@@ -125,6 +126,10 @@ public class CLI extends javax.swing.JPanel {
         jToolBar4 = new javax.swing.JToolBar();
         jLabel19 = new javax.swing.JLabel();
 
+        SettingsjFrame.setTitle("Settings");
+        SettingsjFrame.setLocationByPlatform(true);
+        SettingsjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
+
         jTabbedPane4.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         jLabel1.setText("Hostname:");
@@ -143,7 +148,7 @@ public class CLI extends javax.swing.JPanel {
 
         GlobalCanceljButton.setText("Cancel");
 
-        GlobalOkjButton.setText("Ok");
+        GlobalOkjButton.setText("OK");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -153,25 +158,24 @@ public class CLI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(HostNamejTextField))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DatejFormattedTextField))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TimejFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
-                        .addContainerGap(113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TimejFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                        .addGap(99, 99, 99))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(GlobalOkjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(GlobalCanceljButton)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(HostNamejTextField)
+                            .addComponent(DatejFormattedTextField))
+                        .addGap(99, 99, 99))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +217,7 @@ public class CLI extends javax.swing.JPanel {
 
         PasswordCanceljButton.setText("Cancel");
 
-        PasswordOkjButton.setText("Ok");
+        PasswordOkjButton.setText("OK");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -222,28 +226,28 @@ public class CLI extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(PasswordOkjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PasswordCanceljButton))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(EnablejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(EnablejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(SecretjCheckBox))
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                     .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(VTYjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(24, 24, 24)
+                                    .addComponent(VTYjPasswordField))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ConsolejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 98, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(PasswordOkjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PasswordCanceljButton)))
+                                    .addComponent(ConsolejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 64, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -287,6 +291,10 @@ public class CLI extends javax.swing.JPanel {
                 .addComponent(jTabbedPane4)
                 .addContainerGap())
         );
+
+        InterfacesjFrame.setTitle("Interfaces");
+        InterfacesjFrame.setLocationByPlatform(true);
+        InterfacesjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -345,13 +353,17 @@ public class CLI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        SwitchingjFrame.setTitle("Switching");
+        SwitchingjFrame.setLocationByPlatform(true);
+        SwitchingjFrame.setMinimumSize(new java.awt.Dimension(138, 117));
+
         jLabel7.setText("VLAN Configuration:");
 
         jLabel8.setText("Number:");
 
         jLabel9.setText("Name:");
 
-        VlanOkjButton.setText("Ok");
+        VlanOkjButton.setText("OK");
 
         VlanCanceljButton.setText("Cancel");
 
@@ -362,20 +374,19 @@ public class CLI extends javax.swing.JPanel {
             .addGroup(SwitchingjFrameLayout.createSequentialGroup()
                 .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(16, 16, 16)
+                        .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
                                 .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(VlanNamejTextField))
-                                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(VlanNumberjTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))))))
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jLabel9))
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(VlanNumberjTextField)
+                                    .addComponent(VlanNamejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))))
                     .addGroup(SwitchingjFrameLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(VlanOkjButton)
@@ -403,6 +414,10 @@ public class CLI extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        RoutingjFrame.setTitle("Routing");
+        RoutingjFrame.setLocationByPlatform(true);
+        RoutingjFrame.setMinimumSize(new java.awt.Dimension(564, 329));
+
         jTabbedPane5.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         jLabel14.setText("New Route:");
@@ -423,6 +438,11 @@ public class CLI extends javax.swing.JPanel {
         jScrollPane3.setViewportView(DyRjList);
 
         DyRRemovejButton.setText("Remove");
+        DyRRemovejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DyRRemovejButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -433,47 +453,46 @@ public class CLI extends javax.swing.JPanel {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(14, 14, 14)
                         .addComponent(DyRNetworkjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(AddDyRoutejButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel21)
-                        .addGap(0, 190, Short.MAX_VALUE))
+                        .addGap(0, 287, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(DyRRemovejButton))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane3)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(DyRNetworkjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AddDyRoutejButton1)
-                        .addGap(0, 211, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator2)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DyRRemovejButton)))
+                        .addContainerGap()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(DyRNetworkjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AddDyRoutejButton1)
+                                .addGap(0, 211, Short.MAX_VALUE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addGap(7, 7, 7)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(DyRRemovejButton)))))
                 .addContainerGap())
         );
 
@@ -511,15 +530,11 @@ public class CLI extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addGap(20, 20, 20)))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
                             .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(14, 14, 14)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(RNextHopjTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                             .addComponent(RMaskjTextField, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -531,13 +546,11 @@ public class CLI extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel20)
-                        .addGap(0, 190, Short.MAX_VALUE))
+                        .addGap(0, 287, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(RRemovejButton))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -590,6 +603,10 @@ public class CLI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        ConnectivityjFrame.setTitle("Connectivity");
+        ConnectivityjFrame.setLocationByPlatform(true);
+        ConnectivityjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
+
         javax.swing.GroupLayout ConnectivityjFrameLayout = new javax.swing.GroupLayout(ConnectivityjFrame.getContentPane());
         ConnectivityjFrame.getContentPane().setLayout(ConnectivityjFrameLayout);
         ConnectivityjFrameLayout.setHorizontalGroup(
@@ -600,6 +617,10 @@ public class CLI extends javax.swing.JPanel {
             ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        CommandHelpjFrame.setTitle("Command Help");
+        CommandHelpjFrame.setLocationByPlatform(true);
+        CommandHelpjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
 
         javax.swing.GroupLayout CommandHelpjFrameLayout = new javax.swing.GroupLayout(CommandHelpjFrame.getContentPane());
         CommandHelpjFrame.getContentPane().setLayout(CommandHelpjFrameLayout);
@@ -615,6 +636,17 @@ public class CLI extends javax.swing.JPanel {
         ConsolejTextArea.setColumns(20);
         ConsolejTextArea.setRows(5);
         jScrollPane1.setViewportView(ConsolejTextArea);
+
+        CommandjTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CommandjTextFieldActionPerformed(evt);
+            }
+        });
+        CommandjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CommandjTextFieldKeyPressed(evt);
+            }
+        });
 
         SendjButton.setText("Send");
         SendjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -684,8 +716,25 @@ public class CLI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendjButtonActionPerformed
-        vTelnet.sendUserCommand(CommandjTextField.getText()+"\r\n");
+        vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
     }//GEN-LAST:event_SendjButtonActionPerformed
+
+    private void CommandjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandjTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CommandjTextFieldActionPerformed
+
+    private void CommandjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandjTextFieldKeyPressed
+        //se apertar enter, fazer o mesmo do botão send
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+        }
+
+    }//GEN-LAST:event_CommandjTextFieldKeyPressed
+
+    private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DyRRemovejButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DyRRemovejButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDyRoutejButton1;
