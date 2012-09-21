@@ -240,9 +240,8 @@ public class MainInterface extends javax.swing.JFrame {
             } else {
                 CLICount++;
                 connections.add(HostjTextField.getText());
-                CLI cli=new CLI();
                 jTabbedPane1.addTab("New Router",cli);//cli.getRouterName(), cli);
-                cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()),jTabbedPane1,CLICount);
+                CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()),jTabbedPane1,CLICount);
                 cliArray.add(cli);
                 
             }
