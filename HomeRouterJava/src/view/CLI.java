@@ -25,6 +25,10 @@ public class CLI extends javax.swing.JPanel {
      */
     RouterHandler vTelnet;
 
+    public CLI(){
+        initComponents();
+    }
+    
     public CLI(String host, int port, JTabbedPane Tab, int index) throws ConnectException, SocketException, IOException {
         initComponents();
         GUISolutionModel GuiSol=new GUISolutionModel(ConsolejTextArea, Tab, index);
