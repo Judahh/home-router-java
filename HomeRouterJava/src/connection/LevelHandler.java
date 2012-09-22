@@ -29,7 +29,7 @@ public class LevelHandler {
     private String[] msgPossibilities;
 
     public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
-        auth = new AuthenticationHandler(0);
+        auth = new AuthenticationHandler(0, GuiSol);
         prompt = new CommandHandler(0);
         routerInfo = new RouterInfoModel();
         info = new InformationHandler(host, port, GuiSol);
