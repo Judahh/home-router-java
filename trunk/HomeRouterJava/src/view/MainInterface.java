@@ -4,10 +4,10 @@
  */
 package view;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.ConnectException;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -32,6 +32,7 @@ public class MainInterface extends javax.swing.JFrame {
 
     public MainInterface() {
         initComponents();
+       
         cliArray = new ArrayList<CLI>();
         CLICount=0;
         connections = new ArrayList<String>();
@@ -45,6 +46,10 @@ public class MainInterface extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+    	
+    	 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+ 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -82,6 +87,8 @@ public class MainInterface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home Router 1.0 Beta");
         setIconImage(Toolkit.getDefaultToolkit().getImage(ConnectWindow.class.getResource("/resources/router icon.png")));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(400, 302));
 
         jLabel1.setText("New Connection:");
 
@@ -178,6 +185,11 @@ public class MainInterface extends javax.swing.JFrame {
         jMenu3.add(InterfacesjMenuItem);
 
         SwitchingjMenuItem.setText("Switching");
+        SwitchingjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SwitchingjMenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(SwitchingjMenuItem);
 
         RoutingjMenuItem.setText("Routing");
@@ -219,7 +231,7 @@ public class MainInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,6 +245,14 @@ public class MainInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    //fecha a aba caso você dê exit
+    
+    public void killCLI(String host, int index){
+    	connections.remove(host);    	
+    	jTabbedPane1.removeTabAt(index);
+    	
+    }
+    
      private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
         try {
             if (connections.contains(HostjTextField.getText())) {
@@ -241,7 +261,7 @@ public class MainInterface extends javax.swing.JFrame {
                 CLICount++;
                 connections.add(HostjTextField.getText());
                 jTabbedPane1.addTab("New Router",new CLI());//cli.getRouterName(), cli);
-                CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()),jTabbedPane1,CLICount);
+                CLI cli = new CLI(HostjTextField.getText(), Integer.parseInt(PortjTextField.getText()),jTabbedPane1,CLICount,this);
                 jTabbedPane1.setComponentAt(CLICount, cli);
                 cliArray.add(cli);
                 
@@ -293,6 +313,13 @@ public class MainInterface extends javax.swing.JFrame {
             cliArray.get(jTabbedPane1.getSelectedIndex() - 1).RoutingjFrame.setVisible(true);
         }
     }//GEN-LAST:event_RoutingjMenuItemActionPerformed
+
+    private void SwitchingjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwitchingjMenuItemActionPerformed
+         if (jTabbedPane1.getSelectedIndex() == 0) {
+        } else {
+            cliArray.get(jTabbedPane1.getSelectedIndex() - 1).SwitchingjFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_SwitchingjMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

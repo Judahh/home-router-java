@@ -5,6 +5,8 @@
 package connection;
 
 import model.GUISolutionModel;
+import model.MonthModel;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -55,15 +57,30 @@ public class RouterHandler {
     
     //usar isso como base, copicolar l[ogica
     
-    public void setRouterName(String Name){
+    public void setRouterName(String name){
         this.goToLevelRouter(3);
-        this.routerLevel.sendCommand("hostname "+Name+"\r\n");
+        this.routerLevel.sendCommand("hostname "+name+"\r\n");
     }
     
     public String getRouterName(){
         return routerLevel.getRouterName();
     }
     
+    public void setVLanConfig(String number, String name){
+    	this.goToLevelRouter(2);
+        this.routerLevel.sendCommand("vlan "+number+" name "+name+"\r\n");
+    }
+    
+    //seta data e hora do router
+    public void setDateTime(String date, String time){
+    	this.goToLevelRouter(2);
+    	String[] dates = date.split("/");   	
+    	
+    	MonthModel m = new MonthModel();
+    	dates[1] = m.getValues()[Integer.valueOf(dates[1])-1];
+    	this.routerLevel.sendCommand("clock set "+time+" "+dates[1]+" "+dates[0]+" "+dates[2]+"\r\n");
+    	
+    }
     public void sendUserCommand(String command){
         routerLevel.sendCommand(command);
     }

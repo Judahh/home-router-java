@@ -634,7 +634,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		case "fe0Apply":
 
 			boolean portStatusOnOrOff = fe0PortStatusCheckbox.isSelected();
-			Validation v = new Validation();
+			Validation v = Validation.getInstance();
 			v.validateIP(fe0IpAddressTextField.getText());
 			v.validateMask(fe0SubnetMaskTextField.getText());
 
