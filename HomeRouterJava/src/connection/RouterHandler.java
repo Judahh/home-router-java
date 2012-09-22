@@ -104,6 +104,12 @@ public class RouterHandler {
 		this.routerLevel.sendCommand("ping "+ip+"\r\n");
 		
 	}
+	
+	//setar level usando combobox
+	
+	public void setLevel(int level){
+		this.goToLevelRouter(level);
+	}
 
 	public void sendUserCommand(String command) {
 		routerLevel.sendCommand(command);
