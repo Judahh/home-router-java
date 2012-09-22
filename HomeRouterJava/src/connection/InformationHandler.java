@@ -4,7 +4,6 @@
  */
 package connection;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -15,13 +14,14 @@ import model.GUISolutionModel;
 import model.RunModel;
 
 /**
- *
+ * 
  * @author JH
  */
 // Classe: InformationHandler
 // Esta classe sera responsaver por reunir e organizar informacoes recebidas
 // pelo router
-// Exemplo: quando o metodo checkLevel do LevelHandler encontrar um !,*,% ele chamara esta classe para cuidar disso
+// Exemplo: quando o metodo checkLevel do LevelHandler encontrar um !,*,% ele
+// chamara esta classe para cuidar disso
 // e logo apos ele se chamara novamente
 //
 // Comandos que iniciam (conhecidos):
@@ -30,88 +30,88 @@ import model.RunModel;
 // -< (como por exemplo o ?)
 // -Month (como Jun) (como por exemplo no clock)
 // -% (como por exemplo em erros)
-// ---More-- (como por exemplo no show run)(enviar:" ")(quando o metodo receber isso ele ira enviar um espaco e chamara a si mesmo)
+// ---More-- (como por exemplo no show run)(enviar:" ")(quando o metodo receber
+// isso ele ira enviar um espaco e chamara a si mesmo)
 public class InformationHandler {// ---------------------------------------------------------------------------------------------------------------------
 
-    private ClockModel clock;
-    private RunModel run;
-    private ConnectionHandler connection;
-    private GUISolutionModel GuiSol;
-    
+	private ClockModel clock;
+	private RunModel run;
+	private ConnectionHandler connection;
+	private GUISolutionModel GuiSol;
 
-    public InformationHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
-        this.GuiSol = GuiSol;
-        this.connection = new ConnectionHandler(host, port, GuiSol);
-    }
+	public InformationHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
+		this.GuiSol = GuiSol;
+		this.connection = new ConnectionHandler(host, port, GuiSol);
+	}
 
-    public ConnectionHandler getConnection() {
-        return connection;
-    }
+	public ConnectionHandler getConnection() {
+		return connection;
+	}
 
-    public GUISolutionModel getGUISol() {
-        return GuiSol;
-    }
-    
-    public void checkInfo(String FirstPartInfo){
-        String[] possibilities=new String[getEndInfoPossibilities().size()];
-        for(int i=0;i<getEndInfoPossibilities().size();i++){
-            possibilities[i]=getEndInfoPossibilities().get(i);
-        }
-        
-        ArrayList<String> InfoS=connection.arrayListReadUntil(possibilities);
-        
-        String FullInfo=FirstPartInfo+InfoS;
-        if(FirstPartInfo=="%"){
-            JOptionPane.showInputDialog(InfoS);
-        }
-        if(FirstPartInfo=="!"){
-            if(InfoS.get(1).contains("interface")||InfoS.get(1).contains("Interface")){
-                if(InfoS.get(1).contains("FastEthernet")){
-                    int i =InfoS.get(1).indexOf("FastEthernet");
-                    for (int j = i; j < InfoS.get(1).length(); j++) {
-                        System.out.println(InfoS.get(1).charAt(j));
-                        
-                    }
-                }
-            }
-        }
-        
-        if(InfoS.get(0).equals("--More--")){
-            connection.send(" ");
-        }
-    }
-    
-    private ArrayList<String> getEndInfoPossibilities() {
-        ArrayList<String> possibilities = new ArrayList<>();
-        possibilities.add("--More--");
-        possibilities.add("Invalid input detected at '^' marker.");
-        possibilities.add("end");
-        possibilities.add("Unknown command or computer name, or unable to find computer address");
-        
-        return possibilities;
-    }
+	public GUISolutionModel getGUISol() {
+		return GuiSol;
+	}
 
-    public ArrayList<String> getInfoPossibilities() {
-        ArrayList<String> possibilities = new ArrayList<>();
-        possibilities.add("!");
-        possibilities.add("*");
-        possibilities.add("<");
-        possibilities.add("domain server (");
-        possibilities.add("end");
-        possibilities.add("%");
-        possibilities.add("Jan");
-        possibilities.add("Feb");
-        possibilities.add("Mar");
-        possibilities.add("Apr");
-        possibilities.add("May");
-        possibilities.add("Jun");
-        possibilities.add("Jul");
-        possibilities.add("Aug");
-        possibilities.add("Sep");
-        possibilities.add("Oct");
-        possibilities.add("Nov");
-        possibilities.add("Dec");
+	public void checkInfo(String FirstPartInfo) {
+		String[] possibilities = new String[getEndInfoPossibilities().size()];
+		for (int i = 0; i < getEndInfoPossibilities().size(); i++) {
+			possibilities[i] = getEndInfoPossibilities().get(i);
+		}
 
-        return possibilities;
-    }
+		ArrayList<String> InfoS = connection.arrayListReadUntil(possibilities);
+
+		String FullInfo = FirstPartInfo + InfoS;
+		if (FirstPartInfo == "%") {
+			JOptionPane.showInputDialog(InfoS);
+		}
+		if (FirstPartInfo == "!") {
+			if (InfoS.get(1).contains("interface") || InfoS.get(1).contains("Interface")) {
+				if (InfoS.get(1).contains("FastEthernet")) {
+					int i = InfoS.get(1).indexOf("FastEthernet");
+					for (int j = i; j < InfoS.get(1).length(); j++) {
+						System.out.println(InfoS.get(1).charAt(j));
+
+					}
+				}
+			}
+		}
+
+		if (InfoS.get(0).equals("--More--")) {
+			connection.send(" ");
+		}
+	}
+
+	private ArrayList<String> getEndInfoPossibilities() {
+		ArrayList<String> possibilities = new ArrayList<>();
+		possibilities.add("--More--");
+		possibilities.add("Invalid input detected at '^' marker.");
+		possibilities.add("end");
+		possibilities.add("Unknown command or computer name, or unable to find computer address");
+
+		return possibilities;
+	}
+
+	public ArrayList<String> getInfoPossibilities() {
+		ArrayList<String> possibilities = new ArrayList<>();
+		possibilities.add("!");
+		possibilities.add("*");
+		possibilities.add("<");
+		possibilities.add("domain server (");
+		possibilities.add("end");
+		possibilities.add("%");
+		possibilities.add("Jan");
+		possibilities.add("Feb");
+		possibilities.add("Mar");
+		possibilities.add("Apr");
+		possibilities.add("May");
+		possibilities.add("Jun");
+		possibilities.add("Jul");
+		possibilities.add("Aug");
+		possibilities.add("Sep");
+		possibilities.add("Oct");
+		possibilities.add("Nov");
+		possibilities.add("Dec");
+
+		return possibilities;
+	}
 }
