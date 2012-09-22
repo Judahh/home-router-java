@@ -5,6 +5,7 @@
 package connection;
 
 import javax.swing.JOptionPane;
+import model.GUISolutionModel;
 
 /**
  *
@@ -16,16 +17,22 @@ public class AuthenticationHandler {
     private String passwordVTY;
     private String passwordEnable;
     private String user;
+    GUISolutionModel GuiSol;
 
-    public AuthenticationHandler(Auth auth) {
+    public AuthenticationHandler(Auth auth,GUISolutionModel GuiSol) {
         this.auth = auth;
+        this.GuiSol=GuiSol;
         passwordVTY = null;
         passwordEnable = null;
         user = null;
     }
 
-    public AuthenticationHandler(int i) {
+    public AuthenticationHandler(int i,GUISolutionModel GuiSol) {
         this.auth = Auth.values()[i];
+        this.GuiSol=GuiSol;
+        passwordVTY = null;
+        passwordEnable = null;
+        user = null;
     }
 
     public Auth getAuthentication() {
