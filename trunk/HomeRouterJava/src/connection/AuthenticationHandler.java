@@ -53,6 +53,7 @@ public class AuthenticationHandler {
     public String getPassword() {
         if (passwordVTY == null) {
             passwordVTY = JOptionPane.showInputDialog("VTY Password:", "cisco");
+            //setar pass na interface
         }
         return passwordVTY;
     }
@@ -72,6 +73,7 @@ public class AuthenticationHandler {
     public String getPasswordB() {
         if (passwordEnable == null) {
             passwordEnable = JOptionPane.showInputDialog("Enable Password:", "cisco");
+            //setar pass na interface
         }
         return passwordEnable;
     }
@@ -83,6 +85,7 @@ public class AuthenticationHandler {
     public String getUser() {
         if (user == null) {
            user = JOptionPane.showInputDialog("User:", "Cisco");
+           //setar user na interface
         } 
         return user;
     }
