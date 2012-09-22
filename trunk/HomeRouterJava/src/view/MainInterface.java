@@ -34,6 +34,11 @@ public class MainInterface extends javax.swing.JFrame {
 
     public MainInterface() {
         initComponents();
+        
+     // centralizar tela inicial
+     		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+     		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
        
         cliArray = new ArrayList<CLI>();
         CLICount=0;
@@ -48,8 +53,6 @@ public class MainInterface extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	
-    	
 
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -209,6 +212,11 @@ public class MainInterface extends javax.swing.JFrame {
         jMenu3.add(SettingsjMenuItem);
 
         ConnectivityjMenuItem.setText("Connectivity");
+        ConnectivityjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConnectivityjMenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(ConnectivityjMenuItem);
 
         jMenuBar1.add(jMenu3);
@@ -241,10 +249,6 @@ public class MainInterface extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
-        
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
- 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -327,6 +331,13 @@ public class MainInterface extends javax.swing.JFrame {
             cliArray.get(jTabbedPane1.getSelectedIndex() - 1).SwitchingjFrame.setVisible(true);
         }
     }//GEN-LAST:event_SwitchingjMenuItemActionPerformed
+
+    private void ConnectivityjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectivityjMenuItemActionPerformed
+        if (jTabbedPane1.getSelectedIndex() == 0) {
+        } else {
+            cliArray.get(jTabbedPane1.getSelectedIndex() - 1).ConnectivityjFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_ConnectivityjMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
