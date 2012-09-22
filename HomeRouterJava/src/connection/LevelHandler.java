@@ -142,10 +142,10 @@ public class LevelHandler {
                     if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
                         checkLevel();
                     }
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1]))) {
+                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1]))||Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
                         sendCommand("\r\n");
                     }
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
+                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 3]))) {
                         sendCommand("terminal\r\n");
                     }
                     checkCount = 0;
