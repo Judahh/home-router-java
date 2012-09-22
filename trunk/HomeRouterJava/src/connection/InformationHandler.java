@@ -64,6 +64,17 @@ public class InformationHandler {// --------------------------------------------
         if(FirstPartInfo=="%"){
             JOptionPane.showInputDialog(InfoS);
         }
+        if(FirstPartInfo=="!"){
+            if(InfoS.get(1).contains("interface")||InfoS.get(1).contains("Interface")){
+                if(InfoS.get(1).contains("FastEthernet")){
+                    int i =InfoS.get(1).indexOf("FastEthernet");
+                    for (int j = i; j < InfoS.get(1).length(); j++) {
+                        System.out.println(InfoS.get(1).charAt(j));
+                        
+                    }
+                }
+            }
+        }
         
         if(InfoS.get(0).equals("--More--")){
             connection.send(" ");
