@@ -1,4 +1,4 @@
-package connection;
+package unused;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,14 +10,14 @@ import java.net.UnknownHostException;
 
 import model.IPModel;
 
-public class TelnetClient {
+public class TelnetClientUnused {
 
 	private IPModel ipmodel;
 	private Socket socket;
 	private BufferedWriter writer;
 	private BufferedReader reader;
 
-	public TelnetClient(IPModel ipmodel) {
+	public TelnetClientUnused(IPModel ipmodel) {
 		super();
 		this.ipmodel = ipmodel;
 	}

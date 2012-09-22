@@ -38,14 +38,16 @@ public class CLI extends javax.swing.JPanel {
 		initComponents();
 	}
 
-	public CLI(String host, int port, JTabbedPane Tab, int index, MainInterface mi) throws ConnectException, SocketException, IOException {
+	public CLI(String host, int port, JTabbedPane Tab, int index, MainInterface mi) throws ConnectException, SocketException, IOException{
 		initComponents();
 		this.mi = mi;
 		this.host = host;
 		this.index = index;
 
 		GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, Tab, index);
-		vTelnet = new RouterHandler(host, port, GuiSol);
+		
+		vTelnet = new RouterHandler(host, port, GuiSol);		
+		
 
 		if (vTelnet.Login()) {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
@@ -755,8 +757,10 @@ public class CLI extends javax.swing.JPanel {
     }//GEN-LAST:event_TimejFormattedTextFieldActionPerformed
 
 	private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SendjButtonActionPerformed
-		vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
-		CommandjTextField.setText("");
+		if (vTelnet!=null){
+			vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+			CommandjTextField.setText("");
+		}
 	}// GEN-LAST:event_SendjButtonActionPerformed
 
 	private void CommandjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CommandjTextFieldActionPerformed
@@ -771,8 +775,11 @@ public class CLI extends javax.swing.JPanel {
 				mi.killCLI(host,index);
 
 			} else {
-				vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
-				CommandjTextField.setText("");
+				if (vTelnet!=null){
+					vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+					CommandjTextField.setText("");
+				}
+				
 			}
 
 		}

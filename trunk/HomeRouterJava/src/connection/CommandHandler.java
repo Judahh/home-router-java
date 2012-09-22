@@ -16,19 +16,19 @@ public class CommandHandler {
 
 	public CommandHandler(Prompt prompt) {
 		this.prompt = prompt;
-		this.identifier=new IdentifierModel(1, "0/1/0");
+		this.identifier = new IdentifierModel(1, "0/1/0");
 		identifier.setSubPort(".2");
 	}
-	
+
 	public CommandHandler(int level) {
 		this.prompt = Prompt.values()[level];
 	}
 
-	public IdentifierModel getIdentifier(){
+	public IdentifierModel getIdentifier() {
 		return identifier;
 	}
 
-	public void setIdentifier(IdentifierModel identifier){
+	public void setIdentifier(IdentifierModel identifier) {
 		this.identifier = identifier;
 	}
 
@@ -56,7 +56,7 @@ public class CommandHandler {
 	}
 
 	public enum Prompt {
-		Logged_Off, A, B, configB, appnB, ca_identityB, cfg_lan_Ether_10B, cfg_adap_Ether_10_1B, config_cert_chainB, config_controllerB, config_ctrl_casB, config_crypto_mapB, config_crypto_transB, config_dialpeerB, config_ext_naclB, config_std_naclB, config_hubB, config_ifB, config_if_atm_vcB, config_vc_classB, config_subifB, config_ipx_routerB, config_isakmpB, config_keychainB, config_keychain_keyB, config_lineB, config_map_classB, config_map_listB, config_modem_poolB, config_poll_grB, config_pubkeyB, config_pubkey_keyB, config_route_mapB, config_routerB, config_rtrB, config_voiceportB, lane_config_databB, mpoa_client_configB, mpoa_server_configB, tn3270_serverB, tn3270_puB, tn3270_dlurB, tn3270_dlur_sapB, tn3270_dlur_puB, configBAsk, Logged_OffAsk
+		Logged_Off, A, B, configB, appnB, ca_identityB, cfg_lan_Ether_10B, cfg_adap_Ether_10_1B, config_cert_chainB, config_controllerB, config_ctrl_casB, config_crypto_mapB, config_crypto_transB, config_dialpeerB, config_ext_naclB, config_std_naclB, config_hubB, config_ifB, config_if_atm_vcB, config_vc_classB, config_subifB, config_ipx_routerB, config_isakmpB, config_keychainB, config_keychain_keyB, config_lineB, config_map_classB, config_map_listB, config_modem_poolB, config_poll_grB, config_pubkeyB, config_pubkey_keyB, config_route_mapB, config_routerB, config_rtrB, config_voiceportB, lane_config_databB, mpoa_client_configB, mpoa_server_configB, tn3270_serverB, tn3270_puB, tn3270_dlurB, tn3270_dlur_sapB, tn3270_dlur_puB, configBAsk, Logged_OffAsk, Logged_OffConsoleAsk
 	}
 
 	public String getPrompt() {
@@ -157,6 +157,8 @@ public class CommandHandler {
 			return "Configuring from terminal, memory, or network [terminal]?";
 		case Logged_OffAsk:
 			return "Press ENTER to get the prompt.";
+		case Logged_OffConsoleAsk:
+			return "Press RETURN to get started.";
 		default:
 			return "######";
 		}
@@ -181,7 +183,7 @@ public class CommandHandler {
 		case config_cert_chainB:
 			return "crypto ca certificate\r\n";
 		case config_controllerB:
-			return "controller t1 0/0\r\n";//adicionar esse tipo de interface
+			return "controller t1 0/0\r\n";// adicionar esse tipo de interface
 		case config_ctrl_casB:
 			return " cas-custom 1\r\n";
 		case config_crypto_mapB:
@@ -196,13 +198,14 @@ public class CommandHandler {
 		case config_hubB:
 			return "hub ethernet 0 1 3\r\n";
 		case config_ifB:
-			return "interface "+identifier.getInterface()+" "+identifier.getPort()+"\r\n";
+			return "interface " + identifier.getInterface() + " " + identifier.getPort() + "\r\n";
 		case config_if_atm_vcB:
 			return "pvc 0/33\r\n";
 		case config_vc_classB:
 			return "vc-class atm pvc1\r\n";
 		case config_subifB:
-			return "encapsulation frame-relay\r\ninterface "+identifier.getInterface()+" "+identifier.getPort()+identifier.getSubPort()+"\r\n";
+			return "encapsulation frame-relay\r\ninterface " + identifier.getInterface() + " " + identifier.getPort()
+					+ identifier.getSubPort() + "\r\n";
 		case config_ipx_routerB:
 			return "ipx router rip\r\n";
 		case config_isakmpB:
@@ -232,7 +235,7 @@ public class CommandHandler {
 		case config_rtrB:
 			return "rtr 1\r\n";
 		case config_voiceportB:
-			return "voice port 1/1/2\r\n";//adicionar esse tipo de interface
+			return "voice port 1/1/2\r\n";// adicionar esse tipo de interface
 		case lane_config_databB:
 			return "lane database red\r\n";
 		case mpoa_client_configB:

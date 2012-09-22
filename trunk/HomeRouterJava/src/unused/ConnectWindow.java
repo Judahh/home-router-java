@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 
 import connection.ConnectionHandler;
 import connection.RouterHandler;
-import connection.TelnetClient;
 
 import model.IPModel;
 

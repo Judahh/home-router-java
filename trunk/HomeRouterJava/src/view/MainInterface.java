@@ -10,10 +10,8 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 
 import unused.ConnectWindow;
 
@@ -24,6 +22,10 @@ import unused.ConnectWindow;
 public class MainInterface extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form MainInterface
      */
     ArrayList<CLI> cliArray;
@@ -47,9 +49,7 @@ public class MainInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
     	
-    	 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
- 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+    	
 
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -241,6 +241,10 @@ public class MainInterface extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+ 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -250,6 +254,7 @@ public class MainInterface extends javax.swing.JFrame {
     public void killCLI(String host, int index){
     	connections.remove(host);    	
     	jTabbedPane1.removeTabAt(index);
+    	CLICount--;
     	
     }
     
@@ -268,10 +273,12 @@ public class MainInterface extends javax.swing.JFrame {
             }
 
         } catch (UnknownHostException e) {
-            JOptionPane.showMessageDialog(this, "Unknown Exception");
+            JOptionPane.showMessageDialog(this, "Unknown Exception");            
             e.printStackTrace();
         } catch (ConnectException e) {
+        	//se não se conectar, mata a aba que vai criar
             JOptionPane.showMessageDialog(this, "Connection refused");
+            killCLI(HostjTextField.getText(),CLICount);
             e.printStackTrace();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Enter an IP address");
