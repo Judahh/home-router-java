@@ -20,8 +20,6 @@ import model.RouterInfoModel;
 public class LevelHandler {
 
     private int level;
-    private boolean passError;
-    private boolean userError;
     private int checkCount;
     private int checkPCount;
     private RouterInfoModel routerInfo;
@@ -37,8 +35,6 @@ public class LevelHandler {
         info = new InformationHandler(host, port, GuiSol);
         getAllMsgPossibilities();
         checkCount = 0;
-        passError = false;
-        userError = false;
     }
 
     public int getLevel() {
@@ -180,7 +176,6 @@ public class LevelHandler {
                         // sendCommand(auth.getUser());
                         if (checkCount > 1) {
                             auth.setUser(null);
-                            userError = true;
                         }
                         sendCommand(auth.getUser()+"\r\n");
                         //sendCommand("ciscoUser\r\n");// pegar user por GUI
@@ -191,7 +186,6 @@ public class LevelHandler {
                         // sendCommand(auth.getPassword());
                         if (checkPCount > 1) {
                             auth.setPassword(null,(level>0));
-                            passError = true;
                         }
                         sendCommand(auth.getPassword(level>0)+"\r\n");
                         //sendCommand("cisco\r\n");// pegar pass por GUI
