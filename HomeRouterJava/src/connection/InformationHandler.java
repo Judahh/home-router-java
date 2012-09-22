@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.ClockModel;
 import model.GUISolutionModel;
 import model.RunModel;
@@ -60,9 +61,11 @@ public class InformationHandler {// --------------------------------------------
         ArrayList<String> InfoS=connection.arrayListReadUntil(possibilities);
         
         String FullInfo=FirstPartInfo+InfoS;
+        if(FirstPartInfo=="%"){
+            JOptionPane.showInputDialog(InfoS);
+        }
         
         if(InfoS.get(0).equals("--More--")){
-            
             connection.send(" ");
         }
     }
