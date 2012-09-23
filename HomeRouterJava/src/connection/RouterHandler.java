@@ -97,18 +97,28 @@ public class RouterHandler {
 		this.routerLevel.sendCommand("router rip\r\n");
 		this.routerLevel.sendCommand("network " + ip + "\r\n");
 	}
-	
-	//método para pingar um IP
-	public void ping(String ip){
+
+	// método para pingar um IP
+	public void ping(String ip) {
 		this.goToLevelRouter(2);
-		this.routerLevel.sendCommand("ping "+ip+"\r\n");
-		
+		this.routerLevel.sendCommand("ping " + ip + "\r\n");
+
 	}
-	
-	//setar level usando combobox
-	
-	public void setLevel(int level){
+
+	// setar level usando combobox
+
+	public void setLevel(int level) {
 		this.goToLevelRouter(level);
+	}
+
+	public void setVTYPass(String pass) {
+		this.goToLevelRouter(25);
+		this.routerLevel.sendCommand("password " + pass + "\r\n");
+	}
+
+	public void setEnablePass(String pass) {
+		this.goToLevelRouter(3);
+		this.routerLevel.sendCommand("enable password " + pass + "\r\n");
 	}
 
 	public void sendUserCommand(String command) {

@@ -291,6 +291,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="OK"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PasswordOkjButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1062,7 +1065,6 @@
     </Container>
     <Component class="javax.swing.JTextField" name="CommandjTextField">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CommandjTextFieldActionPerformed"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandjTextFieldKeyPressed"/>
       </Events>
     </Component>
@@ -1137,11 +1139,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="levelselectorJComboBoxItemStateChanged"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="levelselectorJComboBoxActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String[] leveltypes = {&quot;Logged_Off&quot;, &quot;A&quot;, &quot;B&quot;, &quot;configB&quot;, &quot;appnB&quot;, &quot;ca_identityB&quot;, &quot;cfg_lan_Ether_10B&quot;, &quot;cfg_adap_Ether_10_1B&quot;, &quot;config_cert_chainB&quot;, &quot;config_controllerB&quot;, &quot;config_ctrl_casB&quot;, &quot;config_crypto_mapB&quot;, &quot;config_crypto_transB&quot;, &quot;config_dialpeerB&quot;, &quot;config_ext_naclB&quot;, &quot;config_std_naclB&quot;, &quot;config_hubB&quot;, &quot;config_ifB&quot;, &quot;config_if_atm_vcB&quot;, &quot;config_vc_classB&quot;, &quot;config_subifB&quot;, &quot;config_ipx_routerB&quot;, &quot;config_isakmpB&quot;, &quot;config_keychainB&quot;, &quot;config_keychain_keyB&quot;, &quot;config_lineB&quot;, &quot;config_map_classB&quot;, &quot;config_map_listB&quot;, &quot;config_modem_poolB&quot;, &quot;config_poll_grB&quot;, &quot;config_pubkeyB&quot;, &quot;config_pubkey_keyB&quot;, &quot;config_route_mapB&quot;, &quot;config_routerB&quot;, &quot;config_rtrB&quot;, &quot;config_voiceportB&quot;, &quot;lane_config_databB&quot;, &quot;mpoa_client_configB&quot;, &quot;mpoa_server_configB&quot;, &quot;tn3270_serverB&quot;, &quot;tn3270_puB&quot;, &quot;tn3270_dlurB&quot;, &quot;tn3270_dlur_sapB&quot;, &quot;tn3270_dlur_puB&quot;, &quot;configBAsk&quot;, &quot;Logged_OffAsk&quot;, &quot;Logged_OffConsoleAsk&quot;};"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String[] leveltypes = {&quot;Logged_Off&quot;, &quot;Default&quot;, &quot;Enable&quot;, &quot;Config&quot;, &quot;appnB&quot;, &quot;ca_identityB&quot;, &quot;cfg_lan_Ether_10B&quot;, &quot;cfg_adap_Ether_10_1B&quot;, &quot;config_cert_chainB&quot;, &quot;config_controllerB&quot;, &quot;config_ctrl_casB&quot;, &quot;config_crypto_mapB&quot;, &quot;config_crypto_transB&quot;, &quot;config_dialpeerB&quot;, &quot;config_ext_naclB&quot;, &quot;config_std_naclB&quot;, &quot;config_hubB&quot;, &quot;Interface Config&quot;, &quot;config_if_atm_vcB&quot;, &quot;config_vc_classB&quot;, &quot;config_subifB&quot;, &quot;config_ipx_routerB&quot;, &quot;config_isakmpB&quot;, &quot;config_keychainB&quot;, &quot;config_keychain_keyB&quot;, &quot;VTY&quot;, &quot;config_map_classB&quot;, &quot;config_map_listB&quot;, &quot;config_modem_poolB&quot;, &quot;config_poll_grB&quot;, &quot;config_pubkeyB&quot;, &quot;config_pubkey_keyB&quot;, &quot;config_route_mapB&quot;, &quot;Router Config&quot;, &quot;config_rtrB&quot;, &quot;config_voiceportB&quot;, &quot;lane_config_databB&quot;, &quot;mpoa_client_configB&quot;, &quot;mpoa_server_configB&quot;, &quot;tn3270_serverB&quot;, &quot;tn3270_puB&quot;, &quot;tn3270_dlurB&quot;, &quot;tn3270_dlur_sapB&quot;, &quot;tn3270_dlur_puB&quot;, &quot;configBAsk&quot;, &quot;Logged_OffAsk&quot;, &quot;Logged_OffConsoleAsk&quot;};"/>
       </AuxValues>
     </Component>
   </SubComponents>
