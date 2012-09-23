@@ -91,8 +91,8 @@ public class MainInterface extends javax.swing.JFrame {
         setTitle("Home Router 1.0 Beta");
         setIconImage(Toolkit.getDefaultToolkit().getImage(ConnectWindow.class.getResource("/resources/router icon.png")));
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(560, 303));
-        setPreferredSize(new java.awt.Dimension(560, 303));
+        setMinimumSize(new java.awt.Dimension(560, 353));
+        setPreferredSize(new java.awt.Dimension(560, 353));
 
         jLabel1.setText("New Connection:");
 

@@ -97,6 +97,19 @@ public class RouterHandler {
 		this.routerLevel.sendCommand("router rip\r\n");
 		this.routerLevel.sendCommand("network " + ip + "\r\n");
 	}
+	
+	public void removeStaticRoute(String route){
+		this.goToLevelRouter(3);
+		String[] routetemp = route.split(" ");
+		this.routerLevel.sendCommand("no ip route " + routetemp[0] + " " + routetemp[3] + " " + routetemp[5] + "\r\n");
+		
+	}
+	
+	public void removeDynamicRoute(String ip) {
+		this.goToLevelRouter(3);
+		this.routerLevel.sendCommand("router rip\r\n");
+		this.routerLevel.sendCommand("no network " + ip + "\r\n");
+	}
 
 	// método para pingar um IP
 	public void ping(String ip) {
@@ -120,6 +133,14 @@ public class RouterHandler {
 		this.goToLevelRouter(3);
 		this.routerLevel.sendCommand("enable password " + pass + "\r\n");
 	}
+	
+	public void showRun(){
+		this.goToLevelRouter(2);
+		this.routerLevel.sendCommand("show run\r\n");
+		
+	}
+	
+	
 
 	public void sendUserCommand(String command) {
 		routerLevel.sendCommand(command);
