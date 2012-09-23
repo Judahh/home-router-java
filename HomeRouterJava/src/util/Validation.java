@@ -132,4 +132,25 @@ public class Validation {
 		}
 
 	}
+	
+	public boolean validateMAC(String mac){
+		
+		if ((mac == null) || (mac.equals(""))) {
+			JOptionPane.showMessageDialog(null, "Enter a MAC address");
+			return false;
+		}
+		
+		if (mac.length()>14){
+			JOptionPane.showMessageDialog(null, "Invalid MAC address");
+			return false;
+		}
+		
+		String regex = new String("^[0-9a-fA-F.]+$");
+		if (!mac.matches(regex)){
+			JOptionPane.showMessageDialog(null, "Invalid MAC address");
+			return false;
+		}
+		
+		return true;
+	}
 }
