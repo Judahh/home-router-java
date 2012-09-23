@@ -150,11 +150,24 @@ public class RouterHandler {
 			this.routerLevel.sendCommand("shutdown\r\n");
 		}
 		this.routerLevel.sendCommand("speed " + bandwidth + "\r\n");
-		this.routerLevel.sendCommand("duplex " + duplex + "\r\n");
+		this.routerLevel.sendCommand(duplex + "\r\n");
 		this.routerLevel.sendCommand("mac-address " + mac + "\r\n");
 		this.routerLevel.sendCommand("ip address " + ip + " " + mask + "\r\n");
 		this.routerLevel.sendCommand("tx-ring-limit "+tx+"\r\n");
 
+	}
+	
+	public void setSerialInterface(String number, boolean portStatus, String clockrate, String ip, String mask, String tx){
+		this.goToLevelRouter(3);
+		this.routerLevel.sendCommand("interface s" + number + "\r\n");
+		if (portStatus == true) {
+			this.routerLevel.sendCommand("no shutdown\r\n");
+		} else {
+			this.routerLevel.sendCommand("shutdown\r\n");
+		}
+		this.routerLevel.sendCommand("clock rate " + clockrate + "\r\n");		
+		this.routerLevel.sendCommand("ip address " + ip + " " + mask + "\r\n");
+		this.routerLevel.sendCommand("tx-ring-limit "+tx+"\r\n");
 	}
 
 	public void sendUserCommand(String command) {
