@@ -97,14 +97,14 @@ public class RouterHandler {
 		this.routerLevel.sendCommand("router rip\r\n");
 		this.routerLevel.sendCommand("network " + ip + "\r\n");
 	}
-	
-	public void removeStaticRoute(String route){
+
+	public void removeStaticRoute(String route) {
 		this.goToLevelRouter(3);
 		String[] routetemp = route.split(" ");
 		this.routerLevel.sendCommand("no ip route " + routetemp[0] + " " + routetemp[3] + " " + routetemp[5] + "\r\n");
-		
+
 	}
-	
+
 	public void removeDynamicRoute(String ip) {
 		this.goToLevelRouter(3);
 		this.routerLevel.sendCommand("router rip\r\n");
@@ -133,14 +133,29 @@ public class RouterHandler {
 		this.goToLevelRouter(3);
 		this.routerLevel.sendCommand("enable password " + pass + "\r\n");
 	}
-	
-	public void showRun(){
+
+	public void showRun() {
 		this.goToLevelRouter(2);
 		this.routerLevel.sendCommand("show run\r\n");
-		
+
 	}
-	
-	
+
+	public void setFastEthernetInterface(String number, boolean portStatus, String bandwidth, String duplex, String mac, String ip,
+			String mask, String tx) {
+		this.goToLevelRouter(3);
+		this.routerLevel.sendCommand("interface f" + number + "\r\n");
+		if (portStatus == true) {
+			this.routerLevel.sendCommand("no shutdown\r\n");
+		} else {
+			this.routerLevel.sendCommand("shutdown\r\n");
+		}
+		this.routerLevel.sendCommand("speed " + bandwidth + "\r\n");
+		this.routerLevel.sendCommand("duplex " + duplex + "\r\n");
+		this.routerLevel.sendCommand("mac-address " + mac + "\r\n");
+		this.routerLevel.sendCommand("ip address " + ip + " " + mask + "\r\n");
+		this.routerLevel.sendCommand("tx-ring-limit "+tx+"\r\n");
+
+	}
 
 	public void sendUserCommand(String command) {
 		routerLevel.sendCommand(command);
