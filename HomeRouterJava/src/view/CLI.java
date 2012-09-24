@@ -73,44 +73,19 @@ public class CLI extends javax.swing.JPanel {
 			// vTelnet.goToLevelRouter(3); //teste
 		}
 
-		// Essas 6 linhas aï¿½ embaixo dï¿½o um show run e pegam as rotas
+		// Essas 4 linhas aï¿½ embaixo dï¿½o um show run e pegam as rotas
 		// e a versï¿½o do IOS, caso vocï¿½ tenha algum problema comente-as
 
 		vTelnet.showRun();
 		String showRunInfo = ConsolejTextArea.getText();
-		//InformationHandler ih = new InformationHandler(host,port,GuiSol);
-		//ih.parseShowRunInfo(showRunInfo);
-//		buildInterfacePanels();
-//
-//		fillStaticRouteList(staticRoutes);
-//		fillDynamicRouteList(dynamicRoutes);
-//		vTelnet.setLevel(1);
+		InformationHandler ih = new InformationHandler(host,port,GuiSol);
+		ih.parseShowRunInfo(showRunInfo);
 
 	}
 
 	public String getRouterName() {
 		return vTelnet.getRouterName();
-	}
-
-	
-	private void buildInterfacePanels() {
-		for (int i = 0; i < fastethernet; i++) {
-			FastEthernet fn = new FastEthernet();
-			fn.setName("Fast Ethernet " + i);
-			fn.setvTelnet(vTelnet);
-			fn.setNumber(String.valueOf(i));
-			interfacesJTabbedPane.add(fn);
-		}
-
-		for (int i = 0; i < serial; i++) {
-			Serial se = new Serial();
-			se.setName("Serial " + i);
-			se.setvTelnet(vTelnet);
-			se.setNumber(String.valueOf(i));
-			interfacesJTabbedPane.add(se);
-		}
-
-	}
+	}	
 	
 	//verifica se está sincronizado em 
 	private void getSynchroState(){
