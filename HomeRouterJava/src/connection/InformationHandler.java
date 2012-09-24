@@ -95,15 +95,14 @@ public class InformationHandler {// --------------------------------------------
 	}
 
 	public void parseShowRunInfo(String info) {
-		String[] infoarray = info.split("\\r");
-		boolean routerrip = false;
+		String[] infoarray = info.split("\\r");		
 		staticRoutes = new ArrayList<String>();
 		dynamicRoutes = new ArrayList<String>();
 		for (int i = 0; i < infoarray.length; i++) {
 			if (infoarray[i].contains("version")) {
 				String[] tempversion = infoarray[i].split("version");
 				version = tempversion[1].trim();
-				GuiSol.setIos("Cisco 1700v v1.5 with IOS version " + version);
+				GuiSol.setIos("IOS version " + version);
 			}
 
 			if (infoarray[i].contains("ip route")) {

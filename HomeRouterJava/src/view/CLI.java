@@ -62,6 +62,8 @@ public class CLI extends javax.swing.JPanel {
 				RjList, interfacesJTabbedPane, Tab, index);
 
 		vTelnet = new RouterHandler(host, port, GuiSol);		
+		
+		GuiSol.setvTelnet(vTelnet);
 
 		if (vTelnet.Login()) {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
