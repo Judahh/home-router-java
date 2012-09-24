@@ -8,7 +8,12 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
+import view.FastEthernet;
+import view.Serial;
 import model.ClockModel;
 import model.GUISolutionModel;
 import model.RunModel;
@@ -38,6 +43,14 @@ public class InformationHandler {// --------------------------------------------
 	private RunModel run;
 	private ConnectionHandler connection;
 	private GUISolutionModel GuiSol;
+
+	private String[] leveltypes;
+	private String version;
+	private ArrayList<String> staticRoutes;
+	private ArrayList<String> dynamicRoutes;
+
+	private int fastethernet; // numero de interfaces fastethernet no router
+	private int serial; // numero de interfaces seriais no router
 
 	public InformationHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
 		this.GuiSol = GuiSol;
@@ -80,6 +93,94 @@ public class InformationHandler {// --------------------------------------------
 			connection.send(" ");
 		}
 	}
+
+	public void parseShowRunInfo(String info) {
+		String[] infoarray = info.split("\\r");
+		boolean routerrip = false;
+		staticRoutes = new ArrayList<String>();
+		dynamicRoutes = new ArrayList<String>();
+		for (int i = 0; i < infoarray.length; i++) {
+			if (infoarray[i].contains("version")) {
+				String[] tempversion = infoarray[i].split("version");
+				version = tempversion[1].trim();
+				GuiSol.setIos("Cisco 1700v v1.5 with IOS version " + version);
+			}
+
+			if (infoarray[i].contains("ip route")) {
+				String[] temproute = infoarray[i].split(" ");
+				staticRoutes.add(temproute[2] + " with mask " + temproute[3] + " via " + temproute[4]);
+
+			}
+
+			if (infoarray[i].contains("router")) {
+				int j = i + 1;
+				String cache = infoarray[j];
+				while (cache.contains("network")) {
+					String[] temproute2 = infoarray[j].split("network");
+					dynamicRoutes.add(temproute2[1].trim());
+					j++;
+					cache = infoarray[j];
+				}
+
+			}
+
+			if (infoarray[i].contains("interface FastEthernet")) {
+				fastethernet++;
+			}
+
+			if (infoarray[i].contains("interface Serial")) {
+				serial++;
+			}
+
+			// System.out.println("Infoarray" + infoarray[i]);
+		}
+
+		// rotas estaticas
+		for (String string : staticRoutes) {
+			GuiSol.addStaticRoute(string);
+
+		}
+
+		GuiSol.addStaticModel();
+
+		// rotas dinamicas
+		for (String string : dynamicRoutes) {
+			GuiSol.addDynamicRoute(string);
+
+		}
+
+		GuiSol.addDynamicModel();
+
+		for (int i = 0; i < fastethernet; i++) {
+
+			GuiSol.addFastEthernetInterface(String.valueOf(i));
+
+		}
+
+		for (int i = 0; i < serial; i++) {
+			GuiSol.addSerialInterface(String.valueOf(i));
+		}
+
+	}
+
+	// private void buildInterfacePanels() {
+	// for (int i = 0; i < fastethernet; i++) {
+	// FastEthernet fn = new FastEthernet();
+	// fn.setName("Fast Ethernet " + i);
+	// fn.setvTelnet(vTelnet);
+	// fn.setNumber(String.valueOf(i));
+	// interfacesJTabbedPane.add(fn);
+	// }
+	//
+	// for (int i = 0; i < serial; i++) {
+	// Serial se = new Serial();
+	// se.setName("Serial " + i);
+	// se.setvTelnet(vTelnet);
+	// se.setNumber(String.valueOf(i));
+	// interfacesJTabbedPane.add(se);
+	// }
+	//
+	// }
 
 	private ArrayList<String> getEndInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();
