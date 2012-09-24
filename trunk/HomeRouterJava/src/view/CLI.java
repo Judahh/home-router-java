@@ -4,6 +4,7 @@
  */
 package view;
 
+import connection.InformationHandler;
 import connection.RouterHandler;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -58,9 +59,9 @@ public class CLI extends javax.swing.JPanel {
 		this.index = index;
 
 		GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, ClockjLabel, InterfacesjLabel, TypejLabel, IosjLabel, DyRjList,
-				RjList, null, null, Tab, index);
+				RjList, interfacesJTabbedPane, Tab, index);
 
-		vTelnet = new RouterHandler(host, port, GuiSol);
+		vTelnet = new RouterHandler(host, port, GuiSol);		
 
 		if (vTelnet.Login()) {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
@@ -75,12 +76,13 @@ public class CLI extends javax.swing.JPanel {
 
 		vTelnet.showRun();
 		String showRunInfo = ConsolejTextArea.getText();
-		parseShowRunInfo(showRunInfo);
-		buildInterfacePanels();
-
-		fillStaticRouteList(staticRoutes);
-		fillDynamicRouteList(dynamicRoutes);
-		vTelnet.setLevel(1);
+		InformationHandler ih = new InformationHandler(host,port,GuiSol);
+		ih.parseShowRunInfo(showRunInfo);
+//		buildInterfacePanels();
+//
+//		fillStaticRouteList(staticRoutes);
+//		fillDynamicRouteList(dynamicRoutes);
+//		vTelnet.setLevel(1);
 
 	}
 
@@ -88,68 +90,7 @@ public class CLI extends javax.swing.JPanel {
 		return vTelnet.getRouterName();
 	}
 
-	private void parseShowRunInfo(String info) {
-		String[] infoarray = info.split("\\r");
-		boolean routerrip = false;
-		staticRoutes = new ArrayList<String>();
-		dynamicRoutes = new ArrayList<String>();
-		for (int i = 0; i < infoarray.length; i++) {
-			if (infoarray[i].contains("version")) {
-				String[] tempversion = infoarray[i].split("version");
-				version = tempversion[1].trim();
-				IosjLabel.setText("Cisco 1700v v1.5 with IOS version " + version);
-			}
-
-			if (infoarray[i].contains("ip route")) {
-				String[] temproute = infoarray[i].split(" ");
-				staticRoutes.add(temproute[2] + " with mask " + temproute[3] + " via " + temproute[4]);
-
-			}
-
-			if (infoarray[i].contains("router")) {
-				int j = i + 1;
-				String cache = infoarray[j];
-				while (cache.contains("network")) {
-					String[] temproute2 = infoarray[j].split("network");
-					dynamicRoutes.add(temproute2[1].trim());
-					j++;
-					cache = infoarray[j];
-				}
-
-			}
-
-			if (infoarray[i].contains("interface FastEthernet")) {
-				fastethernet++;
-			}
-
-			if (infoarray[i].contains("interface Serial")) {
-				serial++;
-			}
-
-			// System.out.println("Infoarray" + infoarray[i]);
-		}
-
-	}
-
-	// preenche lista de rotas estï¿½ticas
-	private void fillStaticRouteList(ArrayList<String> routes) {
-		DefaultListModel staticListModel = new DefaultListModel();
-
-		for (String string : routes) {
-			staticListModel.addElement(string);
-		}
-		RjList.setModel(staticListModel);
-	}
-
-	private void fillDynamicRouteList(ArrayList<String> routes) {
-		DefaultListModel dynamicListModel = new DefaultListModel();
-
-		for (String string : routes) {
-			dynamicListModel.addElement(string);
-		}
-		DyRjList.setModel(dynamicListModel);
-	}
-
+	
 	private void buildInterfacePanels() {
 		for (int i = 0; i < fastethernet; i++) {
 			FastEthernet fn = new FastEthernet();
@@ -167,6 +108,12 @@ public class CLI extends javax.swing.JPanel {
 			interfacesJTabbedPane.add(se);
 		}
 
+	}
+	
+	//verifica se está sincronizado em 
+	private void getSynchroState(){
+		vTelnet.getSynchroState();
+		
 	}
 	
 	
@@ -448,7 +395,6 @@ public class CLI extends javax.swing.JPanel {
         InterfacesjFrame.setTitle("Interfaces");
         InterfacesjFrame.setLocationByPlatform(true);
         InterfacesjFrame.setMinimumSize(new java.awt.Dimension(400, 400));
-        InterfacesjFrame.setPreferredSize(new java.awt.Dimension(400, 400));
 
         interfacesJTabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -803,8 +749,8 @@ public class CLI extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setMinimumSize(new java.awt.Dimension(452, 167));
-        setPreferredSize(new java.awt.Dimension(452, 167));
+        setMinimumSize(new java.awt.Dimension(462, 167));
+        setPreferredSize(new java.awt.Dimension(462, 167));
 
         ConsolejTextArea.setColumns(20);
         ConsolejTextArea.setRows(5);
@@ -867,11 +813,11 @@ public class CLI extends javax.swing.JPanel {
                         .addComponent(SendjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -945,6 +891,7 @@ public class CLI extends javax.swing.JPanel {
 	private void levelselectorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_levelselectorJComboBoxActionPerformed
 		JComboBox cb = (JComboBox) evt.getSource();
 		if (cb.getSelectedIndex() == 0) {
+			vTelnet.disconnect();
 			mi.killCLI(host, index);
 		} else {
 			vTelnet.setLevel(cb.getSelectedIndex());
@@ -989,6 +936,7 @@ public class CLI extends javax.swing.JPanel {
 		int key = evt.getKeyCode();
 		if (key == KeyEvent.VK_ENTER) {
 			if (CommandjTextField.getText().equalsIgnoreCase("exit") && (vTelnet.getLevel() < 3)) {
+				vTelnet.disconnect();
 				mi.killCLI(host, index);
 
 			} else {

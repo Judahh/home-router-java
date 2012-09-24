@@ -169,6 +169,12 @@ public class RouterHandler {
 		this.routerLevel.sendCommand("ip address " + ip + " " + mask + "\r\n");
 		this.routerLevel.sendCommand("tx-ring-limit "+tx+"\r\n");
 	}
+	
+	//ainda é um rascunho
+	public void getSynchroState(){
+		this.goToLevelRouter(2);
+		this.routerLevel.sendCommand("show controllers serial0");
+	}
 
 	public void sendUserCommand(String command) {
 		routerLevel.sendCommand(command);
