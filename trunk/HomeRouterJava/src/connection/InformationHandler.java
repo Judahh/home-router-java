@@ -72,22 +72,22 @@ public class InformationHandler {// --------------------------------------------
 		}
 
 		ArrayList<String> InfoS = connection.arrayListReadUntil(possibilities);
-
-		String FullInfo = FirstPartInfo + InfoS;
-		if (FirstPartInfo == "%") {
-			JOptionPane.showInputDialog(InfoS);
-		}
-		if (FirstPartInfo == "!") {
-			if (InfoS.get(1).contains("interface") || InfoS.get(1).contains("Interface")) {
-				if (InfoS.get(1).contains("FastEthernet")) {
-					int i = InfoS.get(1).indexOf("FastEthernet");
-					for (int j = i; j < InfoS.get(1).length(); j++) {
-						System.out.println(InfoS.get(1).charAt(j));
-
-					}
-				}
-			}
-		}
+//
+//		String FullInfo = FirstPartInfo + InfoS;
+//		if (FirstPartInfo == "%") {
+//			JOptionPane.showInputDialog(InfoS);
+//		}
+//		if (FirstPartInfo == "!") {
+//			if (InfoS.get(1).contains("interface") || InfoS.get(1).contains("Interface")) {
+//				if (InfoS.get(1).contains("FastEthernet")) {
+//					int i = InfoS.get(1).indexOf("FastEthernet");
+//					for (int j = i; j < InfoS.get(1).length(); j++) {
+//						System.out.println(InfoS.get(1).charAt(j));
+//
+//					}
+//				}
+//			}
+//		}
 
 		if (InfoS.get(0).equals("--More--")) {
 			connection.send(" ");
@@ -95,7 +95,7 @@ public class InformationHandler {// --------------------------------------------
 	}
 
 	public void parseShowRunInfo(String info) {
-		String[] infoarray = info.split("\\r");		
+		String[] infoarray = info.split("\\r");
 		staticRoutes = new ArrayList<String>();
 		dynamicRoutes = new ArrayList<String>();
 		for (int i = 0; i < infoarray.length; i++) {
@@ -111,7 +111,7 @@ public class InformationHandler {// --------------------------------------------
 
 			}
 
-			if (infoarray[i].contains("router")) {
+			if (infoarray[i].contains("router rip")) {
 				int j = i + 1;
 				String cache = infoarray[j];
 				while (cache.contains("network")) {
@@ -124,6 +124,29 @@ public class InformationHandler {// --------------------------------------------
 			}
 
 			if (infoarray[i].contains("interface FastEthernet")) {
+//				int j = i+1;				
+//				while (!infoarray[j].contains("!")){
+//					if (infoarray[j].contains("mac")){
+//						String temparray[] = infoarray[j].split(" ");
+//						GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
+//					} else if(infoarray[j].contains("ip address")){
+//						String temparray[] = infoarray[j].split("ip address");
+//						temparray[1].trim();
+//						
+//						GuiSol.setFastEthernetIp(fastethernet, temparray[1].substring(0, infoarray[j].indexOf(" ")));
+//						GuiSol.setFastEthernetMac(fastethernet, temparray[1].substring(infoarray[j].indexOf(" ")));
+//					} else if(infoarray[j].contains("tx-ring")){
+//						String temparray[] = infoarray[j].split(" ");
+//						GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
+//						
+//					} else if(infoarray[j].contains("speed")){
+//						String temparray[] = infoarray[j].split(" ");
+//						GuiSol.setFastEthernetBandwidth(fastethernet, temparray[1].trim());
+//					} else if (infoarray[j].contains("half-duplex")){
+//						GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
+//					} 
+//					j++;
+//				}
 				fastethernet++;
 			}
 
@@ -150,36 +173,19 @@ public class InformationHandler {// --------------------------------------------
 
 		GuiSol.addDynamicModel();
 
+		// adicionar fastethernet
 		for (int i = 0; i < fastethernet; i++) {
 
 			GuiSol.addFastEthernetInterface(String.valueOf(i));
 
 		}
 
+		// adicionar serial
 		for (int i = 0; i < serial; i++) {
 			GuiSol.addSerialInterface(String.valueOf(i));
 		}
 
 	}
-
-	// private void buildInterfacePanels() {
-	// for (int i = 0; i < fastethernet; i++) {
-	// FastEthernet fn = new FastEthernet();
-	// fn.setName("Fast Ethernet " + i);
-	// fn.setvTelnet(vTelnet);
-	// fn.setNumber(String.valueOf(i));
-	// interfacesJTabbedPane.add(fn);
-	// }
-	//
-	// for (int i = 0; i < serial; i++) {
-	// Serial se = new Serial();
-	// se.setName("Serial " + i);
-	// se.setvTelnet(vTelnet);
-	// se.setNumber(String.valueOf(i));
-	// interfacesJTabbedPane.add(se);
-	// }
-	//
-	// }
 
 	private ArrayList<String> getEndInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();

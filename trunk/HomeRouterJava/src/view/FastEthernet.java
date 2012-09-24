@@ -289,8 +289,8 @@ public class FastEthernet extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JCheckBox BandwidthjCheckBox;
     private javax.swing.JButton CanceljButton;
-    private javax.swing.JRadioButton FullDuplexJRadioButton;
-    private javax.swing.JRadioButton HalfDuplexJRadioButton;
+    public javax.swing.JRadioButton FullDuplexJRadioButton;
+    public javax.swing.JRadioButton HalfDuplexJRadioButton;
     public javax.swing.JTextField IpjTextField;
     public javax.swing.JTextField MacjTextField;
     public javax.swing.JTextField MaskjTextField;
@@ -304,7 +304,7 @@ public class FastEthernet extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton100mbps;
-    private javax.swing.JRadioButton jRadioButton10mbps;
+    public javax.swing.JRadioButton jRadioButton100mbps;
+    public javax.swing.JRadioButton jRadioButton10mbps;
     // End of variables declaration//GEN-END:variables
 }

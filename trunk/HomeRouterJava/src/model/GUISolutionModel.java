@@ -40,10 +40,8 @@ public class GUISolutionModel {
 
 	private JTabbedPane Pane;
 	private int PaneIndex;
-	
-	private RouterHandler vTelnet;
 
-	
+	private RouterHandler vTelnet;
 
 	public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
 			JList StaticEstablishedRoutes, JTabbedPane interfacesPane, JTabbedPane Pane, int PaneIndex) {
@@ -97,7 +95,7 @@ public class GUISolutionModel {
 	}
 
 	public void setIos(String ios) {
-		this.Ios.setText(ios);
+		this.Ios.setText(ios.trim());
 	}
 
 	public void addDynamicRoute(String route) {
@@ -146,8 +144,17 @@ public class GUISolutionModel {
 		FEArray.get(index).PortStatusjCheckBox.setSelected(On);
 	}
 
-	public void setFastEthernetBandwidth(int index, boolean Auto) {
-		FEArray.get(index).BandwidthjCheckBox.setSelected(Auto);
+	public void setFastEthernetBandwidth(int index, String bw) {
+		if (bw.equals("10")) {
+			FEArray.get(index).jRadioButton10mbps.setSelected(true);
+			FEArray.get(index).BandwidthjCheckBox.setSelected(false);
+		} else if (bw.equals("100")) {
+			FEArray.get(index).jRadioButton100mbps.setSelected(true);
+			FEArray.get(index).BandwidthjCheckBox.setSelected(false);
+		} else if (bw.equalsIgnoreCase("auto")) {
+			FEArray.get(index).BandwidthjCheckBox.setSelected(true);
+		}
+
 	}
 
 	public void setFastEthernetMac(int index, String MAC) {
@@ -162,8 +169,15 @@ public class GUISolutionModel {
 		FEArray.get(index).MaskjTextField.setText(Mask);
 	}
 
-	public void setFastEthernetTx(int index, int Tx) {
-		FEArray.get(index).TxjTextField.setText(Integer.toString(Tx));
+	public void setFastEthernetTx(int index, String Tx) {
+		FEArray.get(index).TxjTextField.setText(Tx);
+	}
+
+	public void setFastEthernetDuplex(int index, String duplex) {
+		if (duplex.contains("half")) {
+			FEArray.get(index).HalfDuplexJRadioButton.setSelected(true);
+		}
+
 	}
 
 	public void addSerialInterface(String port) {
@@ -194,7 +208,7 @@ public class GUISolutionModel {
 	public void setSerialTx(int index, int Tx) {
 		SArray.get(index).TxjTextField.setText(Integer.toString(Tx));
 	}
-	
+
 	public RouterHandler getvTelnet() {
 		return vTelnet;
 	}
@@ -202,5 +216,5 @@ public class GUISolutionModel {
 	public void setvTelnet(RouterHandler vTelnet) {
 		this.vTelnet = vTelnet;
 	}
-	
+
 }
