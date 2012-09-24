@@ -124,29 +124,28 @@ public class InformationHandler {// --------------------------------------------
 			}
 
 			if (infoarray[i].contains("interface FastEthernet")) {
-//				int j = i+1;				
-//				while (!infoarray[j].contains("!")){
-//					if (infoarray[j].contains("mac")){
-//						String temparray[] = infoarray[j].split(" ");
-//						GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
-//					} else if(infoarray[j].contains("ip address")){
-//						String temparray[] = infoarray[j].split("ip address");
-//						temparray[1].trim();
-//						
-//						GuiSol.setFastEthernetIp(fastethernet, temparray[1].substring(0, infoarray[j].indexOf(" ")));
-//						GuiSol.setFastEthernetMac(fastethernet, temparray[1].substring(infoarray[j].indexOf(" ")));
-//					} else if(infoarray[j].contains("tx-ring")){
-//						String temparray[] = infoarray[j].split(" ");
-//						GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
-//						
-//					} else if(infoarray[j].contains("speed")){
-//						String temparray[] = infoarray[j].split(" ");
-//						GuiSol.setFastEthernetBandwidth(fastethernet, temparray[1].trim());
-//					} else if (infoarray[j].contains("half-duplex")){
-//						GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
-//					} 
-//					j++;
-//				}
+				int j = i+1;				
+				while (!infoarray[j].contains("!")){
+					if (infoarray[j].contains("mac")){
+						String temparray[] = infoarray[j].split(" ");
+						GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
+					} else if(infoarray[j].contains("ip address")){
+						String temparray[] = infoarray[j].split(" ");					
+						
+						GuiSol.setFastEthernetIp(fastethernet, temparray[2]);
+						GuiSol.setFastEthernetMac(fastethernet, temparray[3]);
+					} else if(infoarray[j].contains("tx-ring")){
+						String temparray[] = infoarray[j].split(" ");
+						GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
+						
+					} else if(infoarray[j].contains("speed")){
+						String temparray[] = infoarray[j].split(" ");
+						GuiSol.setFastEthernetBandwidth(fastethernet, temparray[1].trim());
+					} else if (infoarray[j].contains("half-duplex")){
+						GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
+					} 
+					j++;
+				}
 				fastethernet++;
 			}
 
@@ -176,7 +175,7 @@ public class InformationHandler {// --------------------------------------------
 		// adicionar fastethernet
 		for (int i = 0; i < fastethernet; i++) {
 
-			GuiSol.addFastEthernetInterface(String.valueOf(i));
+			GuiSol.addFastEthernetInterface(String.valueOf(i)+"/"+String.valueOf(i));
 
 		}
 
