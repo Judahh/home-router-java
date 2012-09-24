@@ -78,8 +78,8 @@ public class CLI extends javax.swing.JPanel {
 
 		vTelnet.showRun();
 		String showRunInfo = ConsolejTextArea.getText();
-		InformationHandler ih = new InformationHandler(host,port,GuiSol);
-		ih.parseShowRunInfo(showRunInfo);
+		//InformationHandler ih = new InformationHandler(host,port,GuiSol);
+		//ih.parseShowRunInfo(showRunInfo);
 //		buildInterfacePanels();
 //
 //		fillStaticRouteList(staticRoutes);
