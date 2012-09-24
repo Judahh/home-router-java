@@ -174,12 +174,16 @@ public class InformationHandler {// --------------------------------------------
 
 	}
 
+	//toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
 	private ArrayList<String> getEndInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();
 		possibilities.add("--More--");
 		possibilities.add("Invalid input detected at '^' marker.");
 		possibilities.add("end");
 		possibilities.add(" transmitter CTS losts");
+		possibilities.add("X25 protocol-specific configuration");
+		possibilities.add(" Global XOT commands");
+		possibilities.add(" Virtual Private Dialup Network");
 		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;
