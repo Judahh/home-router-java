@@ -135,10 +135,10 @@ public class ConnectionHandler {
 			boolean found = false;
 			char ch = (char) in.read();
 			//se der pau vc comenta isso
-			while((ch==13)||(ch==10)||(ch==7)){
-				ch = (char) in.read();
-			}
-			System.out.println("ascii "+Integer.valueOf(ch));
+//			while((ch==13)||(ch==10)||(ch==7)){
+//				ch = (char) in.read();
+//			}
+//			System.out.println("ascii "+Integer.valueOf(ch));
 			System.out.println("Recebido:");
                         this.GuiSol.appendConsole("Recebido:");
 			while (!found) {

@@ -70,25 +70,13 @@ public class InformationHandler {// --------------------------------------------
 		for (int i = 0; i < getEndInfoPossibilities().size(); i++) {
 			possibilities[i] = getEndInfoPossibilities().get(i);
 		}
-
+		
+		if (FirstPartInfo.contains("More")) {
+			connection.send(" ");
+		}
+		
 		ArrayList<String> InfoS = connection.arrayListReadUntil(possibilities);
-//
-//		String FullInfo = FirstPartInfo + InfoS;
-//		if (FirstPartInfo == "%") {
-//			JOptionPane.showInputDialog(InfoS);
-//		}
-//		if (FirstPartInfo == "!") {
-//			if (InfoS.get(1).contains("interface") || InfoS.get(1).contains("Interface")) {
-//				if (InfoS.get(1).contains("FastEthernet")) {
-//					int i = InfoS.get(1).indexOf("FastEthernet");
-//					for (int j = i; j < InfoS.get(1).length(); j++) {
-//						System.out.println(InfoS.get(1).charAt(j));
-//
-//					}
-//				}
-//			}
-//		}
-
+		
 		if (InfoS.get(0).equals("--More--")) {
 			connection.send(" ");
 		}
@@ -124,28 +112,28 @@ public class InformationHandler {// --------------------------------------------
 			}
 
 			if (infoarray[i].contains("interface FastEthernet")) {
-				int j = i+1;				
-				while (!infoarray[j].contains("!")){
-					if (infoarray[j].contains("mac")){
-						String temparray[] = infoarray[j].split(" ");
-						GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
-					} else if(infoarray[j].contains("ip address")){
-						String temparray[] = infoarray[j].split(" ");					
-						
-						GuiSol.setFastEthernetIp(fastethernet, temparray[2]);
-						GuiSol.setFastEthernetMac(fastethernet, temparray[3]);
-					} else if(infoarray[j].contains("tx-ring")){
-						String temparray[] = infoarray[j].split(" ");
-						GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
-						
-					} else if(infoarray[j].contains("speed")){
-						String temparray[] = infoarray[j].split(" ");
-						GuiSol.setFastEthernetBandwidth(fastethernet, temparray[1].trim());
-					} else if (infoarray[j].contains("half-duplex")){
-						GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
-					} 
-					j++;
-				}
+//				int j = i+1;				
+//				while (!infoarray[j].contains("!")){
+//					if (infoarray[j].contains("mac")){
+//						String temparray[] = infoarray[j].split(" ");
+//						GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
+//					} else if(infoarray[j].contains("ip address")){
+//						String temparray[] = infoarray[j].split(" ");					
+//						
+//						GuiSol.setFastEthernetIp(fastethernet, temparray[2]);
+//						GuiSol.setFastEthernetMac(fastethernet, temparray[3]);
+//					} else if(infoarray[j].contains("tx-ring")){
+//						String temparray[] = infoarray[j].split(" ");
+//						GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
+//						
+//					} else if(infoarray[j].contains("speed")){
+//						String temparray[] = infoarray[j].split(" ");
+//						GuiSol.setFastEthernetBandwidth(fastethernet, temparray[1].trim());
+//					} else if (infoarray[j].contains("half-duplex")){
+//						GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
+//					} 
+//					j++;
+//				}
 				fastethernet++;
 			}
 
@@ -191,6 +179,7 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add("--More--");
 		possibilities.add("Invalid input detected at '^' marker.");
 		possibilities.add("end");
+		possibilities.add(" transmitter CTS losts");
 		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;
@@ -202,6 +191,12 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add("*");
 		possibilities.add("<");
 		possibilities.add("domain server (");
+		possibilities.add("Interface FastEthernet");
+		possibilities.add("RX_RING_ENTRIES");
+		possibilities.add("status ");
+		possibilities.add("Register ");
+		possibilities.add("User-defined Address ");
+		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
 		possibilities.add("Jan");
