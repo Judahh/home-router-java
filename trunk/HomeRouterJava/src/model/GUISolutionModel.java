@@ -14,6 +14,8 @@ import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
+import connection.RouterHandler;
+
 /**
  * 
  * @author JH
@@ -38,6 +40,10 @@ public class GUISolutionModel {
 
 	private JTabbedPane Pane;
 	private int PaneIndex;
+	
+	private RouterHandler vTelnet;
+
+	
 
 	public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
 			JList StaticEstablishedRoutes, JTabbedPane interfacesPane, JTabbedPane Pane, int PaneIndex) {
@@ -129,6 +135,7 @@ public class GUISolutionModel {
 
 	public void addFastEthernetInterface(String port) {
 		FastEthernet FE = new FastEthernet();
+		FE.setvTelnet(vTelnet);
 
 		FE.setNumber(port);
 		FEArray.add(FE);
@@ -161,7 +168,7 @@ public class GUISolutionModel {
 
 	public void addSerialInterface(String port) {
 		Serial S = new Serial();
-
+		S.setvTelnet(vTelnet);
 		S.setNumber(port);
 		SArray.add(S);
 
@@ -187,4 +194,13 @@ public class GUISolutionModel {
 	public void setSerialTx(int index, int Tx) {
 		SArray.get(index).TxjTextField.setText(Integer.toString(Tx));
 	}
+	
+	public RouterHandler getvTelnet() {
+		return vTelnet;
+	}
+
+	public void setvTelnet(RouterHandler vTelnet) {
+		this.vTelnet = vTelnet;
+	}
+	
 }
