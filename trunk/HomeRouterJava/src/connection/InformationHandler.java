@@ -16,6 +16,8 @@ import view.FastEthernet;
 import view.Serial;
 import model.ClockModel;
 import model.GUISolutionModel;
+import model.IdentifierModel;
+import model.InterfaceModel;
 import model.RunModel;
 
 /**
@@ -70,13 +72,13 @@ public class InformationHandler {// --------------------------------------------
 		for (int i = 0; i < getEndInfoPossibilities().size(); i++) {
 			possibilities[i] = getEndInfoPossibilities().get(i);
 		}
-		
+
 		if (FirstPartInfo.contains("More")) {
 			connection.send(" ");
 		}
-		
+
 		ArrayList<String> InfoS = connection.arrayListReadUntil(possibilities);
-		
+
 		if (InfoS.get(0).equals("--More--")) {
 			connection.send(" ");
 		}
@@ -112,28 +114,29 @@ public class InformationHandler {// --------------------------------------------
 			}
 
 			if (infoarray[i].contains("interface FastEthernet")) {
-//				int j = i+1;				
-//				while (!infoarray[j].contains("!")){
-//					if (infoarray[j].contains("mac")){
-//						String temparray[] = infoarray[j].split(" ");
-//						GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
-//					} else if(infoarray[j].contains("ip address")){
-//						String temparray[] = infoarray[j].split(" ");					
-//						
-//						GuiSol.setFastEthernetIp(fastethernet, temparray[2]);
-//						GuiSol.setFastEthernetMac(fastethernet, temparray[3]);
-//					} else if(infoarray[j].contains("tx-ring")){
-//						String temparray[] = infoarray[j].split(" ");
-//						GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
-//						
-//					} else if(infoarray[j].contains("speed")){
-//						String temparray[] = infoarray[j].split(" ");
-//						GuiSol.setFastEthernetBandwidth(fastethernet, temparray[1].trim());
-//					} else if (infoarray[j].contains("half-duplex")){
-//						GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
-//					} 
-//					j++;
-//				}
+				// int j = i+1;
+				// while (!infoarray[j].contains("!")){
+				// if (infoarray[j].contains("mac")){
+				// String temparray[] = infoarray[j].split(" ");
+				// GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
+				// } else if(infoarray[j].contains("ip address")){
+				// String temparray[] = infoarray[j].split(" ");
+				//
+				// GuiSol.setFastEthernetIp(fastethernet, temparray[2]);
+				// GuiSol.setFastEthernetMac(fastethernet, temparray[3]);
+				// } else if(infoarray[j].contains("tx-ring")){
+				// String temparray[] = infoarray[j].split(" ");
+				// GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
+				//
+				// } else if(infoarray[j].contains("speed")){
+				// String temparray[] = infoarray[j].split(" ");
+				// GuiSol.setFastEthernetBandwidth(fastethernet,
+				// temparray[1].trim());
+				// } else if (infoarray[j].contains("half-duplex")){
+				// GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
+				// }
+				// j++;
+				// }
 				fastethernet++;
 			}
 
@@ -163,7 +166,7 @@ public class InformationHandler {// --------------------------------------------
 		// adicionar fastethernet
 		for (int i = 0; i < fastethernet; i++) {
 
-			GuiSol.addFastEthernetInterface(String.valueOf(i)+"/"+String.valueOf(i));
+			GuiSol.addFastEthernetInterface(String.valueOf(i) + "/" + String.valueOf(i));
 
 		}
 
@@ -174,7 +177,74 @@ public class InformationHandler {// --------------------------------------------
 
 	}
 
-	//toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
+	public void parseInterfaceStatusInfo(String info) {
+		String[] infoarray = info.split("\\n");
+
+		for (int i = infoarray.length-1; i >= 0; i--) {
+			if (infoarray[i].contains("interface ")) {
+				InterfaceModel intmod = new InterfaceModel();
+				String[] temparray = infoarray[i].split(" ");
+				IdentifierModel identmod = new IdentifierModel();
+				if (temparray[1].contains("FastEthernet")) {
+					identmod.setInterfaceCod(0);
+					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("t")+1));
+				} else {
+					identmod.setInterfaceCod(1);
+					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("l")+1));
+				}
+
+				intmod.setIdentifier(identmod);
+
+				int j = i + 1;
+				if (infoarray[j].contains("ip address")) {
+					String[] ipmaskarray = infoarray[j].split(" ");
+					if (infoarray[j].contains("no ")) {
+						intmod.setIp(null);
+						intmod.setMask(null);
+					} else {
+						intmod.setIp(ipmaskarray[3]);
+						intmod.setMask(ipmaskarray[4]);
+					}
+
+				}
+
+				intmod.setShutdown(false);
+				while (!infoarray[j].contains("!")) {
+					if (infoarray[j].contains("shutdown")) {
+						intmod.setShutdown(true);
+
+					}
+					j++;
+				}
+				if (intmod.isShutdown()) {
+					if ((intmod.getIp()==null)&&(intmod.getMask()==null)){
+						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
+								+ " is down without IP address");
+					} else {
+						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
+								+ " is down with IP " + intmod.getIp() + " and mask " + intmod.getMask());
+					}
+					
+				} else {
+					if ((intmod.getIp()==null)&&(intmod.getMask()==null)){
+						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
+								+ " is up without IP address");
+					} else {
+						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
+								+ " is up with ip " + intmod.getIp() + " and mask " + intmod.getMask());
+					}
+					
+				}
+
+			}
+
+		}
+
+		GuiSol.addStatusModel();
+
+	}
+
+	// toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
 	private ArrayList<String> getEndInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();
 		possibilities.add("--More--");
@@ -184,6 +254,7 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add("X25 protocol-specific configuration");
 		possibilities.add(" Global XOT commands");
 		possibilities.add(" Virtual Private Dialup Network");
+		possibilities.add(" Configured from console by");
 		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;

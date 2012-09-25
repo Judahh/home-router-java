@@ -45,14 +45,29 @@
             <Property name="text" type="java.lang.String" value="Edit"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="InterfacesjMenuItem">
+            <Menu class="javax.swing.JMenu" name="Interfaces">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Interfaces"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InterfacesjMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="InterfacesConfigjMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Config"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InterfacesConfigjMenuItemActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="InterfacesStatusjMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Status"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InterfacesStatusjMenuItemActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="SwitchingjMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Switching"/>

@@ -72,6 +72,7 @@ public class RouterHandler {
 
 	public void setVLanConfig(String number, String name) {
 		this.goToLevelRouter(2);
+		this.routerLevel.sendCommand("vlan database\r\n");
 		this.routerLevel.sendCommand("vlan " + number + " name " + name + "\r\n");
 	}
 
@@ -143,7 +144,7 @@ public class RouterHandler {
 	public void setFastEthernetInterface(String number, boolean portStatus, String bandwidth, String duplex, String mac, String ip,
 			String mask, String tx) {
 		this.goToLevelRouter(3);
-		this.routerLevel.sendCommand("interface f" + number + "\r\n");
+		this.routerLevel.sendCommand("interface fastethernet" + number + "\r\n");
 		if (portStatus == true) {
 			this.routerLevel.sendCommand("no shutdown\r\n");
 		} else {
@@ -159,7 +160,7 @@ public class RouterHandler {
 	
 	public void setSerialInterface(String number, boolean portStatus, String clockrate, String ip, String mask, String tx){
 		this.goToLevelRouter(3);
-		this.routerLevel.sendCommand("interface s" + number + "\r\n");
+		this.routerLevel.sendCommand("interface serial" + number + "\r\n");
 		if (portStatus == true) {
 			this.routerLevel.sendCommand("no shutdown\r\n");
 		} else {
@@ -173,8 +174,9 @@ public class RouterHandler {
 	//ainda é um rascunho
 	public void getSynchroState(){
 		this.goToLevelRouter(2);
-		this.routerLevel.sendCommand("show controllers serial0");
+		this.routerLevel.sendCommand("show controllers\r\n");
 	}
+	
 
 	public void sendUserCommand(String command) {
 		routerLevel.sendCommand(command);

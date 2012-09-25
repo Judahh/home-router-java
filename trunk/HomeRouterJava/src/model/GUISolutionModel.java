@@ -22,6 +22,7 @@ import connection.RouterHandler;
  */
 public class GUISolutionModel {
 	private JTextArea Console;
+	private JList InterfaceStatus;
 	private JLabel Clock;
 	private JLabel Interfaces;
 	private JLabel Type;// Master ou Slave
@@ -32,6 +33,7 @@ public class GUISolutionModel {
 
 	private DefaultListModel<String> staticListModel;
 	private DefaultListModel<String> dynamicListModel;
+	private DefaultListModel<String> statusListModel;
 
 	private ArrayList<FastEthernet> FEArray;
 	private ArrayList<Serial> SArray;
@@ -44,8 +46,9 @@ public class GUISolutionModel {
 	private RouterHandler vTelnet;
 
 	public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
-			JList StaticEstablishedRoutes, JTabbedPane interfacesPane, JTabbedPane Pane, int PaneIndex) {
+			JList StaticEstablishedRoutes, JList InterfaceStatus, JTabbedPane interfacesPane, JTabbedPane Pane, int PaneIndex) {
 		this.Console = Console;
+		this.InterfaceStatus = InterfaceStatus;
 		this.Clock = Clock;
 		this.Interfaces = Interfaces;
 		this.Type = Type;
@@ -53,6 +56,7 @@ public class GUISolutionModel {
 
 		this.Pane = Pane;
 		this.PaneIndex = PaneIndex;
+		
 
 		this.interfacesPane = interfacesPane;
 
@@ -61,10 +65,25 @@ public class GUISolutionModel {
 
 		staticListModel = new DefaultListModel();
 		dynamicListModel = new DefaultListModel();
+		statusListModel = new DefaultListModel();
 
 		FEArray = new ArrayList<FastEthernet>();
 		SArray = new ArrayList<Serial>();
 	}
+
+	
+
+	public JList getInterfaceStatus() {
+		return InterfaceStatus;
+	}
+
+
+
+	public void setInterfaceStatus(JList interfaceStatus) {
+		InterfaceStatus = interfaceStatus;
+	}
+
+
 
 	public void setGUIRouterName(String RouterName) {
 		Pane.setTitleAt(PaneIndex, RouterName);
@@ -110,6 +129,14 @@ public class GUISolutionModel {
 	public void addDynamicModel() {
 		DynamicEstablishedRoutes.setModel(dynamicListModel);
 	}
+	
+	public void addStatusModel(){
+		InterfaceStatus.setModel(statusListModel);
+	}
+	
+	public void addInterfaceStatus(String status){		 
+		statusListModel.addElement(status);
+	}
 
 	public void removeDynamicRoute(String Route) {
 
@@ -138,6 +165,14 @@ public class GUISolutionModel {
 		FE.setNumber(port);
 		FEArray.add(FE);
 		this.interfacesPane.add("Fast Ethernet " + port, FE);
+	}
+
+	public JTextArea getConsole() {
+		return Console;
+	}
+
+	public void setConsole(JTextArea console) {
+		Console = console;
 	}
 
 	public void setFastEthernetPortStatus(int index, boolean On) {
