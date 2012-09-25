@@ -163,7 +163,7 @@ public class GUISolutionModel {
 		FE.setvTelnet(vTelnet);
 
 		FE.setNumber(port);
-		FEArray.add(FE);
+		FEArray.add(FE);		
 		this.interfacesPane.add("Fast Ethernet " + port, FE);
 	}
 
@@ -215,10 +215,11 @@ public class GUISolutionModel {
 
 	}
 
-	public void addSerialInterface(String port) {
+	public void addSerialInterface(String port, String type) {
 		Serial S = new Serial();
 		S.setvTelnet(vTelnet);
 		S.setNumber(port);
+		S.setType(type);
 		SArray.add(S);
 
 		this.interfacesPane.add("Serial " + port, S);
