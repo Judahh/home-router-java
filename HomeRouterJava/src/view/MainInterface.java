@@ -72,7 +72,9 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        InterfacesjMenuItem = new javax.swing.JMenuItem();
+        Interfaces = new javax.swing.JMenu();
+        InterfacesConfigjMenuItem = new javax.swing.JMenuItem();
+        InterfacesStatusjMenuItem = new javax.swing.JMenuItem();
         SwitchingjMenuItem = new javax.swing.JMenuItem();
         RoutingjMenuItem = new javax.swing.JMenuItem();
         SettingsjMenuItem = new javax.swing.JMenuItem();
@@ -185,13 +187,25 @@ public class MainInterface extends javax.swing.JFrame {
 
         jMenu3.setText("Edit");
 
-        InterfacesjMenuItem.setText("Interfaces");
-        InterfacesjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        Interfaces.setText("Interfaces");
+
+        InterfacesConfigjMenuItem.setText("Config");
+        InterfacesConfigjMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InterfacesjMenuItemActionPerformed(evt);
+                InterfacesConfigjMenuItemActionPerformed(evt);
             }
         });
-        jMenu3.add(InterfacesjMenuItem);
+        Interfaces.add(InterfacesConfigjMenuItem);
+
+        InterfacesStatusjMenuItem.setText("Status");
+        InterfacesStatusjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InterfacesStatusjMenuItemActionPerformed(evt);
+            }
+        });
+        Interfaces.add(InterfacesStatusjMenuItem);
+
+        jMenu3.add(Interfaces);
 
         SwitchingjMenuItem.setText("Switching");
         SwitchingjMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -258,6 +272,12 @@ public class MainInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void InterfacesStatusjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InterfacesStatusjMenuItemActionPerformed
+        if (jTabbedPane1.getSelectedIndex() != 0) {        	
+			cliArray.get(jTabbedPane1.getSelectedIndex() - 1).InterfacesStatusjFrame.setVisible(true);
+		}
+    }//GEN-LAST:event_InterfacesStatusjMenuItemActionPerformed
 
 	// fecha a aba caso você dê exit
 
@@ -346,10 +366,11 @@ public class MainInterface extends javax.swing.JFrame {
 		}
 	}// GEN-LAST:event_ConnectivityjMenuItemActionPerformed
 
-	private void InterfacesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_InterfacesjMenuItemActionPerformed
-		if (jTabbedPane1.getSelectedIndex() != 0) {
+	private void InterfacesConfigjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_InterfacesjMenuItemActionPerformed
+		if (jTabbedPane1.getSelectedIndex() != 0) {				
 
-			cliArray.get(jTabbedPane1.getSelectedIndex() - 1).InterfacesjFrame.setVisible(true);
+			cliArray.get(jTabbedPane1.getSelectedIndex() - 1).InterfacesConfigjFrame.setVisible(true);
+			
 		}
 	}// GEN-LAST:event_InterfacesjMenuItemActionPerformed
 
@@ -396,7 +417,9 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JButton ConnectButton;
     private javax.swing.JMenuItem ConnectivityjMenuItem;
     private javax.swing.JTextField HostjTextField;
-    private javax.swing.JMenuItem InterfacesjMenuItem;
+    private javax.swing.JMenu Interfaces;
+    private javax.swing.JMenuItem InterfacesConfigjMenuItem;
+    private javax.swing.JMenuItem InterfacesStatusjMenuItem;
     private javax.swing.JCheckBox LocalHostCheckBox;
     private javax.swing.JTextField PortjTextField;
     private javax.swing.JMenuItem RoutingjMenuItem;

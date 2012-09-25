@@ -1,48 +1,54 @@
 package model;
+
 /**
  * 
  * @author JH
  */
-public class IdentifierModel{
+public class IdentifierModel {
 	private String port;
 	private String subPort;
 	private int interfaceCod;
-	
-	public IdentifierModel(int interfaceCod,String port){
-		
+
+	public IdentifierModel(int interfaceCod, String port) {
+
 	}
 	
-	public String getInterface(){
-		if(interfaceCod==0){
+	public IdentifierModel() {
+
+	}
+
+	public String getInterface() {
+		if (interfaceCod == 0) {
 			return "FastEthernet";
-		}else{
+		} else {
 			return "Serial";
 		}
-		
+
 	}
-	public void setInterfaceCod(int interfaceCod){
-		if(interfaceCod<=0){
+
+	public void setInterfaceCod(int interfaceCod) {
+		if (interfaceCod <= 0) {
 			this.interfaceCod = 0;
-		}else{
+		} else {
 			this.interfaceCod = 1;
 		}
-		
+
 	}
-	
-	public String getPort(){
+
+	public String getPort() {
 		return port;
 	}
-	
-	public void setPort(String port){//formato int/int ou int/int/int
+
+	public void setPort(String port) {// formato int/int ou int/int/int
 		this.port = port;
 	}
 
-	public String getSubPort(){
+	public String getSubPort() {
 		return subPort;
 	}
 
-	public void setSubPort(String subPort){
+	public void setSubPort(String subPort) {
 		this.subPort = subPort;
 	}
-	
+
 }
