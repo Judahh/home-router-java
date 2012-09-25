@@ -84,7 +84,7 @@ public class Validation {
 	public boolean validateDate(String date, String time) {
 		try {
 
-			if ((date == null) || (date.equals(""))) {
+			if (date == null) {
 				JOptionPane.showMessageDialog(null, "Enter a date");
 				return false;
 			}
@@ -95,7 +95,7 @@ public class Validation {
 				return false;
 			}
 
-			if ((time == null) || (time.equals(""))) {
+			if (time == null) {
 				JOptionPane.showMessageDialog(null, "Enter a time");
 				return false;
 			}

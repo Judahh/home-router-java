@@ -50,6 +50,7 @@ public class InformationHandler {// --------------------------------------------
 	private String version;
 	private ArrayList<String> staticRoutes;
 	private ArrayList<String> dynamicRoutes;
+	private ArrayList<String> controllerinfo;
 
 	private int fastethernet; // numero de interfaces fastethernet no router
 	private int serial; // numero de interfaces seriais no router
@@ -84,10 +85,26 @@ public class InformationHandler {// --------------------------------------------
 		}
 	}
 
+	public void parseShowControllersInfo(String info) {
+		String[] infoarray = info.split("\\n");
+		ArrayList<String> controllerinfo = new ArrayList<String>();
+		for (int i = 0; i < infoarray.length; i++) {
+			if (infoarray[i].contains("Serial")) {
+				if (infoarray[i + 2].contains("DCE")) {
+					controllerinfo.add(infoarray[i] + " is slave");
+				} else {
+					controllerinfo.add(infoarray[i] + " is master");
+				}
+			}
+		}
+
+	}
+
 	public void parseShowRunInfo(String info) {
 		String[] infoarray = info.split("\\r");
 		staticRoutes = new ArrayList<String>();
 		dynamicRoutes = new ArrayList<String>();
+		int k = 0;
 		for (int i = 0; i < infoarray.length; i++) {
 			if (infoarray[i].contains("version")) {
 				String[] tempversion = infoarray[i].split("version");
@@ -114,37 +131,18 @@ public class InformationHandler {// --------------------------------------------
 			}
 
 			if (infoarray[i].contains("interface FastEthernet")) {
-				// int j = i+1;
-				// while (!infoarray[j].contains("!")){
-				// if (infoarray[j].contains("mac")){
-				// String temparray[] = infoarray[j].split(" ");
-				// GuiSol.setFastEthernetMac(fastethernet, temparray[1]);
-				// } else if(infoarray[j].contains("ip address")){
-				// String temparray[] = infoarray[j].split(" ");
-				//
-				// GuiSol.setFastEthernetIp(fastethernet, temparray[2]);
-				// GuiSol.setFastEthernetMac(fastethernet, temparray[3]);
-				// } else if(infoarray[j].contains("tx-ring")){
-				// String temparray[] = infoarray[j].split(" ");
-				// GuiSol.setFastEthernetTx(fastethernet, temparray[1].trim());
-				//
-				// } else if(infoarray[j].contains("speed")){
-				// String temparray[] = infoarray[j].split(" ");
-				// GuiSol.setFastEthernetBandwidth(fastethernet,
-				// temparray[1].trim());
-				// } else if (infoarray[j].contains("half-duplex")){
-				// GuiSol.setFastEthernetDuplex(fastethernet,"half-duplex");
-				// }
-				// j++;
-				// }
-				fastethernet++;
+
+				String[] temparray = infoarray[i].split(" ");
+				GuiSol.addFastEthernetInterface(temparray[1].substring(temparray[1].lastIndexOf("t") + 1));
 			}
 
 			if (infoarray[i].contains("interface Serial")) {
-				serial++;
+				String[] temparray = infoarray[i].split(" ");
+
+				GuiSol.addSerialInterface(temparray[1].substring(temparray[1].lastIndexOf("l") + 1), controllerinfo.get(k));
+				k++;
 			}
 
-			// System.out.println("Infoarray" + infoarray[i]);
 		}
 
 		// rotas estaticas
@@ -163,79 +161,70 @@ public class InformationHandler {// --------------------------------------------
 
 		GuiSol.addDynamicModel();
 
-		// adicionar fastethernet
-		for (int i = 0; i < fastethernet; i++) {
-
-			GuiSol.addFastEthernetInterface(String.valueOf(i) + "/" + String.valueOf(i));
-
-		}
-
-		// adicionar serial
-		for (int i = 0; i < serial; i++) {
-			GuiSol.addSerialInterface(String.valueOf(i));
-		}
-
 	}
 
 	public void parseInterfaceStatusInfo(String info) {
 		String[] infoarray = info.split("\\n");
 
-		for (int i = infoarray.length-1; i >= 0; i--) {
+		// impede que se adicionem interfaces repetidas
+		ArrayList<String> interfaces = new ArrayList<String>();
+
+		for (int i = infoarray.length - 1; i >= 0; i--) {
 			if (infoarray[i].contains("interface ")) {
 				InterfaceModel intmod = new InterfaceModel();
 				String[] temparray = infoarray[i].split(" ");
 				IdentifierModel identmod = new IdentifierModel();
 				if (temparray[1].contains("FastEthernet")) {
 					identmod.setInterfaceCod(0);
-					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("t")+1));
+					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("t") + 1));
+
 				} else {
 					identmod.setInterfaceCod(1);
-					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("l")+1));
+					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("l") + 1));
 				}
+				if (!interfaces.contains(identmod.getInterface() + identmod.getPort())) {
+					interfaces.add(identmod.getInterface() + identmod.getPort());
 
-				intmod.setIdentifier(identmod);
+					intmod.setIdentifier(identmod);
 
-				int j = i + 1;
-				if (infoarray[j].contains("ip address")) {
-					String[] ipmaskarray = infoarray[j].split(" ");
-					if (infoarray[j].contains("no ")) {
-						intmod.setIp(null);
-						intmod.setMask(null);
+					int j = i + 1;
+					if (infoarray[j].contains("ip address")) {
+						String[] ipmaskarray = infoarray[j].split(" ");
+						if (infoarray[j].contains("no ")) {
+							intmod.setIp(null);
+							intmod.setMask(null);
+						} else {
+							intmod.setIp(ipmaskarray[3]);
+							intmod.setMask(ipmaskarray[4]);
+						}
+
+					}
+
+					intmod.setShutdown(false);
+					while (!infoarray[j].contains("!")) {
+						if (infoarray[j].contains("shutdown")) {
+							intmod.setShutdown(true);
+
+						}
+						j++;
+					}
+
+					String state;
+					if (intmod.isShutdown()) {
+						state = new String("down");
 					} else {
-						intmod.setIp(ipmaskarray[3]);
-						intmod.setMask(ipmaskarray[4]);
+						state = new String("up");
 					}
 
-				}
-
-				intmod.setShutdown(false);
-				while (!infoarray[j].contains("!")) {
-					if (infoarray[j].contains("shutdown")) {
-						intmod.setShutdown(true);
-
-					}
-					j++;
-				}
-				if (intmod.isShutdown()) {
-					if ((intmod.getIp()==null)&&(intmod.getMask()==null)){
+					if ((intmod.getIp() == null) && (intmod.getMask() == null)) {
 						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
-								+ " is down without IP address");
+								+ " is "+state+" without IP address");
 					} else {
 						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
-								+ " is down with IP " + intmod.getIp() + " and mask " + intmod.getMask());
+								+ " is "+state+" with IP " + intmod.getIp() + " and mask " + intmod.getMask());
 					}
-					
-				} else {
-					if ((intmod.getIp()==null)&&(intmod.getMask()==null)){
-						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
-								+ " is up without IP address");
-					} else {
-						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
-								+ " is up with ip " + intmod.getIp() + " and mask " + intmod.getMask());
-					}
-					
-				}
 
+				}
 			}
 
 		}
