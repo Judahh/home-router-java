@@ -117,7 +117,7 @@ public class GUISolutionModel {
 		DynamicEstablishedRoutes.setModel(dynamicListModel);
 	}
 
-	public void addStatusModel() {		
+	public void addStatusModel() {
 		interfaceStatus.setModel(statusListModel);
 	}
 
@@ -127,7 +127,7 @@ public class GUISolutionModel {
 
 	public void addInterfaceStatus(String status) {
 
-		statusListModel.add(statusListModel.getSize(), status);
+		statusListModel.add(0, status);
 	}
 
 	public void removeDynamicRoute(String Route) {

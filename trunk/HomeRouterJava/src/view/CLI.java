@@ -96,12 +96,16 @@ public class CLI extends javax.swing.JPanel {
 		vTelnet = new RouterHandler(host, port, GuiSol);
 
 		GuiSol.setvTelnet(vTelnet);
+		
+		ih = new InformationHandler(host, port, GuiSol);
 
 		if (vTelnet.Login()) {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
 			// Login.setVisible(false);
 			// jName.setText(vTelnet.getRouterName()+":");
-			// jClock.setText(vTelnet.getClock());
+			vTelnet.getClock();
+			ih.parseClockInfo(ConsolejTextArea.getText());
+			
 			// vTelnet.goToLevelRouter(3); //teste
 		}
 
@@ -109,7 +113,7 @@ public class CLI extends javax.swing.JPanel {
 
 		vTelnet.showRun();
 		String info = ConsolejTextArea.getText();
-		ih = new InformationHandler(host, port, GuiSol);
+		
 		ih.parseShowRunInfo(info);
 
 	}
@@ -1108,6 +1112,7 @@ public class CLI extends javax.swing.JPanel {
 	private void GlobalOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_GlobalOkjButtonActionPerformed
 		if (!HostNamejTextField.getText().equals("")) {
 			vTelnet.setRouterName(HostNamejTextField.getText());
+			this.setName(HostNamejTextField.getText());
 		}
 
 		Validation v = Validation.getInstance();
