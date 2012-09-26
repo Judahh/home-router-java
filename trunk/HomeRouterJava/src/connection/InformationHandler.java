@@ -48,8 +48,6 @@ public class InformationHandler {// --------------------------------------------
 
 	private String[] leveltypes;
 	private String version;
-	private ArrayList<String> staticRoutes;
-	private ArrayList<String> dynamicRoutes;
 	private ArrayList<String> controllerinfo;
 
 	private int fastethernet; // numero de interfaces fastethernet no router
@@ -85,25 +83,26 @@ public class InformationHandler {// --------------------------------------------
 		}
 	}
 
+	// verifica se a interface serial é master ou slave
 	public void parseShowControllersInfo(String info) {
 		String[] infoarray = info.split("\\n");
-		ArrayList<String> controllerinfo = new ArrayList<String>();
 		for (int i = 0; i < infoarray.length; i++) {
 			if (infoarray[i].contains("Serial")) {
-				if (infoarray[i + 2].contains("DCE")) {
-					controllerinfo.add(infoarray[i] + " is slave");
+				if (infoarray[i + 2].contains("DTE")) {
+
+					GuiSol.setSerialType(infoarray[i] + " is master");
 				} else {
-					controllerinfo.add(infoarray[i] + " is master");
+					GuiSol.setSerialType(infoarray[i] + " is slave");
+
 				}
 			}
 		}
+		GuiSol.addSerialStatusModel();
 
 	}
 
 	public void parseShowRunInfo(String info) {
 		String[] infoarray = info.split("\\r");
-		staticRoutes = new ArrayList<String>();
-		dynamicRoutes = new ArrayList<String>();
 		int k = 0;
 		for (int i = 0; i < infoarray.length; i++) {
 			if (infoarray[i].contains("version")) {
@@ -114,7 +113,7 @@ public class InformationHandler {// --------------------------------------------
 
 			if (infoarray[i].contains("ip route")) {
 				String[] temproute = infoarray[i].split(" ");
-				staticRoutes.add(temproute[2] + " with mask " + temproute[3] + " via " + temproute[4]);
+				GuiSol.addStaticRoute(temproute[2] + " with mask " + temproute[3] + " via " + temproute[4]);
 
 			}
 
@@ -123,7 +122,8 @@ public class InformationHandler {// --------------------------------------------
 				String cache = infoarray[j];
 				while (cache.contains("network")) {
 					String[] temproute2 = infoarray[j].split("network");
-					dynamicRoutes.add(temproute2[1].trim());
+					GuiSol.addDynamicRoute(temproute2[1].trim());
+
 					j++;
 					cache = infoarray[j];
 				}
@@ -139,26 +139,13 @@ public class InformationHandler {// --------------------------------------------
 			if (infoarray[i].contains("interface Serial")) {
 				String[] temparray = infoarray[i].split(" ");
 
-				GuiSol.addSerialInterface(temparray[1].substring(temparray[1].lastIndexOf("l") + 1), controllerinfo.get(k));
-				k++;
+				GuiSol.addSerialInterface(temparray[1].substring(temparray[1].lastIndexOf("l") + 1));
+
 			}
 
 		}
 
-		// rotas estaticas
-		for (String string : staticRoutes) {
-			GuiSol.addStaticRoute(string);
-
-		}
-
 		GuiSol.addStaticModel();
-
-		// rotas dinamicas
-		for (String string : dynamicRoutes) {
-			GuiSol.addDynamicRoute(string);
-
-		}
-
 		GuiSol.addDynamicModel();
 
 	}
@@ -217,11 +204,11 @@ public class InformationHandler {// --------------------------------------------
 					}
 
 					if ((intmod.getIp() == null) && (intmod.getMask() == null)) {
-						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
-								+ " is "+state+" without IP address");
+						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort() + " is "
+								+ state + " without IP address");
 					} else {
-						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort()
-								+ " is "+state+" with IP " + intmod.getIp() + " and mask " + intmod.getMask());
+						GuiSol.addInterfaceStatus(intmod.getIdentifier().getInterface() + " " + intmod.getIdentifier().getPort() + " is "
+								+ state + " with IP " + intmod.getIp() + " and mask " + intmod.getMask());
 					}
 
 				}
@@ -244,6 +231,7 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" Global XOT commands");
 		possibilities.add(" Virtual Private Dialup Network");
 		possibilities.add(" Configured from console by");
+		possibilities.add("Unrecognized host or address, or protocol not running");
 		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;

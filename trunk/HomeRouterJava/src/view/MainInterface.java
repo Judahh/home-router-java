@@ -75,6 +75,7 @@ public class MainInterface extends javax.swing.JFrame {
         Interfaces = new javax.swing.JMenu();
         InterfacesConfigjMenuItem = new javax.swing.JMenuItem();
         InterfacesStatusjMenuItem = new javax.swing.JMenuItem();
+        InterfacesSerialTypejMenuItem = new javax.swing.JMenuItem();
         SwitchingjMenuItem = new javax.swing.JMenuItem();
         RoutingjMenuItem = new javax.swing.JMenuItem();
         SettingsjMenuItem = new javax.swing.JMenuItem();
@@ -205,6 +206,14 @@ public class MainInterface extends javax.swing.JFrame {
         });
         Interfaces.add(InterfacesStatusjMenuItem);
 
+        InterfacesSerialTypejMenuItem.setText("Serial Type");
+        InterfacesSerialTypejMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InterfacesSerialTypejMenuItemActionPerformed(evt);
+            }
+        });
+        Interfaces.add(InterfacesSerialTypejMenuItem);
+
         jMenu3.add(Interfaces);
 
         SwitchingjMenuItem.setText("Switching");
@@ -278,6 +287,12 @@ public class MainInterface extends javax.swing.JFrame {
 			cliArray.get(jTabbedPane1.getSelectedIndex() - 1).InterfacesStatusjFrame.setVisible(true);
 		}
     }//GEN-LAST:event_InterfacesStatusjMenuItemActionPerformed
+
+    private void InterfacesSerialTypejMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InterfacesSerialTypejMenuItemActionPerformed
+        if (jTabbedPane1.getSelectedIndex() != 0) {        	
+			cliArray.get(jTabbedPane1.getSelectedIndex() - 1).InterfacesSerialTypejFrame.setVisible(true);
+		}
+    }//GEN-LAST:event_InterfacesSerialTypejMenuItemActionPerformed
 
 	// fecha a aba caso você dê exit
 
@@ -419,6 +434,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JTextField HostjTextField;
     private javax.swing.JMenu Interfaces;
     private javax.swing.JMenuItem InterfacesConfigjMenuItem;
+    private javax.swing.JMenuItem InterfacesSerialTypejMenuItem;
     private javax.swing.JMenuItem InterfacesStatusjMenuItem;
     private javax.swing.JCheckBox LocalHostCheckBox;
     private javax.swing.JTextField PortjTextField;
