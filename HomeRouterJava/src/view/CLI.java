@@ -104,8 +104,8 @@ public class CLI extends javax.swing.JPanel {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
 			// Login.setVisible(false);
 			// jName.setText(vTelnet.getRouterName()+":");
-			vTelnet.getClock();
-			ih.parseClockInfo(ConsolejTextArea.getText());
+//			vTelnet.getClock();
+//			ih.parseClockInfo(ConsolejTextArea.getText());
 			
 			// vTelnet.goToLevelRouter(3); //teste
 		}
@@ -113,9 +113,9 @@ public class CLI extends javax.swing.JPanel {
 		// Essas 6 linhas embaixo usam show controllers e show run
 
 		vTelnet.showRun();
-		String info = ConsolejTextArea.getText();
+		//String info = ConsolejTextArea.getText();
 		
-		ih.parseShowRunInfo(info);
+		//ih.parseShowRunInfo(info);
 
 	}
 
@@ -969,7 +969,7 @@ public class CLI extends javax.swing.JPanel {
 
 	private void InterfacesSerialTypejFrameComponentShown(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesSerialTypejFrameComponentShown
 		vTelnet.getSynchroState();
-		ih.parseShowControllersInfo(ConsolejTextArea.getText());
+		//ih.parseShowControllersInfo(ConsolejTextArea.getText());
 	}// GEN-LAST:event_InterfacesSerialTypejFrameComponentShown
 
 	private void showupdateInterfaceStatusJButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_showupdateInterfaceStatusJButtonActionPerformed

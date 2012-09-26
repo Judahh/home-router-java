@@ -71,8 +71,14 @@ public class InformationHandler{// ---------------------------------------------
 		if(FirstPartInfo.contains("More")){
 			connection.send(" ");
 		}
-
+		
+		
 		ArrayList<String> InfoS=connection.arrayListReadUntil(possibilities);
+		
+		String fullInfo = FirstPartInfo + InfoS;
+		
+		parseShowRunInfo(fullInfo);
+		//parseInterfaceStatusInfo(fullInfo);
 
 		if(InfoS.get(0).equals("--More--")){
 			connection.send(" ");
@@ -252,6 +258,8 @@ public class InformationHandler{// ---------------------------------------------
 		GuiSol.addStatusModel();
 
 	}
+	
+	//tratar clock
 
 	public void parseClockInfo(String info){
 		String[] infoarray=info.split("\\n");
@@ -282,8 +290,9 @@ public class InformationHandler{// ---------------------------------------------
 		possibilities
 				.add("Unrecognized host or address, or protocol not running");
 		possibilities.add(" percent (");
-		possibilities.add(" 1993");
+		//possibilities.add(" 1993");
 		
+
 		possibilities
 				.add("Unknown command or computer name, or unable to find computer address");
 
@@ -304,18 +313,18 @@ public class InformationHandler{// ---------------------------------------------
 		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
-		 possibilities.add("Jan");
-		 possibilities.add("Feb");
-		 possibilities.add("Mar");
-		 possibilities.add("Apr");
-		 possibilities.add("May");
-		 possibilities.add("Jun");
-		 possibilities.add("Jul");
-		 possibilities.add("Aug");
-		 possibilities.add("Sep");
-		 possibilities.add("Oct");
-		 possibilities.add("Nov");
-		 possibilities.add("Dec");
+		possibilities.add("Jan");
+		possibilities.add("Feb");
+		possibilities.add("Mar");
+		possibilities.add("Apr");
+		possibilities.add("May");
+		possibilities.add("Jun");
+		possibilities.add("Jul");
+		possibilities.add("Aug");
+		possibilities.add("Sep");
+		possibilities.add("Oct");
+		possibilities.add("Nov");
+		possibilities.add("Dec");
 
 		return possibilities;
 	}
