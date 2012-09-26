@@ -74,6 +74,7 @@ public class RouterHandler {
 		this.goToLevelRouter(2);
 		this.routerLevel.sendCommand("vlan database\r\n");
 		this.routerLevel.sendCommand("vlan " + number + " name " + name + "\r\n");
+		this.routerLevel.sendCommand("exit\r\n");
 	}
 
 	// seta data e hora do router
