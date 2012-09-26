@@ -19,6 +19,7 @@ import model.GUISolutionModel;
 import model.IdentifierModel;
 import model.InterfaceModel;
 import model.RunModel;
+import model.TimeModel;
 
 /**
  * 
@@ -151,6 +152,8 @@ public class InformationHandler {// --------------------------------------------
 
 	}
 
+	// status das interfaces
+
 	public void parseInterfaceStatusInfo(String info) {
 		String[] infoarray = info.split("\\n");
 
@@ -223,6 +226,20 @@ public class InformationHandler {// --------------------------------------------
 
 	}
 
+	public void parseClockInfo(String info) {
+		String[] infoarray = info.split("\\n");
+
+		for (int i = 0; i < infoarray.length; i++) {
+			if ((infoarray[i].contains(":")) && (infoarray[i].contains("."))) {
+				String[] temparray = infoarray[i].split(" ");
+				String[] temparray2 = infoarray[i+1].split(" ");
+				GuiSol.setGUIClock(temparray2[0]+ " "+ temparray[3]+" "+temparray2[0]+ " "+temparray[0].substring(0,7));
+				
+			}
+
+		}
+	}
+
 	// toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
 	private ArrayList<String> getEndInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();
@@ -266,18 +283,18 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
-//		possibilities.add("Jan");
-//		possibilities.add("Feb");
-//		possibilities.add("Mar");
-//		possibilities.add("Apr");
-//		possibilities.add("May");
-//		possibilities.add("Jun");
-//		possibilities.add("Jul");
-//		possibilities.add("Aug");
-//		possibilities.add("Sep");
-//		possibilities.add("Oct");
-//		possibilities.add("Nov");
-//		possibilities.add("Dec");
+		// possibilities.add("Jan");
+		// possibilities.add("Feb");
+		// possibilities.add("Mar");
+		// possibilities.add("Apr");
+		// possibilities.add("May");
+		// possibilities.add("Jun");
+		// possibilities.add("Jul");
+		// possibilities.add("Aug");
+		// possibilities.add("Sep");
+		// possibilities.add("Oct");
+		// possibilities.add("Nov");
+		// possibilities.add("Dec");
 
 		return possibilities;
 	}
