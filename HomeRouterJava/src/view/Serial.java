@@ -14,6 +14,11 @@ import connection.RouterHandler;
 public class Serial extends javax.swing.JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates new form Serial
 	 */
 	public Serial() {
@@ -40,9 +45,6 @@ public class Serial extends javax.swing.JPanel {
 		this.vTelnet = vTelnet;
 	}
 	
-	public void setType(String text){
-		this.typeLabel.setText(text);
-	}
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -63,10 +65,9 @@ public class Serial extends javax.swing.JPanel {
         MaskjTextField = new javax.swing.JTextField();
         TxjTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        ClockRatejComboBox = new javax.swing.JComboBox();
+        ClockRatejComboBox = new javax.swing.JComboBox<String>();
         CanceljButton = new javax.swing.JButton();
         OkjButton = new javax.swing.JButton();
-        typeLabel = new javax.swing.JLabel();
 
         jLabel1.setText("Port Status:");
 
@@ -80,7 +81,7 @@ public class Serial extends javax.swing.JPanel {
 
         jLabel2.setText("Clock Rate:");
 
-        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1200", "2400", "4800", "9600", "19200", "38400", "56000", "64000", "72000", "125000", "128000", "148000", "250000", "500000", "800000", "1000000", "1300000", "2000000", "4000000", "Not Set" }));
+        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "1200", "2400", "4800", "9600", "19200", "38400", "56000", "64000", "72000", "125000", "128000", "148000", "250000", "500000", "800000", "1000000", "1300000", "2000000", "4000000", "Not Set" }));
         ClockRatejComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClockRatejComboBoxActionPerformed(evt);
@@ -95,8 +96,6 @@ public class Serial extends javax.swing.JPanel {
                 OkjButtonActionPerformed(evt);
             }
         });
-
-        typeLabel.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -132,17 +131,11 @@ public class Serial extends javax.swing.JPanel {
                             .addComponent(jLabel2))
                         .addGap(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(typeLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(typeLabel)
-                .addGap(18, 18, 18)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(PortStatusjCheckBox))
@@ -166,7 +159,7 @@ public class Serial extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OkjButton)
                     .addComponent(CanceljButton))
-                .addContainerGap())
+                .addContainerGap(55, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,7 +182,7 @@ public class Serial extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CanceljButton;
-    public javax.swing.JComboBox ClockRatejComboBox;
+    public javax.swing.JComboBox<String> ClockRatejComboBox;
     public javax.swing.JTextField IpjTextField;
     public javax.swing.JTextField MaskjTextField;
     private javax.swing.JButton OkjButton;
@@ -200,6 +193,5 @@ public class Serial extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel typeLabel;
     // End of variables declaration//GEN-END:variables
 }

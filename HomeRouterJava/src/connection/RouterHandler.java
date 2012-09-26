@@ -155,11 +155,11 @@ public class RouterHandler {
 		this.routerLevel.sendCommand(duplex + "\r\n");
 		this.routerLevel.sendCommand("mac-address " + mac + "\r\n");
 		this.routerLevel.sendCommand("ip address " + ip + " " + mask + "\r\n");
-		this.routerLevel.sendCommand("tx-ring-limit "+tx+"\r\n");
+		this.routerLevel.sendCommand("tx-ring-limit " + tx + "\r\n");
 
 	}
-	
-	public void setSerialInterface(String number, boolean portStatus, String clockrate, String ip, String mask, String tx){
+
+	public void setSerialInterface(String number, boolean portStatus, String clockrate, String ip, String mask, String tx) {
 		this.goToLevelRouter(3);
 		this.routerLevel.sendCommand("interface serial" + number + "\r\n");
 		if (portStatus == true) {
@@ -167,17 +167,21 @@ public class RouterHandler {
 		} else {
 			this.routerLevel.sendCommand("shutdown\r\n");
 		}
-		this.routerLevel.sendCommand("clock rate " + clockrate + "\r\n");		
+		if (clockrate.equalsIgnoreCase("Not set")) {
+			this.routerLevel.sendCommand("no clock rate\r\n");
+		} else {
+			this.routerLevel.sendCommand("clock rate " + clockrate + "\r\n");
+		}
+
 		this.routerLevel.sendCommand("ip address " + ip + " " + mask + "\r\n");
-		this.routerLevel.sendCommand("tx-ring-limit "+tx+"\r\n");
+		this.routerLevel.sendCommand("tx-ring-limit " + tx + "\r\n");
 	}
-	
-	//ainda é um rascunho
-	public void getSynchroState(){
+
+	// ainda é um rascunho
+	public void getSynchroState() {
 		this.goToLevelRouter(2);
 		this.routerLevel.sendCommand("show controllers\r\n");
 	}
-	
 
 	public void sendUserCommand(String command) {
 		routerLevel.sendCommand(command);

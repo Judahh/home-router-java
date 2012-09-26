@@ -7,7 +7,6 @@ package view;
 import javax.swing.ButtonGroup;
 
 import connection.RouterHandler;
-import java.awt.Component;
 import util.Validation;
 
 /**

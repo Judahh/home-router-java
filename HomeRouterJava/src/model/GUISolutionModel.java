@@ -48,7 +48,8 @@ public class GUISolutionModel {
 	private RouterHandler vTelnet;
 
 	public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
-			JList StaticEstablishedRoutes, JList interfaceStatus, JList serialStatus, JTabbedPane interfacesPane, JTabbedPane Pane, int PaneIndex) {
+			JList StaticEstablishedRoutes, JList interfaceStatus, JList serialStatus, JTabbedPane interfacesPane, JTabbedPane Pane,
+			int PaneIndex) {
 		this.Console = Console;
 		this.interfaceStatus = interfaceStatus;
 		this.serialStatus = serialStatus;
@@ -72,7 +73,7 @@ public class GUISolutionModel {
 
 		FEArray = new ArrayList<FastEthernet>();
 		SArray = new ArrayList<Serial>();
-	}	
+	}
 
 	public void setGUIRouterName(String RouterName) {
 		Pane.setTitleAt(PaneIndex, RouterName);
@@ -95,7 +96,7 @@ public class GUISolutionModel {
 	}
 
 	public void setSerialType(String type) {
-		
+
 		serialStatusListModel.addElement(type);
 	}
 
@@ -116,16 +117,17 @@ public class GUISolutionModel {
 		DynamicEstablishedRoutes.setModel(dynamicListModel);
 	}
 
-	public void addStatusModel() {
+	public void addStatusModel() {		
 		interfaceStatus.setModel(statusListModel);
 	}
-	
-	public void addSerialStatusModel(){
+
+	public void addSerialStatusModel() {
 		serialStatus.setModel(serialStatusListModel);
 	}
 
 	public void addInterfaceStatus(String status) {
-		statusListModel.addElement(status);
+
+		statusListModel.add(statusListModel.getSize(), status);
 	}
 
 	public void removeDynamicRoute(String Route) {
