@@ -95,6 +95,7 @@ public class CLI extends javax.swing.JPanel {
 
 		vTelnet = new RouterHandler(host, port, GuiSol);
 
+		//vlan 10.255.0.150
 		GuiSol.setvTelnet(vTelnet);
 		
 		ih = new InformationHandler(host, port, GuiSol);
@@ -769,7 +770,6 @@ public class CLI extends javax.swing.JPanel {
         InterfacesStatusjFrame.setTitle("Interface Status");
         InterfacesStatusjFrame.setLocationByPlatform(true);
         InterfacesStatusjFrame.setMinimumSize(new java.awt.Dimension(285, 350));
-        InterfacesStatusjFrame.setPreferredSize(new java.awt.Dimension(285, 350));
         InterfacesStatusjFrame.setResizable(false);
         InterfacesStatusjFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -904,7 +904,7 @@ public class CLI extends javax.swing.JPanel {
 
         jToolBar3.setRollover(true);
 
-        TypejLabel.setText("Master");
+        TypejLabel.setText("Slave");
         jToolBar3.add(TypejLabel);
 
         jToolBar4.setRollover(true);
@@ -930,25 +930,25 @@ public class CLI extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SendjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -980,10 +980,10 @@ public class CLI extends javax.swing.JPanel {
 		// thread para atualizar status das interfaces
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
+			public void run() {				
+				vTelnet.showRun();
 				statusListModel = (DefaultListModel<String>) interfaceStatusList.getModel();
 				statusListModel.removeAllElements();
-				vTelnet.showRun();
 				ih.parseInterfaceStatusInfo(ConsolejTextArea.getText());
 			}
 		}, 0, 5000);// 5 segundos
@@ -1082,7 +1082,7 @@ public class CLI extends javax.swing.JPanel {
 	}// GEN-LAST:event_CommandjTextFieldActionPerformed
 
 	private void CommandjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_CommandjTextFieldKeyPressed
-		// se apertar enter, fazer o mesmo do bot�o send
+		// se apertar enter, fazer o mesmo do botï¿½o send
 		int key = evt.getKeyCode();
 		if (key == KeyEvent.VK_ENTER) {
 			if (CommandjTextField.getText().equalsIgnoreCase("exit") && (vTelnet.getLevel() < 3)) {

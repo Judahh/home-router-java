@@ -294,7 +294,7 @@ public class MainInterface extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_InterfacesSerialTypejMenuItemActionPerformed
 
-	// fecha a aba caso você dê exit
+	// fecha a aba caso vocï¿½ dï¿½ exit
 
 	public void killCLI(String host, int index) {
 		connections.remove(host);
@@ -322,7 +322,7 @@ public class MainInterface extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(this, "Unknown Exception");
 			e.printStackTrace();
 		} catch (ConnectException e) {
-			// se não se conectar, mata a aba que vai criar
+			// se nï¿½o se conectar, mata a aba que vai criar
 			JOptionPane.showMessageDialog(this, "Connection refused");
 			killCLI(HostjTextField.getText(), CLICount);
 			e.printStackTrace();
