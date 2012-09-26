@@ -45,13 +45,7 @@ public class InformationHandler {// --------------------------------------------
 	private RunModel run;
 	private ConnectionHandler connection;
 	private GUISolutionModel GuiSol;
-
-	private String[] leveltypes;
 	private String version;
-	private ArrayList<String> controllerinfo;
-
-	private int fastethernet; // numero de interfaces fastethernet no router
-	private int serial; // numero de interfaces seriais no router
 
 	public InformationHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
 		this.GuiSol = GuiSol;
@@ -103,7 +97,8 @@ public class InformationHandler {// --------------------------------------------
 
 	public void parseShowRunInfo(String info) {
 		String[] infoarray = info.split("\\r");
-		int k = 0;
+		// impede que se adicionem interfaces repetidas
+		ArrayList<String> interfaces = new ArrayList<String>();
 		for (int i = 0; i < infoarray.length; i++) {
 			if (infoarray[i].contains("version")) {
 				String[] tempversion = infoarray[i].split("version");
@@ -133,13 +128,19 @@ public class InformationHandler {// --------------------------------------------
 			if (infoarray[i].contains("interface FastEthernet")) {
 
 				String[] temparray = infoarray[i].split(" ");
-				GuiSol.addFastEthernetInterface(temparray[1].substring(temparray[1].lastIndexOf("t") + 1));
+				if (!interfaces.contains(temparray[1])) {
+
+					GuiSol.addFastEthernetInterface(temparray[1].substring(temparray[1].lastIndexOf("t") + 1));
+				}
+
 			}
 
 			if (infoarray[i].contains("interface Serial")) {
 				String[] temparray = infoarray[i].split(" ");
-
-				GuiSol.addSerialInterface(temparray[1].substring(temparray[1].lastIndexOf("l") + 1));
+				if (!interfaces.contains(temparray[1])) {
+					interfaces.add(temparray[1]);
+					GuiSol.addSerialInterface(temparray[1].substring(temparray[1].lastIndexOf("l") + 1));
+				}
 
 			}
 
@@ -169,7 +170,9 @@ public class InformationHandler {// --------------------------------------------
 					identmod.setInterfaceCod(1);
 					identmod.setPort(temparray[1].substring(temparray[1].lastIndexOf("l") + 1));
 				}
-				if (!interfaces.contains(identmod.getInterface() + identmod.getPort())) {
+				if (interfaces.contains(identmod.getInterface() + identmod.getPort())) {
+					break;
+				} else {
 					interfaces.add(identmod.getInterface() + identmod.getPort());
 
 					intmod.setIdentifier(identmod);
@@ -232,6 +235,18 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" Virtual Private Dialup Network");
 		possibilities.add(" Configured from console by");
 		possibilities.add("Unrecognized host or address, or protocol not running");
+		possibilities.add("Jan");
+		possibilities.add("Feb");
+		possibilities.add("Mar");
+		possibilities.add("Apr");
+		possibilities.add("May");
+		possibilities.add("Jun");
+		possibilities.add("Jul");
+		possibilities.add("Aug");
+		possibilities.add("Sep");
+		possibilities.add("Oct");
+		possibilities.add("Nov");
+		possibilities.add("Dec");
 		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;
@@ -251,18 +266,18 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
-		possibilities.add("Jan");
-		possibilities.add("Feb");
-		possibilities.add("Mar");
-		possibilities.add("Apr");
-		possibilities.add("May");
-		possibilities.add("Jun");
-		possibilities.add("Jul");
-		possibilities.add("Aug");
-		possibilities.add("Sep");
-		possibilities.add("Oct");
-		possibilities.add("Nov");
-		possibilities.add("Dec");
+//		possibilities.add("Jan");
+//		possibilities.add("Feb");
+//		possibilities.add("Mar");
+//		possibilities.add("Apr");
+//		possibilities.add("May");
+//		possibilities.add("Jun");
+//		possibilities.add("Jul");
+//		possibilities.add("Aug");
+//		possibilities.add("Sep");
+//		possibilities.add("Oct");
+//		possibilities.add("Nov");
+//		possibilities.add("Dec");
 
 		return possibilities;
 	}
