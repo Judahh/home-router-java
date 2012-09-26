@@ -232,9 +232,9 @@ public class InformationHandler {// --------------------------------------------
 		for (int i = 0; i < infoarray.length; i++) {
 			if ((infoarray[i].contains(":")) && (infoarray[i].contains("."))) {
 				String[] temparray = infoarray[i].split(" ");
-				String[] temparray2 = infoarray[i+1].split(" ");
-				GuiSol.setGUIClock(temparray2[0]+ " "+ temparray[3]+" "+temparray2[0]+ " "+temparray[0].substring(0,7));
-				
+				String[] temparray2 = infoarray[i + 1].split(" ");
+				GuiSol.setGUIClock(temparray2[0] + " " + temparray[3] + " " + temparray2[0] + " " + temparray[0].substring(0, 7));
+
 			}
 
 		}
@@ -252,18 +252,7 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" Virtual Private Dialup Network");
 		possibilities.add(" Configured from console by");
 		possibilities.add("Unrecognized host or address, or protocol not running");
-		possibilities.add("Jan");
-		possibilities.add("Feb");
-		possibilities.add("Mar");
-		possibilities.add("Apr");
-		possibilities.add("May");
-		possibilities.add("Jun");
-		possibilities.add("Jul");
-		possibilities.add("Aug");
-		possibilities.add("Sep");
-		possibilities.add("Oct");
-		possibilities.add("Nov");
-		possibilities.add("Dec");
+		possibilities.add(" UTC ");
 		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;
@@ -283,18 +272,18 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
-		// possibilities.add("Jan");
-		// possibilities.add("Feb");
-		// possibilities.add("Mar");
-		// possibilities.add("Apr");
-		// possibilities.add("May");
-		// possibilities.add("Jun");
-		// possibilities.add("Jul");
-		// possibilities.add("Aug");
-		// possibilities.add("Sep");
-		// possibilities.add("Oct");
-		// possibilities.add("Nov");
-		// possibilities.add("Dec");
+		possibilities.add("Jan");
+		possibilities.add("Feb");
+		possibilities.add("Mar");
+		possibilities.add("Apr");
+		possibilities.add("May");
+		possibilities.add("Jun");
+		possibilities.add("Jul");
+		possibilities.add("Aug");
+		possibilities.add("Sep");
+		possibilities.add("Oct");
+		possibilities.add("Nov");
+		possibilities.add("Dec");
 
 		return possibilities;
 	}
