@@ -104,7 +104,7 @@ public class CLI extends javax.swing.JPanel {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
 			// Login.setVisible(false);
 			// jName.setText(vTelnet.getRouterName()+":");
-//			vTelnet.getClock();
+			//vTelnet.getClock();
 //			ih.parseClockInfo(ConsolejTextArea.getText());
 			
 			// vTelnet.goToLevelRouter(3); //teste
@@ -113,6 +113,7 @@ public class CLI extends javax.swing.JPanel {
 		// Essas 6 linhas embaixo usam show controllers e show run
 
 		vTelnet.showRun();
+		
 		//String info = ConsolejTextArea.getText();
 		
 		//ih.parseShowRunInfo(info);
@@ -981,10 +982,14 @@ public class CLI extends javax.swing.JPanel {
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {				
-				vTelnet.showRun();
 				statusListModel = (DefaultListModel<String>) interfaceStatusList.getModel();
-				statusListModel.removeAllElements();
-				ih.parseInterfaceStatusInfo(ConsolejTextArea.getText());
+				if (!statusListModel.isEmpty()){
+					statusListModel.removeAllElements();
+				}
+				
+				vTelnet.showRun();
+				
+				//ih.parseInterfaceStatusInfo(ConsolejTextArea.getText());
 			}
 		}, 0, 5000);// 5 segundos
 
@@ -1041,6 +1046,7 @@ public class CLI extends javax.swing.JPanel {
 	private void levelselectorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_levelselectorJComboBoxActionPerformed
 		JComboBox cb = (JComboBox) evt.getSource();
 		if (cb.getSelectedIndex() == 0) {
+			SettingsjFrame.setVisible(false);			
 			vTelnet.disconnect();
 			mi.killCLI(host, index);
 		} else {
