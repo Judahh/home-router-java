@@ -132,19 +132,28 @@ public class RouterHandler {
 	}
 
 	public void setEnablePass(String pass) {
-		this.goToLevelRouter(3);
+		if (routerLevel.getPrompt().getLevel() != 3) {
+			this.goToLevelRouter(3);
+		}
+		
 		this.routerLevel.sendCommand("enable password " + pass + "\r\n");
 	}
 
 	public void showRun() {
-		this.goToLevelRouter(2);
+		if (routerLevel.getPrompt().getLevel() != 2) {
+			this.goToLevelRouter(2);
+		}
+
 		this.routerLevel.sendCommand("show run\r\n");
 
 	}
 
 	public void setFastEthernetInterface(String number, boolean portStatus, String bandwidth, String duplex, String mac, String ip,
 			String mask, String tx) {
-		this.goToLevelRouter(3);
+
+		if (routerLevel.getPrompt().getLevel() != 3) {
+			this.goToLevelRouter(3);
+		}
 		this.routerLevel.sendCommand("interface fastethernet" + number + "\r\n");
 		if (portStatus == true) {
 			this.routerLevel.sendCommand("no shutdown\r\n");
