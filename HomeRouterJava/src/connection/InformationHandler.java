@@ -299,7 +299,7 @@ public class InformationHandler {// --------------------------------------------
 	public ArrayList<String> getInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();
 		possibilities.add("!");
-		// possibilities.add("*");
+		 possibilities.add("*");
 		possibilities.add("<");
 		possibilities.add("domain server (");
 		possibilities.add("Interface FastEthernet");
@@ -310,18 +310,18 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
-		// possibilities.add("Jan");
-		// possibilities.add("Feb");
-		// possibilities.add("Mar");
-		// possibilities.add("Apr");
-		// possibilities.add("May");
-		// possibilities.add("Jun");
-		// possibilities.add("Jul");
-		// possibilities.add("Aug");
-		// possibilities.add("Sep");
-		// possibilities.add("Oct");
-		// possibilities.add("Nov");
-		// possibilities.add("Dec");
+		 possibilities.add("Jan");
+		 possibilities.add("Feb");
+		 possibilities.add("Mar");
+		 possibilities.add("Apr");
+		 possibilities.add("May");
+		 possibilities.add("Jun");
+		 possibilities.add("Jul");
+		 possibilities.add("Aug");
+		 possibilities.add("Sep");
+		 possibilities.add("Oct");
+		 possibilities.add("Nov");
+		 possibilities.add("Dec");
 
 		return possibilities;
 	}

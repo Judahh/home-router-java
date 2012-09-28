@@ -180,6 +180,7 @@ public class ConnectionHandler {
 	}
 
 	public void send(String value) {
+		
 		write(value);
 		System.out.println("Enviado:" + value);
                 this.GuiSol.appendConsole("Enviado:" + value);
