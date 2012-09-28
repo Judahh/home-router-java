@@ -189,28 +189,25 @@
                                   <Component id="PasswordCanceljButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="EnablejPasswordField" min="-2" pref="71" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="SecretjCheckBox" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="SecretjPasswordField" pref="99" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                              <Component id="VTYjPasswordField" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="ConsolejPasswordField" min="-2" pref="71" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="VTYjPasswordField" pref="99" max="32767" attributes="0"/>
+                                              <Component id="EnablejPasswordField" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="64" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -222,11 +219,6 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ConsolejPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="VTYjPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -234,9 +226,13 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="EnablejPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="SecretjCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="154" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="SecretjPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="156" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="PasswordOkjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="PasswordCanceljButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -249,7 +245,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel4">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Console Password:"/>
+                    <Property name="text" type="java.lang.String" value="Enable Secret Password:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
@@ -262,7 +258,7 @@
                     <Property name="text" type="java.lang.String" value="Enable Password:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="ConsolejPasswordField">
+                <Component class="javax.swing.JPasswordField" name="SecretjPasswordField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="cisco"/>
                   </Properties>
@@ -275,11 +271,6 @@
                 <Component class="javax.swing.JPasswordField" name="EnablejPasswordField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="cisco"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="SecretjCheckBox">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Secret"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="PasswordCanceljButton">
@@ -1123,7 +1114,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="96" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CommandjTextField" alignment="3" min="-2" max="-2" attributes="0"/>

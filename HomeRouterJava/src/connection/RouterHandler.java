@@ -138,6 +138,14 @@ public class RouterHandler {
 		
 		this.routerLevel.sendCommand("enable password " + pass + "\r\n");
 	}
+	
+	public void setEnableSecretPass(String secret){
+		if (routerLevel.getPrompt().getLevel() != 3) {
+			this.goToLevelRouter(3);
+		}
+		
+		this.routerLevel.sendCommand("enable secret " + secret + "\r\n");
+	}
 
 	public void showRun() {
 		if (routerLevel.getPrompt().getLevel() != 2) {

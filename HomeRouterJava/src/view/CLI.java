@@ -26,6 +26,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import util.Validation;
@@ -47,7 +48,7 @@ public class CLI extends javax.swing.JPanel {
 	RouterHandler vTelnet;
 	private MainInterface mi;
 	private int index;
-	private String host;	
+	private String host;
 	private String version;
 	private DefaultListModel<String> staticListModel;
 	private DefaultListModel<String> dynamicListModel;
@@ -95,28 +96,27 @@ public class CLI extends javax.swing.JPanel {
 
 		vTelnet = new RouterHandler(host, port, GuiSol);
 
-		//vlan 10.255.0.150
-		GuiSol.setvTelnet(vTelnet);
-		
-		ih = new InformationHandler(host, port, GuiSol);
+		// vlan 10.255.0.150
+		GuiSol.setvTelnet(vTelnet);		
 
 		if (vTelnet.Login()) {
 			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
 			// Login.setVisible(false);
 			// jName.setText(vTelnet.getRouterName()+":");
-			//vTelnet.getClock();
-//			ih.parseClockInfo(ConsolejTextArea.getText());
-			
+			// vTelnet.getClock();
+			// ih.parseClockInfo(ConsolejTextArea.getText());
+
 			// vTelnet.goToLevelRouter(3); //teste
 		}
 
 		// Essas 6 linhas embaixo usam show controllers e show run
+		vTelnet.getClock();
 
 		vTelnet.showRun();
-		
-		//String info = ConsolejTextArea.getText();
-		
-		//ih.parseShowRunInfo(info);
+
+		// String info = ConsolejTextArea.getText();
+
+		// ih.parseShowRunInfo(info);
 
 	}
 
@@ -141,828 +141,1005 @@ public class CLI extends javax.swing.JPanel {
 	// <editor-fold defaultstate="collapsed"
 	// <editor-fold defaultstate="collapsed"
 	// <editor-fold defaultstate="collapsed"
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        SettingsjFrame = new javax.swing.JFrame();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        DatejFormattedTextField = new javax.swing.JFormattedTextField();
-        TimejFormattedTextField = new javax.swing.JFormattedTextField();
-        HostNamejTextField = new javax.swing.JTextField();
-        GlobalCanceljButton = new javax.swing.JButton();
-        GlobalOkjButton = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        ConsolejPasswordField = new javax.swing.JPasswordField();
-        VTYjPasswordField = new javax.swing.JPasswordField();
-        EnablejPasswordField = new javax.swing.JPasswordField();
-        SecretjCheckBox = new javax.swing.JCheckBox();
-        PasswordCanceljButton = new javax.swing.JButton();
-        PasswordOkjButton = new javax.swing.JButton();
-        InterfacesConfigjFrame = new javax.swing.JFrame();
-        interfacesJTabbedPane = new javax.swing.JTabbedPane();
-        SwitchingjFrame = new javax.swing.JFrame();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        VlanNumberjTextField = new javax.swing.JTextField();
-        VlanNamejTextField = new javax.swing.JTextField();
-        VlanOkjButton = new javax.swing.JButton();
-        VlanCanceljButton = new javax.swing.JButton();
-        RoutingjFrame = new javax.swing.JFrame();
-        jTabbedPane5 = new javax.swing.JTabbedPane();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        DyRNetworkjTextField1 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        AddDyRoutejButton1 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel21 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        DyRjList = new javax.swing.JList();
-        DyRRemovejButton = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        RNetworkjTextField = new javax.swing.JTextField();
-        RMaskjTextField = new javax.swing.JTextField();
-        RNextHopjTextField = new javax.swing.JTextField();
-        AddRoutejButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel20 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        RjList = new javax.swing.JList();
-        RRemovejButton = new javax.swing.JButton();
-        ConnectivityjFrame = new javax.swing.JFrame();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        ConnectivityIPTextField = new javax.swing.JTextField();
-        ConnectivityPingButton = new javax.swing.JButton();
-        CommandHelpjFrame = new javax.swing.JFrame();
-        InterfacesStatusjFrame = new javax.swing.JFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        interfaceStatusList = new javax.swing.JList();
-        jLabel16 = new javax.swing.JLabel();
-        InterfacesSerialTypejFrame = new javax.swing.JFrame();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        interfaceSerialTypeList = new javax.swing.JList();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ConsolejTextArea = new javax.swing.JTextArea();
-        CommandjTextField = new javax.swing.JTextField();
-        SendjButton = new javax.swing.JButton();
-        jToolBar1 = new javax.swing.JToolBar();
-        ClockjLabel = new javax.swing.JLabel();
-        jToolBar2 = new javax.swing.JToolBar();
-        InterfacesjLabel = new javax.swing.JLabel();
-        jToolBar3 = new javax.swing.JToolBar();
-        TypejLabel = new javax.swing.JLabel();
-        jToolBar4 = new javax.swing.JToolBar();
-        IosjLabel = new javax.swing.JLabel();
-        levelselectorJComboBox = new javax.swing.JComboBox();
-
-        SettingsjFrame.setTitle("Settings");
-        SettingsjFrame.setLocationByPlatform(true);
-        SettingsjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
-
-        jTabbedPane4.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        jLabel1.setText("Hostname:");
-
-        jLabel2.setText("Router Date:");
-
-        jLabel3.setText("Router Time:");
-
-        DatejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        DatejFormattedTextField.setText("01/01/2001");
-
-        TimejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance())));
-        TimejFormattedTextField.setText("01:01:01");
-        TimejFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TimejFormattedTextFieldActionPerformed(evt);
-            }
-        });
-
-        HostNamejTextField.setText("Router");
-
-        GlobalCanceljButton.setText("Cancel");
-
-        GlobalOkjButton.setText("OK");
-        GlobalOkjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GlobalOkjButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TimejFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                        .addGap(99, 99, 99))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(GlobalOkjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(GlobalCanceljButton)
-                        .addContainerGap())
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(HostNamejTextField)
-                            .addComponent(DatejFormattedTextField))
-                        .addGap(99, 99, 99))))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(HostNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(DatejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(TimejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GlobalOkjButton)
-                    .addComponent(GlobalCanceljButton))
-                .addContainerGap())
-        );
-
-        jTabbedPane4.addTab("Global", jPanel5);
-
-        jLabel4.setText("Console Password:");
-
-        jLabel5.setText("VTY Password:");
-
-        jLabel6.setText("Enable Password:");
-
-        ConsolejPasswordField.setText("cisco");
-
-        VTYjPasswordField.setText("cisco");
-
-        EnablejPasswordField.setText("cisco");
-
-        SecretjCheckBox.setText("Secret");
-
-        PasswordCanceljButton.setText("Cancel");
-
-        PasswordOkjButton.setText("OK");
-        PasswordOkjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PasswordOkjButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(PasswordOkjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PasswordCanceljButton))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(EnablejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(SecretjCheckBox))
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(24, 24, 24)
-                                    .addComponent(VTYjPasswordField))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ConsolejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 64, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(ConsolejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(VTYjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(EnablejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SecretjCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PasswordOkjButton)
-                    .addComponent(PasswordCanceljButton))
-                .addContainerGap())
-        );
-
-        jTabbedPane4.addTab("Password", jPanel6);
-
-        javax.swing.GroupLayout SettingsjFrameLayout = new javax.swing.GroupLayout(SettingsjFrame.getContentPane());
-        SettingsjFrame.getContentPane().setLayout(SettingsjFrameLayout);
-        SettingsjFrameLayout.setHorizontalGroup(
-            SettingsjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SettingsjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane4)
-                .addContainerGap())
-        );
-        SettingsjFrameLayout.setVerticalGroup(
-            SettingsjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SettingsjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane4)
-                .addContainerGap())
-        );
-
-        InterfacesConfigjFrame.setTitle("Config Interfaces");
-        InterfacesConfigjFrame.setLocationByPlatform(true);
-        InterfacesConfigjFrame.setMinimumSize(new java.awt.Dimension(350, 350));
-
-        interfacesJTabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        javax.swing.GroupLayout InterfacesConfigjFrameLayout = new javax.swing.GroupLayout(InterfacesConfigjFrame.getContentPane());
-        InterfacesConfigjFrame.getContentPane().setLayout(InterfacesConfigjFrameLayout);
-        InterfacesConfigjFrameLayout.setHorizontalGroup(
-            InterfacesConfigjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InterfacesConfigjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(interfacesJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        InterfacesConfigjFrameLayout.setVerticalGroup(
-            InterfacesConfigjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InterfacesConfigjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(interfacesJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        SwitchingjFrame.setTitle("Switching");
-        SwitchingjFrame.setLocationByPlatform(true);
-        SwitchingjFrame.setMinimumSize(new java.awt.Dimension(178, 157));
-
-        jLabel7.setText("VLAN Configuration:");
-
-        jLabel8.setText("Number:");
-
-        jLabel9.setText("Name:");
-
-        VlanOkjButton.setText("OK");
-        VlanOkjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VlanOkjButtonActionPerformed(evt);
-            }
-        });
-
-        VlanCanceljButton.setText("Cancel");
-
-        javax.swing.GroupLayout SwitchingjFrameLayout = new javax.swing.GroupLayout(SwitchingjFrame.getContentPane());
-        SwitchingjFrame.getContentPane().setLayout(SwitchingjFrameLayout);
-        SwitchingjFrameLayout.setHorizontalGroup(
-            SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jLabel9))
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(VlanNumberjTextField)
-                                    .addComponent(VlanNamejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))))
-                    .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(VlanOkjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(VlanCanceljButton)))
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-        SwitchingjFrameLayout.setVerticalGroup(
-            SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SwitchingjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(VlanNumberjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(VlanNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VlanOkjButton)
-                    .addComponent(VlanCanceljButton))
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-
-        RoutingjFrame.setTitle("Routing");
-        RoutingjFrame.setLocationByPlatform(true);
-        RoutingjFrame.setMinimumSize(new java.awt.Dimension(564, 329));
-
-        jTabbedPane5.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        jLabel14.setText("New Route:");
-
-        jLabel15.setText("Network:");
-
-        AddDyRoutejButton1.setText("Add");
-        AddDyRoutejButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddDyRoutejButton1ActionPerformed(evt);
-            }
-        });
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel21.setText("Established Routes:");
-
-        jScrollPane3.setViewportView(DyRjList);
-
-        DyRRemovejButton.setText("Remove");
-        DyRRemovejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DyRRemovejButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(14, 14, 14)
-                        .addComponent(DyRNetworkjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(AddDyRoutejButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addGap(0, 287, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(DyRRemovejButton))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator2)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel15)
-                                    .addComponent(DyRNetworkjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AddDyRoutejButton1)
-                                .addGap(0, 211, Short.MAX_VALUE))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addGap(7, 7, 7)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(DyRRemovejButton)))))
-                .addContainerGap())
-        );
-
-        jTabbedPane5.addTab("Dynamic", jPanel8);
-
-        jLabel10.setText("New Route:");
-
-        jLabel11.setText("Network:");
-
-        jLabel12.setText("Mask:");
-
-        jLabel13.setText("Next Hop:");
-
-        AddRoutejButton.setText("Add");
-        AddRoutejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddRoutejButtonActionPerformed(evt);
-            }
-        });
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel20.setText("Established Routes:");
-
-        RjList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(RjList);
-
-        RRemovejButton.setText("Remove");
-        RRemovejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RRemovejButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(RNextHopjTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                            .addComponent(RMaskjTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(RNetworkjTextField)))
-                    .addComponent(AddRoutejButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addGap(0, 287, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(RRemovejButton))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(RNetworkjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(RMaskjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(RNextHopjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AddRoutejButton)
-                        .addGap(0, 159, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RRemovejButton)))
-                .addContainerGap())
-        );
-
-        jTabbedPane5.addTab("Static", jPanel7);
-
-        javax.swing.GroupLayout RoutingjFrameLayout = new javax.swing.GroupLayout(RoutingjFrame.getContentPane());
-        RoutingjFrame.getContentPane().setLayout(RoutingjFrameLayout);
-        RoutingjFrameLayout.setHorizontalGroup(
-            RoutingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RoutingjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane5))
-        );
-        RoutingjFrameLayout.setVerticalGroup(
-            RoutingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RoutingjFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane5)
-                .addContainerGap())
-        );
-
-        ConnectivityjFrame.setTitle("Connectivity");
-        ConnectivityjFrame.setLocationByPlatform(true);
-        ConnectivityjFrame.setMinimumSize(new java.awt.Dimension(229, 148));
-
-        jLabel22.setText("Ping IP:");
-
-        ConnectivityPingButton.setText("OK");
-        ConnectivityPingButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectivityPingButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addGap(18, 18, 18)
-                        .addComponent(ConnectivityIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ConnectivityPingButton))
-                .addContainerGap(59, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(ConnectivityIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(ConnectivityPingButton)
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout ConnectivityjFrameLayout = new javax.swing.GroupLayout(ConnectivityjFrame.getContentPane());
-        ConnectivityjFrame.getContentPane().setLayout(ConnectivityjFrameLayout);
-        ConnectivityjFrameLayout.setHorizontalGroup(
-            ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
-            .addGroup(ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ConnectivityjFrameLayout.setVerticalGroup(
-            ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 108, Short.MAX_VALUE)
-            .addGroup(ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        CommandHelpjFrame.setTitle("Command Help");
-        CommandHelpjFrame.setLocationByPlatform(true);
-        CommandHelpjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
-
-        javax.swing.GroupLayout CommandHelpjFrameLayout = new javax.swing.GroupLayout(CommandHelpjFrame.getContentPane());
-        CommandHelpjFrame.getContentPane().setLayout(CommandHelpjFrameLayout);
-        CommandHelpjFrameLayout.setHorizontalGroup(
-            CommandHelpjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        CommandHelpjFrameLayout.setVerticalGroup(
-            CommandHelpjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        InterfacesStatusjFrame.setTitle("Interface Status");
-        InterfacesStatusjFrame.setLocationByPlatform(true);
-        InterfacesStatusjFrame.setMinimumSize(new java.awt.Dimension(285, 350));
-        InterfacesStatusjFrame.setResizable(false);
-        InterfacesStatusjFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentHidden(java.awt.event.ComponentEvent evt) {
-                InterfacesStatusjFrameComponentHidden(evt);
-            }
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                InterfacesStatusjFrameComponentShown(evt);
-            }
-        });
-
-        jPanel1.setMinimumSize(new java.awt.Dimension(300, 264));
-
-        jScrollPane4.setViewportView(interfaceStatusList);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel16.setText("Interface Status");
-
-        javax.swing.GroupLayout InterfacesStatusjFrameLayout = new javax.swing.GroupLayout(InterfacesStatusjFrame.getContentPane());
-        InterfacesStatusjFrame.getContentPane().setLayout(InterfacesStatusjFrameLayout);
-        InterfacesStatusjFrameLayout.setHorizontalGroup(
-            InterfacesStatusjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
-                .addGroup(InterfacesStatusjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel16)))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        InterfacesStatusjFrameLayout.setVerticalGroup(
-            InterfacesStatusjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        InterfacesSerialTypejFrame.setTitle("Serial Type");
-        InterfacesSerialTypejFrame.setMinimumSize(new java.awt.Dimension(239, 300));
-        InterfacesSerialTypejFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                InterfacesSerialTypejFrameComponentShown(evt);
-            }
-        });
-
-        interfaceSerialTypeList.setModel(new javax.swing.DefaultListModel());
-        jScrollPane5.setViewportView(interfaceSerialTypeList);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 219, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout InterfacesSerialTypejFrameLayout = new javax.swing.GroupLayout(InterfacesSerialTypejFrame.getContentPane());
-        InterfacesSerialTypejFrame.getContentPane().setLayout(InterfacesSerialTypejFrameLayout);
-        InterfacesSerialTypejFrameLayout.setHorizontalGroup(
-            InterfacesSerialTypejFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 239, Short.MAX_VALUE)
-            .addGroup(InterfacesSerialTypejFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(InterfacesSerialTypejFrameLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        InterfacesSerialTypejFrameLayout.setVerticalGroup(
-            InterfacesSerialTypejFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(InterfacesSerialTypejFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InterfacesSerialTypejFrameLayout.createSequentialGroup()
-                    .addContainerGap(33, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-        );
-
-        setMinimumSize(new java.awt.Dimension(462, 167));
-        setPreferredSize(new java.awt.Dimension(462, 167));
-
-        ConsolejTextArea.setColumns(20);
-        ConsolejTextArea.setRows(5);
-        jScrollPane1.setViewportView(ConsolejTextArea);
-
-        CommandjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CommandjTextFieldKeyPressed(evt);
-            }
-        });
-
-        SendjButton.setText("Send");
-        SendjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SendjButtonActionPerformed(evt);
-            }
-        });
-
-        jToolBar1.setRollover(true);
-
-        ClockjLabel.setText("12:00 AM");
-        jToolBar1.add(ClockjLabel);
-
-        jToolBar2.setRollover(true);
-
-        InterfacesjLabel.setText("Interfaces");
-        jToolBar2.add(InterfacesjLabel);
-
-        jToolBar3.setRollover(true);
-
-        TypejLabel.setText("Slave");
-        jToolBar3.add(TypejLabel);
-
-        jToolBar4.setRollover(true);
-
-        IosjLabel.setText("Cisco 1700v v1.5 with IOS version "+version);
-        jToolBar4.add(IosjLabel);
-
-        String[] leveltypes = {"Logged_Off", "Default", "Enable", "Config", "appnB", "ca_identityB", "cfg_lan_Ether_10B", "cfg_adap_Ether_10_1B", "config_cert_chainB", "config_controllerB", "config_ctrl_casB", "config_crypto_mapB", "config_crypto_transB", "config_dialpeerB", "config_ext_naclB", "config_std_naclB", "config_hubB", "Interface Config", "config_if_atm_vcB", "config_vc_classB", "config_subifB", "config_ipx_routerB", "config_isakmpB", "config_keychainB", "config_keychain_keyB", "VTY", "config_map_classB", "config_map_listB", "config_modem_poolB", "config_poll_grB", "config_pubkeyB", "config_pubkey_keyB", "config_route_mapB", "Router Config", "config_rtrB", "config_voiceportB", "lane_config_databB", "mpoa_client_configB", "mpoa_server_configB", "tn3270_serverB", "tn3270_puB", "tn3270_dlurB", "tn3270_dlur_sapB", "tn3270_dlur_puB", "configBAsk", "Logged_OffAsk", "Logged_OffConsoleAsk"};
-        levelselectorJComboBox.setModel(new javax.swing.DefaultComboBoxModel(leveltypes));
-        levelselectorJComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                levelselectorJComboBoxActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SendjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SendjButton)
-                    .addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+	// <editor-fold defaultstate="collapsed"
+	// desc="Generated Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
+
+		SettingsjFrame = new javax.swing.JFrame();
+		jTabbedPane4 = new javax.swing.JTabbedPane();
+		jPanel5 = new javax.swing.JPanel();
+		jLabel1 = new javax.swing.JLabel();
+		jLabel2 = new javax.swing.JLabel();
+		jLabel3 = new javax.swing.JLabel();
+		DatejFormattedTextField = new javax.swing.JFormattedTextField();
+		TimejFormattedTextField = new javax.swing.JFormattedTextField();
+		HostNamejTextField = new javax.swing.JTextField();
+		GlobalCanceljButton = new javax.swing.JButton();
+		GlobalOkjButton = new javax.swing.JButton();
+		jPanel6 = new javax.swing.JPanel();
+		jLabel4 = new javax.swing.JLabel();
+		jLabel5 = new javax.swing.JLabel();
+		jLabel6 = new javax.swing.JLabel();
+		SecretjPasswordField = new javax.swing.JPasswordField();
+		VTYjPasswordField = new javax.swing.JPasswordField();
+		EnablejPasswordField = new javax.swing.JPasswordField();
+		PasswordCanceljButton = new javax.swing.JButton();
+		PasswordOkjButton = new javax.swing.JButton();
+		InterfacesConfigjFrame = new javax.swing.JFrame();
+		interfacesJTabbedPane = new javax.swing.JTabbedPane();
+		SwitchingjFrame = new javax.swing.JFrame();
+		jLabel7 = new javax.swing.JLabel();
+		jLabel8 = new javax.swing.JLabel();
+		jLabel9 = new javax.swing.JLabel();
+		VlanNumberjTextField = new javax.swing.JTextField();
+		VlanNamejTextField = new javax.swing.JTextField();
+		VlanOkjButton = new javax.swing.JButton();
+		VlanCanceljButton = new javax.swing.JButton();
+		RoutingjFrame = new javax.swing.JFrame();
+		jTabbedPane5 = new javax.swing.JTabbedPane();
+		jPanel8 = new javax.swing.JPanel();
+		jLabel14 = new javax.swing.JLabel();
+		DyRNetworkjTextField1 = new javax.swing.JTextField();
+		jLabel15 = new javax.swing.JLabel();
+		AddDyRoutejButton1 = new javax.swing.JButton();
+		jSeparator2 = new javax.swing.JSeparator();
+		jLabel21 = new javax.swing.JLabel();
+		jScrollPane3 = new javax.swing.JScrollPane();
+		DyRjList = new javax.swing.JList();
+		DyRRemovejButton = new javax.swing.JButton();
+		jPanel7 = new javax.swing.JPanel();
+		jLabel10 = new javax.swing.JLabel();
+		jLabel11 = new javax.swing.JLabel();
+		jLabel12 = new javax.swing.JLabel();
+		jLabel13 = new javax.swing.JLabel();
+		RNetworkjTextField = new javax.swing.JTextField();
+		RMaskjTextField = new javax.swing.JTextField();
+		RNextHopjTextField = new javax.swing.JTextField();
+		AddRoutejButton = new javax.swing.JButton();
+		jSeparator1 = new javax.swing.JSeparator();
+		jLabel20 = new javax.swing.JLabel();
+		jScrollPane2 = new javax.swing.JScrollPane();
+		RjList = new javax.swing.JList();
+		RRemovejButton = new javax.swing.JButton();
+		ConnectivityjFrame = new javax.swing.JFrame();
+		jPanel3 = new javax.swing.JPanel();
+		jLabel22 = new javax.swing.JLabel();
+		ConnectivityIPTextField = new javax.swing.JTextField();
+		ConnectivityPingButton = new javax.swing.JButton();
+		CommandHelpjFrame = new javax.swing.JFrame();
+		InterfacesStatusjFrame = new javax.swing.JFrame();
+		jPanel1 = new javax.swing.JPanel();
+		jScrollPane4 = new javax.swing.JScrollPane();
+		interfaceStatusList = new javax.swing.JList();
+		jLabel16 = new javax.swing.JLabel();
+		InterfacesSerialTypejFrame = new javax.swing.JFrame();
+		jPanel2 = new javax.swing.JPanel();
+		jScrollPane5 = new javax.swing.JScrollPane();
+		interfaceSerialTypeList = new javax.swing.JList();
+		jScrollPane1 = new javax.swing.JScrollPane();
+		ConsolejTextArea = new javax.swing.JTextArea();
+		CommandjTextField = new javax.swing.JTextField();
+		SendjButton = new javax.swing.JButton();
+		jToolBar1 = new javax.swing.JToolBar();
+		ClockjLabel = new javax.swing.JLabel();
+		jToolBar2 = new javax.swing.JToolBar();
+		InterfacesjLabel = new javax.swing.JLabel();
+		jToolBar3 = new javax.swing.JToolBar();
+		TypejLabel = new javax.swing.JLabel();
+		jToolBar4 = new javax.swing.JToolBar();
+		IosjLabel = new javax.swing.JLabel();
+		levelselectorJComboBox = new javax.swing.JComboBox();
+
+		SettingsjFrame.setTitle("Settings");
+		SettingsjFrame.setLocationByPlatform(true);
+		SettingsjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
+
+		jTabbedPane4.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+		jLabel1.setText("Hostname:");
+
+		jLabel2.setText("Router Date:");
+
+		jLabel3.setText("Router Time:");
+
+		DatejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+		DatejFormattedTextField.setText("01/01/2001");
+
+		TimejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(
+				java.text.DateFormat.getTimeInstance())));
+		TimejFormattedTextField.setText("01:01:01");
+		TimejFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				TimejFormattedTextFieldActionPerformed(evt);
+			}
+		});
+
+		HostNamejTextField.setText("Router");
+
+		GlobalCanceljButton.setText("Cancel");
+
+		GlobalOkjButton.setText("OK");
+		GlobalOkjButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				GlobalOkjButtonActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+		jPanel5.setLayout(jPanel5Layout);
+		jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel5Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel5Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(
+												jPanel5Layout
+														.createSequentialGroup()
+														.addComponent(jLabel3)
+														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+														.addComponent(TimejFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 132,
+																Short.MAX_VALUE).addGap(99, 99, 99))
+										.addGroup(
+												jPanel5Layout
+														.createSequentialGroup()
+														.addComponent(GlobalOkjButton)
+														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+																javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(GlobalCanceljButton).addContainerGap())
+										.addGroup(
+												jPanel5Layout
+														.createSequentialGroup()
+														.addGroup(
+																jPanel5Layout
+																		.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																		.addComponent(jLabel2).addComponent(jLabel1))
+														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+														.addGroup(
+																jPanel5Layout
+																		.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																		.addComponent(HostNamejTextField)
+																		.addComponent(DatejFormattedTextField)).addGap(99, 99, 99)))));
+		jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel5Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel5Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel1)
+										.addComponent(HostNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								jPanel5Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel2)
+										.addComponent(DatejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								jPanel5Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel3)
+										.addComponent(TimejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+						.addGroup(
+								jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(GlobalOkjButton)
+										.addComponent(GlobalCanceljButton)).addContainerGap()));
+
+		jTabbedPane4.addTab("Global", jPanel5);
+
+		jLabel4.setText("Enable Secret Password:");
+
+		jLabel5.setText("VTY Password:");
+
+		jLabel6.setText("Enable Password:");
+
+		SecretjPasswordField.setText("cisco");
+
+		VTYjPasswordField.setText("cisco");
+
+		EnablejPasswordField.setText("cisco");
+
+		PasswordCanceljButton.setText("Cancel");
+
+		PasswordOkjButton.setText("OK");
+		PasswordOkjButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				PasswordOkjButtonActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+		jPanel6.setLayout(jPanel6Layout);
+		jPanel6Layout
+				.setHorizontalGroup(jPanel6Layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel6Layout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												jPanel6Layout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																jPanel6Layout
+																		.createSequentialGroup()
+																		.addComponent(PasswordOkjButton)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+																				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																		.addComponent(PasswordCanceljButton))
+														.addGroup(
+																jPanel6Layout
+																		.createSequentialGroup()
+																		.addGroup(
+																				jPanel6Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.LEADING,
+																								false)
+																						.addGroup(
+																								jPanel6Layout
+																										.createSequentialGroup()
+																										.addComponent(jLabel4)
+																										.addGap(31, 31, 31)
+																										.addComponent(
+																												SecretjPasswordField,
+																												javax.swing.GroupLayout.DEFAULT_SIZE,
+																												99, Short.MAX_VALUE))
+																						.addGroup(
+																								jPanel6Layout
+																										.createSequentialGroup()
+																										.addGroup(
+																												jPanel6Layout
+																														.createParallelGroup(
+																																javax.swing.GroupLayout.Alignment.LEADING)
+																														.addComponent(
+																																jLabel5)
+																														.addComponent(
+																																jLabel6))
+																										.addGap(65, 65, 65)
+																										.addGroup(
+																												jPanel6Layout
+																														.createParallelGroup(
+																																javax.swing.GroupLayout.Alignment.LEADING,
+																																false)
+																														.addComponent(
+																																VTYjPasswordField,
+																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																99,
+																																Short.MAX_VALUE)
+																														.addComponent(
+																																EnablejPasswordField))))
+																		.addGap(0, 44, Short.MAX_VALUE))).addContainerGap()));
+		jPanel6Layout.setVerticalGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel6Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel6Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel5)
+										.addComponent(VTYjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								jPanel6Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel6)
+										.addComponent(EnablejPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								jPanel6Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel4)
+										.addComponent(SecretjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+						.addGroup(
+								jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(PasswordOkjButton).addComponent(PasswordCanceljButton)).addContainerGap()));
+
+		jTabbedPane4.addTab("Password", jPanel6);
+
+		javax.swing.GroupLayout SettingsjFrameLayout = new javax.swing.GroupLayout(SettingsjFrame.getContentPane());
+		SettingsjFrame.getContentPane().setLayout(SettingsjFrameLayout);
+		SettingsjFrameLayout.setHorizontalGroup(SettingsjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(SettingsjFrameLayout.createSequentialGroup().addContainerGap().addComponent(jTabbedPane4).addContainerGap()));
+		SettingsjFrameLayout.setVerticalGroup(SettingsjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				SettingsjFrameLayout.createSequentialGroup().addContainerGap().addComponent(jTabbedPane4).addContainerGap()));
+
+		InterfacesConfigjFrame.setTitle("Config Interfaces");
+		InterfacesConfigjFrame.setLocationByPlatform(true);
+		InterfacesConfigjFrame.setMinimumSize(new java.awt.Dimension(350, 350));
+
+		interfacesJTabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+		javax.swing.GroupLayout InterfacesConfigjFrameLayout = new javax.swing.GroupLayout(InterfacesConfigjFrame.getContentPane());
+		InterfacesConfigjFrame.getContentPane().setLayout(InterfacesConfigjFrameLayout);
+		InterfacesConfigjFrameLayout
+				.setHorizontalGroup(InterfacesConfigjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+						InterfacesConfigjFrameLayout.createSequentialGroup().addContainerGap()
+								.addComponent(interfacesJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+								.addContainerGap()));
+		InterfacesConfigjFrameLayout
+				.setVerticalGroup(InterfacesConfigjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+						InterfacesConfigjFrameLayout.createSequentialGroup().addContainerGap()
+								.addComponent(interfacesJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+								.addContainerGap()));
+
+		SwitchingjFrame.setTitle("Switching");
+		SwitchingjFrame.setLocationByPlatform(true);
+		SwitchingjFrame.setMinimumSize(new java.awt.Dimension(178, 157));
+
+		jLabel7.setText("VLAN Configuration:");
+
+		jLabel8.setText("Number:");
+
+		jLabel9.setText("Name:");
+
+		VlanOkjButton.setText("OK");
+		VlanOkjButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				VlanOkjButtonActionPerformed(evt);
+			}
+		});
+
+		VlanCanceljButton.setText("Cancel");
+
+		javax.swing.GroupLayout SwitchingjFrameLayout = new javax.swing.GroupLayout(SwitchingjFrame.getContentPane());
+		SwitchingjFrame.getContentPane().setLayout(SwitchingjFrameLayout);
+		SwitchingjFrameLayout
+				.setHorizontalGroup(SwitchingjFrameLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								SwitchingjFrameLayout
+										.createSequentialGroup()
+										.addGroup(
+												SwitchingjFrameLayout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(
+																SwitchingjFrameLayout
+																		.createSequentialGroup()
+																		.addGap(16, 16, 16)
+																		.addGroup(
+																				SwitchingjFrameLayout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.LEADING)
+																						.addComponent(jLabel7)
+																						.addGroup(
+																								SwitchingjFrameLayout
+																										.createSequentialGroup()
+																										.addGroup(
+																												SwitchingjFrameLayout
+																														.createParallelGroup(
+																																javax.swing.GroupLayout.Alignment.LEADING)
+																														.addGroup(
+																																SwitchingjFrameLayout
+																																		.createSequentialGroup()
+																																		.addGap(4,
+																																				4,
+																																				4)
+																																		.addComponent(
+																																				jLabel9))
+																														.addComponent(
+																																jLabel8))
+																										.addPreferredGap(
+																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																										.addGroup(
+																												SwitchingjFrameLayout
+																														.createParallelGroup(
+																																javax.swing.GroupLayout.Alignment.LEADING,
+																																false)
+																														.addComponent(
+																																VlanNumberjTextField)
+																														.addComponent(
+																																VlanNamejTextField,
+																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																65,
+																																Short.MAX_VALUE)))))
+														.addGroup(
+																SwitchingjFrameLayout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addComponent(VlanOkjButton)
+																		.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(VlanCanceljButton)))
+										.addContainerGap(50, Short.MAX_VALUE)));
+		SwitchingjFrameLayout.setVerticalGroup(SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(
+						SwitchingjFrameLayout
+								.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(jLabel7)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										SwitchingjFrameLayout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(jLabel8)
+												.addComponent(VlanNumberjTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										SwitchingjFrameLayout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(jLabel9)
+												.addComponent(VlanNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										SwitchingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(VlanOkjButton).addComponent(VlanCanceljButton))
+								.addContainerGap(51, Short.MAX_VALUE)));
+
+		RoutingjFrame.setTitle("Routing");
+		RoutingjFrame.setLocationByPlatform(true);
+		RoutingjFrame.setMinimumSize(new java.awt.Dimension(564, 329));
+
+		jTabbedPane5.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+		jLabel14.setText("New Route:");
+
+		jLabel15.setText("Network:");
+
+		AddDyRoutejButton1.setText("Add");
+		AddDyRoutejButton1.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				AddDyRoutejButton1ActionPerformed(evt);
+			}
+		});
+
+		jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+		jLabel21.setText("Established Routes:");
+
+		jScrollPane3.setViewportView(DyRjList);
+
+		DyRRemovejButton.setText("Remove");
+		DyRRemovejButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				DyRRemovejButtonActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+		jPanel8.setLayout(jPanel8Layout);
+		jPanel8Layout.setHorizontalGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel8Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel8Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jLabel14)
+										.addGroup(
+												jPanel8Layout
+														.createSequentialGroup()
+														.addComponent(jLabel15)
+														.addGap(14, 14, 14)
+														.addComponent(DyRNetworkjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+																javax.swing.GroupLayout.PREFERRED_SIZE)).addComponent(AddDyRoutejButton1))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								jPanel8Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(
+												jPanel8Layout.createSequentialGroup().addComponent(jLabel21)
+														.addGap(0, 287, Short.MAX_VALUE))
+										.addGroup(
+												javax.swing.GroupLayout.Alignment.TRAILING,
+												jPanel8Layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
+														.addComponent(DyRRemovejButton))
+										.addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)).addContainerGap()));
+		jPanel8Layout
+				.setVerticalGroup(jPanel8Layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								javax.swing.GroupLayout.Alignment.TRAILING,
+								jPanel8Layout
+										.createSequentialGroup()
+										.addGroup(
+												jPanel8Layout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+														.addComponent(jSeparator2)
+														.addGroup(
+																jPanel8Layout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addGroup(
+																				jPanel8Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.LEADING)
+																						.addGroup(
+																								jPanel8Layout
+																										.createSequentialGroup()
+																										.addComponent(jLabel14)
+																										.addPreferredGap(
+																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																										.addGroup(
+																												jPanel8Layout
+																														.createParallelGroup(
+																																javax.swing.GroupLayout.Alignment.BASELINE)
+																														.addComponent(
+																																jLabel15)
+																														.addComponent(
+																																DyRNetworkjTextField1,
+																																javax.swing.GroupLayout.PREFERRED_SIZE,
+																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																javax.swing.GroupLayout.PREFERRED_SIZE))
+																										.addPreferredGap(
+																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																										.addComponent(AddDyRoutejButton1)
+																										.addGap(0, 211, Short.MAX_VALUE))
+																						.addGroup(
+																								jPanel8Layout
+																										.createSequentialGroup()
+																										.addComponent(jLabel21)
+																										.addGap(7, 7, 7)
+																										.addComponent(
+																												jScrollPane3,
+																												javax.swing.GroupLayout.PREFERRED_SIZE,
+																												213,
+																												javax.swing.GroupLayout.PREFERRED_SIZE)
+																										.addPreferredGap(
+																												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+																												javax.swing.GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE)
+																										.addComponent(DyRRemovejButton)))))
+										.addContainerGap()));
+
+		jTabbedPane5.addTab("Dynamic", jPanel8);
+
+		jLabel10.setText("New Route:");
+
+		jLabel11.setText("Network:");
+
+		jLabel12.setText("Mask:");
+
+		jLabel13.setText("Next Hop:");
+
+		AddRoutejButton.setText("Add");
+		AddRoutejButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				AddRoutejButtonActionPerformed(evt);
+			}
+		});
+
+		jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+		jLabel20.setText("Established Routes:");
+
+		RjList.setModel(new javax.swing.AbstractListModel() {
+			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+
+			public int getSize() {
+				return strings.length;
+			}
+
+			public Object getElementAt(int i) {
+				return strings[i];
+			}
+		});
+		jScrollPane2.setViewportView(RjList);
+
+		RRemovejButton.setText("Remove");
+		RRemovejButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				RRemovejButtonActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+		jPanel7.setLayout(jPanel7Layout);
+		jPanel7Layout.setHorizontalGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel7Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel7Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jLabel10)
+										.addGroup(
+												jPanel7Layout
+														.createSequentialGroup()
+														.addGroup(
+																jPanel7Layout
+																		.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																		.addComponent(jLabel11).addComponent(jLabel12)
+																		.addComponent(jLabel13))
+														.addGap(14, 14, 14)
+														.addGroup(
+																jPanel7Layout
+																		.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+																				false)
+																		.addComponent(RNextHopjTextField,
+																				javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+																		.addComponent(RMaskjTextField,
+																				javax.swing.GroupLayout.Alignment.TRAILING)
+																		.addComponent(RNetworkjTextField))).addComponent(AddRoutejButton))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								jPanel7Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(
+												jPanel7Layout.createSequentialGroup().addComponent(jLabel20)
+														.addGap(0, 287, Short.MAX_VALUE))
+										.addGroup(
+												javax.swing.GroupLayout.Alignment.TRAILING,
+												jPanel7Layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
+														.addComponent(RRemovejButton))
+										.addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)).addContainerGap()));
+		jPanel7Layout.setVerticalGroup(jPanel7Layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jSeparator1)
+				.addGroup(
+						jPanel7Layout
+								.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(
+										jPanel7Layout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addGroup(
+														jPanel7Layout
+																.createSequentialGroup()
+																.addComponent(jLabel10)
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addGroup(
+																		jPanel7Layout
+																				.createParallelGroup(
+																						javax.swing.GroupLayout.Alignment.BASELINE)
+																				.addComponent(jLabel11)
+																				.addComponent(RNetworkjTextField,
+																						javax.swing.GroupLayout.PREFERRED_SIZE,
+																						javax.swing.GroupLayout.DEFAULT_SIZE,
+																						javax.swing.GroupLayout.PREFERRED_SIZE))
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addGroup(
+																		jPanel7Layout
+																				.createParallelGroup(
+																						javax.swing.GroupLayout.Alignment.BASELINE)
+																				.addComponent(jLabel12)
+																				.addComponent(RMaskjTextField,
+																						javax.swing.GroupLayout.PREFERRED_SIZE,
+																						javax.swing.GroupLayout.DEFAULT_SIZE,
+																						javax.swing.GroupLayout.PREFERRED_SIZE))
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addGroup(
+																		jPanel7Layout
+																				.createParallelGroup(
+																						javax.swing.GroupLayout.Alignment.BASELINE)
+																				.addComponent(jLabel13)
+																				.addComponent(RNextHopjTextField,
+																						javax.swing.GroupLayout.PREFERRED_SIZE,
+																						javax.swing.GroupLayout.DEFAULT_SIZE,
+																						javax.swing.GroupLayout.PREFERRED_SIZE))
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(AddRoutejButton).addGap(0, 159, Short.MAX_VALUE))
+												.addGroup(
+														javax.swing.GroupLayout.Alignment.TRAILING,
+														jPanel7Layout
+																.createSequentialGroup()
+																.addComponent(jLabel20)
+																.addGap(7, 7, 7)
+																.addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+																		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addComponent(RRemovejButton))).addContainerGap()));
+
+		jTabbedPane5.addTab("Static", jPanel7);
+
+		javax.swing.GroupLayout RoutingjFrameLayout = new javax.swing.GroupLayout(RoutingjFrame.getContentPane());
+		RoutingjFrame.getContentPane().setLayout(RoutingjFrameLayout);
+		RoutingjFrameLayout.setHorizontalGroup(RoutingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				RoutingjFrameLayout.createSequentialGroup().addContainerGap().addComponent(jTabbedPane5)));
+		RoutingjFrameLayout.setVerticalGroup(RoutingjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				RoutingjFrameLayout.createSequentialGroup().addContainerGap().addComponent(jTabbedPane5).addContainerGap()));
+
+		ConnectivityjFrame.setTitle("Connectivity");
+		ConnectivityjFrame.setLocationByPlatform(true);
+		ConnectivityjFrame.setMinimumSize(new java.awt.Dimension(229, 148));
+
+		jLabel22.setText("Ping IP:");
+
+		ConnectivityPingButton.setText("OK");
+		ConnectivityPingButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				ConnectivityPingButtonActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+		jPanel3.setLayout(jPanel3Layout);
+		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel3Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel3Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(
+												jPanel3Layout
+														.createSequentialGroup()
+														.addComponent(jLabel22)
+														.addGap(18, 18, 18)
+														.addComponent(ConnectivityIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addComponent(ConnectivityPingButton)).addContainerGap(59, Short.MAX_VALUE)));
+		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel3Layout
+						.createSequentialGroup()
+						.addGap(22, 22, 22)
+						.addGroup(
+								jPanel3Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel22)
+										.addComponent(ConnectivityIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18).addComponent(ConnectivityPingButton).addContainerGap(25, Short.MAX_VALUE)));
+
+		javax.swing.GroupLayout ConnectivityjFrameLayout = new javax.swing.GroupLayout(ConnectivityjFrame.getContentPane());
+		ConnectivityjFrame.getContentPane().setLayout(ConnectivityjFrameLayout);
+		ConnectivityjFrameLayout.setHorizontalGroup(ConnectivityjFrameLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 229, Short.MAX_VALUE)
+				.addGroup(
+						ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel3,
+								javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		ConnectivityjFrameLayout.setVerticalGroup(ConnectivityjFrameLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 108, Short.MAX_VALUE)
+				.addGroup(
+						ConnectivityjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel3,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		CommandHelpjFrame.setTitle("Command Help");
+		CommandHelpjFrame.setLocationByPlatform(true);
+		CommandHelpjFrame.setMinimumSize(new java.awt.Dimension(400, 300));
+
+		javax.swing.GroupLayout CommandHelpjFrameLayout = new javax.swing.GroupLayout(CommandHelpjFrame.getContentPane());
+		CommandHelpjFrame.getContentPane().setLayout(CommandHelpjFrameLayout);
+		CommandHelpjFrameLayout.setHorizontalGroup(CommandHelpjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 400, Short.MAX_VALUE));
+		CommandHelpjFrameLayout.setVerticalGroup(CommandHelpjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 300, Short.MAX_VALUE));
+
+		InterfacesStatusjFrame.setTitle("Interface Status");
+		InterfacesStatusjFrame.setLocationByPlatform(true);
+		InterfacesStatusjFrame.setMinimumSize(new java.awt.Dimension(285, 350));
+		InterfacesStatusjFrame.setResizable(false);
+		InterfacesStatusjFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
+			public void componentHidden(java.awt.event.ComponentEvent evt) {
+				InterfacesStatusjFrameComponentHidden(evt);
+			}
+
+			public void componentShown(java.awt.event.ComponentEvent evt) {
+				InterfacesStatusjFrameComponentShown(evt);
+			}
+		});
+
+		jPanel1.setMinimumSize(new java.awt.Dimension(300, 264));
+
+		jScrollPane4.setViewportView(interfaceStatusList);
+
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		jPanel1.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jScrollPane4));
+		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				javax.swing.GroupLayout.Alignment.TRAILING,
+				jPanel1Layout.createSequentialGroup().addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap()));
+
+		jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+		jLabel16.setText("Interface Status");
+
+		javax.swing.GroupLayout InterfacesStatusjFrameLayout = new javax.swing.GroupLayout(InterfacesStatusjFrame.getContentPane());
+		InterfacesStatusjFrame.getContentPane().setLayout(InterfacesStatusjFrameLayout);
+		InterfacesStatusjFrameLayout.setHorizontalGroup(InterfacesStatusjFrameLayout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				InterfacesStatusjFrameLayout
+						.createSequentialGroup()
+						.addGroup(
+								InterfacesStatusjFrameLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(
+												InterfacesStatusjFrameLayout
+														.createSequentialGroup()
+														.addGap(10, 10, 10)
+														.addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGroup(
+												InterfacesStatusjFrameLayout.createSequentialGroup().addGap(78, 78, 78)
+														.addComponent(jLabel16))).addContainerGap(17, Short.MAX_VALUE)));
+		InterfacesStatusjFrameLayout.setVerticalGroup(InterfacesStatusjFrameLayout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				InterfacesStatusjFrameLayout
+						.createSequentialGroup()
+						.addGap(14, 14, 14)
+						.addComponent(jLabel16)
+						.addGap(18, 18, 18)
+						.addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(42, Short.MAX_VALUE)));
+
+		InterfacesSerialTypejFrame.setTitle("Serial Type");
+		InterfacesSerialTypejFrame.setMinimumSize(new java.awt.Dimension(239, 300));
+		InterfacesSerialTypejFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
+			public void componentShown(java.awt.event.ComponentEvent evt) {
+				InterfacesSerialTypejFrameComponentShown(evt);
+			}
+		});
+
+		interfaceSerialTypeList.setModel(new javax.swing.DefaultListModel());
+		jScrollPane5.setViewportView(interfaceSerialTypeList);
+
+		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+		jPanel2.setLayout(jPanel2Layout);
+		jPanel2Layout.setHorizontalGroup(jPanel2Layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 219, Short.MAX_VALUE)
+				.addGroup(
+						jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane5,
+								javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)));
+		jPanel2Layout.setVerticalGroup(jPanel2Layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 256, Short.MAX_VALUE)
+				.addGroup(
+						jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane5,
+								javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)));
+
+		javax.swing.GroupLayout InterfacesSerialTypejFrameLayout = new javax.swing.GroupLayout(InterfacesSerialTypejFrame.getContentPane());
+		InterfacesSerialTypejFrame.getContentPane().setLayout(InterfacesSerialTypejFrameLayout);
+		InterfacesSerialTypejFrameLayout.setHorizontalGroup(InterfacesSerialTypejFrameLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 239, Short.MAX_VALUE)
+				.addGroup(
+						InterfacesSerialTypejFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+								InterfacesSerialTypejFrameLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE).addContainerGap())));
+		InterfacesSerialTypejFrameLayout.setVerticalGroup(InterfacesSerialTypejFrameLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 300, Short.MAX_VALUE)
+				.addGroup(
+						InterfacesSerialTypejFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+								javax.swing.GroupLayout.Alignment.TRAILING,
+								InterfacesSerialTypejFrameLayout
+										.createSequentialGroup()
+										.addContainerGap(33, Short.MAX_VALUE)
+										.addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())));
+
+		setMinimumSize(new java.awt.Dimension(462, 167));
+		setPreferredSize(new java.awt.Dimension(462, 167));
+
+		ConsolejTextArea.setColumns(20);
+		ConsolejTextArea.setRows(5);
+		jScrollPane1.setViewportView(ConsolejTextArea);
+
+		CommandjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyPressed(java.awt.event.KeyEvent evt) {
+				CommandjTextFieldKeyPressed(evt);
+			}
+		});
+
+		SendjButton.setText("Send");
+		SendjButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				SendjButtonActionPerformed(evt);
+			}
+		});
+
+		jToolBar1.setRollover(true);
+
+		ClockjLabel.setText("12:00 AM");
+		jToolBar1.add(ClockjLabel);
+
+		jToolBar2.setRollover(true);
+
+		InterfacesjLabel.setText("Interfaces");
+		jToolBar2.add(InterfacesjLabel);
+
+		jToolBar3.setRollover(true);
+
+		TypejLabel.setText("Slave");
+		jToolBar3.add(TypejLabel);
+
+		jToolBar4.setRollover(true);
+
+		IosjLabel.setText("Cisco 1700v v1.5 with IOS version " + version);
+		jToolBar4.add(IosjLabel);
+
+		String[] leveltypes = { "Logged_Off", "Default", "Enable", "Config", "appnB", "ca_identityB", "cfg_lan_Ether_10B",
+				"cfg_adap_Ether_10_1B", "config_cert_chainB", "config_controllerB", "config_ctrl_casB", "config_crypto_mapB",
+				"config_crypto_transB", "config_dialpeerB", "config_ext_naclB", "config_std_naclB", "config_hubB", "Interface Config",
+				"config_if_atm_vcB", "config_vc_classB", "config_subifB", "config_ipx_routerB", "config_isakmpB", "config_keychainB",
+				"config_keychain_keyB", "VTY", "config_map_classB", "config_map_listB", "config_modem_poolB", "config_poll_grB",
+				"config_pubkeyB", "config_pubkey_keyB", "config_route_mapB", "Router Config", "config_rtrB", "config_voiceportB",
+				"lane_config_databB", "mpoa_client_configB", "mpoa_server_configB", "tn3270_serverB", "tn3270_puB", "tn3270_dlurB",
+				"tn3270_dlur_sapB", "tn3270_dlur_puB", "configBAsk", "Logged_OffAsk", "Logged_OffConsoleAsk" };
+		levelselectorJComboBox.setModel(new javax.swing.DefaultComboBoxModel(leveltypes));
+		levelselectorJComboBox.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				levelselectorJComboBoxActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(
+						layout.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(jScrollPane1)
+												.addGroup(
+														layout.createSequentialGroup()
+																.addComponent(levelselectorJComboBox,
+																		javax.swing.GroupLayout.PREFERRED_SIZE,
+																		javax.swing.GroupLayout.DEFAULT_SIZE,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53,
+																		Short.MAX_VALUE)
+																.addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+																		298, javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(SendjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57,
+																		javax.swing.GroupLayout.PREFERRED_SIZE))).addContainerGap())
+				.addGroup(
+						javax.swing.GroupLayout.Alignment.TRAILING,
+						layout.createSequentialGroup()
+								.addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 127,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 138,
+										javax.swing.GroupLayout.PREFERRED_SIZE)));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				layout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(jScrollPane1)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(SendjButton)
+										.addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+										.addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
+												javax.swing.GroupLayout.PREFERRED_SIZE))));
+	}// </editor-fold>//GEN-END:initComponents
 
 	private void InterfacesStatusjFrameComponentHidden(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesStatusjFrameComponentHidden
 		timer.cancel();
@@ -970,7 +1147,7 @@ public class CLI extends javax.swing.JPanel {
 
 	private void InterfacesSerialTypejFrameComponentShown(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesSerialTypejFrameComponentShown
 		vTelnet.getSynchroState();
-		//ih.parseShowControllersInfo(ConsolejTextArea.getText());
+		// ih.parseShowControllersInfo(ConsolejTextArea.getText());
 	}// GEN-LAST:event_InterfacesSerialTypejFrameComponentShown
 
 	private void showupdateInterfaceStatusJButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_showupdateInterfaceStatusJButtonActionPerformed
@@ -981,15 +1158,15 @@ public class CLI extends javax.swing.JPanel {
 		// thread para atualizar status das interfaces
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {				
+			public void run() {
 				statusListModel = (DefaultListModel<String>) interfaceStatusList.getModel();
-				if (!statusListModel.isEmpty()){
+				if (!statusListModel.isEmpty()) {
 					statusListModel.removeAllElements();
 				}
-				
+
 				vTelnet.showRun();
-				
-				//ih.parseInterfaceStatusInfo(ConsolejTextArea.getText());
+
+				// ih.parseInterfaceStatusInfo(ConsolejTextArea.getText());
 			}
 		}, 0, 5000);// 5 segundos
 
@@ -1006,22 +1183,27 @@ public class CLI extends javax.swing.JPanel {
 
 	private void PasswordOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_PasswordOkjButtonActionPerformed
 		// TODO completar:
-		// String consolepass = new String(ConsolejPasswordField.getPassword());
+		String secretpass = new String(SecretjPasswordField.getPassword());
 		String vtypass = new String(VTYjPasswordField.getPassword());
 		String enablepass = new String(EnablejPasswordField.getPassword());
 
-		// if (consolepass.length()>0){
-		// vTelnet.setConsolePass(consolepass);
-		// }
+		if (secretpass.equalsIgnoreCase(enablepass)) {
+			JOptionPane.showMessageDialog(this, "Enable secret must be different from enable password.");
+		} else {
 
-		if (vtypass.length() > 0) {
-			vTelnet.setVTYPass(vtypass);
+			if (secretpass.length() > 0) {
+				vTelnet.setEnableSecretPass(secretpass);
+			}
+			if (vtypass.length() > 0) {
+				vTelnet.setVTYPass(vtypass);
 
+			}
+
+			if (enablepass.length() > 0) {
+				vTelnet.setEnablePass(enablepass);
+			}
 		}
-
-		if (enablepass.length() > 0) {
-			vTelnet.setEnablePass(enablepass);
-		}
+		
 
 	}// GEN-LAST:event_PasswordOkjButtonActionPerformed
 
@@ -1046,7 +1228,7 @@ public class CLI extends javax.swing.JPanel {
 	private void levelselectorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_levelselectorJComboBoxActionPerformed
 		JComboBox cb = (JComboBox) evt.getSource();
 		if (cb.getSelectedIndex() == 0) {
-			SettingsjFrame.setVisible(false);			
+			SettingsjFrame.setVisible(false);
 			vTelnet.disconnect();
 			mi.killCLI(host, index);
 		} else {
@@ -1141,91 +1323,90 @@ public class CLI extends javax.swing.JPanel {
 
 	}// GEN-LAST:event_VlanOkjButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddDyRoutejButton1;
-    private javax.swing.JButton AddRoutejButton;
-    private javax.swing.JLabel ClockjLabel;
-    private javax.swing.JFrame CommandHelpjFrame;
-    private javax.swing.JTextField CommandjTextField;
-    private javax.swing.JTextField ConnectivityIPTextField;
-    private javax.swing.JButton ConnectivityPingButton;
-    public javax.swing.JFrame ConnectivityjFrame;
-    private javax.swing.JPasswordField ConsolejPasswordField;
-    private javax.swing.JTextArea ConsolejTextArea;
-    private javax.swing.JFormattedTextField DatejFormattedTextField;
-    private javax.swing.JTextField DyRNetworkjTextField1;
-    private javax.swing.JButton DyRRemovejButton;
-    private javax.swing.JList DyRjList;
-    private javax.swing.JPasswordField EnablejPasswordField;
-    private javax.swing.JButton GlobalCanceljButton;
-    private javax.swing.JButton GlobalOkjButton;
-    private javax.swing.JTextField HostNamejTextField;
-    public javax.swing.JFrame InterfacesConfigjFrame;
-    public javax.swing.JFrame InterfacesSerialTypejFrame;
-    public javax.swing.JFrame InterfacesStatusjFrame;
-    private javax.swing.JLabel InterfacesjLabel;
-    private javax.swing.JLabel IosjLabel;
-    private javax.swing.JButton PasswordCanceljButton;
-    private javax.swing.JButton PasswordOkjButton;
-    private javax.swing.JTextField RMaskjTextField;
-    private javax.swing.JTextField RNetworkjTextField;
-    private javax.swing.JTextField RNextHopjTextField;
-    private javax.swing.JButton RRemovejButton;
-    private javax.swing.JList RjList;
-    public javax.swing.JFrame RoutingjFrame;
-    private javax.swing.JCheckBox SecretjCheckBox;
-    private javax.swing.JButton SendjButton;
-    public javax.swing.JFrame SettingsjFrame;
-    public javax.swing.JFrame SwitchingjFrame;
-    private javax.swing.JFormattedTextField TimejFormattedTextField;
-    private javax.swing.JLabel TypejLabel;
-    private javax.swing.JPasswordField VTYjPasswordField;
-    private javax.swing.JButton VlanCanceljButton;
-    private javax.swing.JTextField VlanNamejTextField;
-    private javax.swing.JTextField VlanNumberjTextField;
-    private javax.swing.JButton VlanOkjButton;
-    private javax.swing.JList interfaceSerialTypeList;
-    private javax.swing.JList interfaceStatusList;
-    private javax.swing.JTabbedPane interfacesJTabbedPane;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTabbedPane jTabbedPane5;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JToolBar jToolBar3;
-    private javax.swing.JToolBar jToolBar4;
-    private javax.swing.JComboBox levelselectorJComboBox;
-    // End of variables declaration//GEN-END:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton AddDyRoutejButton1;
+	private javax.swing.JButton AddRoutejButton;
+	private javax.swing.JLabel ClockjLabel;
+	private javax.swing.JFrame CommandHelpjFrame;
+	private javax.swing.JTextField CommandjTextField;
+	private javax.swing.JTextField ConnectivityIPTextField;
+	private javax.swing.JButton ConnectivityPingButton;
+	public javax.swing.JFrame ConnectivityjFrame;
+	private javax.swing.JTextArea ConsolejTextArea;
+	private javax.swing.JFormattedTextField DatejFormattedTextField;
+	private javax.swing.JTextField DyRNetworkjTextField1;
+	private javax.swing.JButton DyRRemovejButton;
+	private javax.swing.JList DyRjList;
+	private javax.swing.JPasswordField EnablejPasswordField;
+	private javax.swing.JButton GlobalCanceljButton;
+	private javax.swing.JButton GlobalOkjButton;
+	private javax.swing.JTextField HostNamejTextField;
+	public javax.swing.JFrame InterfacesConfigjFrame;
+	public javax.swing.JFrame InterfacesSerialTypejFrame;
+	public javax.swing.JFrame InterfacesStatusjFrame;
+	private javax.swing.JLabel InterfacesjLabel;
+	private javax.swing.JLabel IosjLabel;
+	private javax.swing.JButton PasswordCanceljButton;
+	private javax.swing.JButton PasswordOkjButton;
+	private javax.swing.JTextField RMaskjTextField;
+	private javax.swing.JTextField RNetworkjTextField;
+	private javax.swing.JTextField RNextHopjTextField;
+	private javax.swing.JButton RRemovejButton;
+	private javax.swing.JList RjList;
+	public javax.swing.JFrame RoutingjFrame;
+	private javax.swing.JPasswordField SecretjPasswordField;
+	private javax.swing.JButton SendjButton;
+	public javax.swing.JFrame SettingsjFrame;
+	public javax.swing.JFrame SwitchingjFrame;
+	private javax.swing.JFormattedTextField TimejFormattedTextField;
+	private javax.swing.JLabel TypejLabel;
+	private javax.swing.JPasswordField VTYjPasswordField;
+	private javax.swing.JButton VlanCanceljButton;
+	private javax.swing.JTextField VlanNamejTextField;
+	private javax.swing.JTextField VlanNumberjTextField;
+	private javax.swing.JButton VlanOkjButton;
+	private javax.swing.JList interfaceSerialTypeList;
+	private javax.swing.JList interfaceStatusList;
+	private javax.swing.JTabbedPane interfacesJTabbedPane;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel10;
+	private javax.swing.JLabel jLabel11;
+	private javax.swing.JLabel jLabel12;
+	private javax.swing.JLabel jLabel13;
+	private javax.swing.JLabel jLabel14;
+	private javax.swing.JLabel jLabel15;
+	private javax.swing.JLabel jLabel16;
+	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel jLabel20;
+	private javax.swing.JLabel jLabel21;
+	private javax.swing.JLabel jLabel22;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel jLabel4;
+	private javax.swing.JLabel jLabel5;
+	private javax.swing.JLabel jLabel6;
+	private javax.swing.JLabel jLabel7;
+	private javax.swing.JLabel jLabel8;
+	private javax.swing.JLabel jLabel9;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JPanel jPanel3;
+	private javax.swing.JPanel jPanel5;
+	private javax.swing.JPanel jPanel6;
+	private javax.swing.JPanel jPanel7;
+	private javax.swing.JPanel jPanel8;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JScrollPane jScrollPane2;
+	private javax.swing.JScrollPane jScrollPane3;
+	private javax.swing.JScrollPane jScrollPane4;
+	private javax.swing.JScrollPane jScrollPane5;
+	private javax.swing.JSeparator jSeparator1;
+	private javax.swing.JSeparator jSeparator2;
+	private javax.swing.JTabbedPane jTabbedPane4;
+	private javax.swing.JTabbedPane jTabbedPane5;
+	private javax.swing.JToolBar jToolBar1;
+	private javax.swing.JToolBar jToolBar2;
+	private javax.swing.JToolBar jToolBar3;
+	private javax.swing.JToolBar jToolBar4;
+	private javax.swing.JComboBox levelselectorJComboBox;
+	// End of variables declaration//GEN-END:variables
 }

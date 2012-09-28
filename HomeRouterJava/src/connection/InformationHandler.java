@@ -81,7 +81,9 @@ public class InformationHandler {// --------------------------------------------
 
 		String fullInfo = FirstPartInfo + InfoS;
 
+		
 		parseShowRunInfo(fullInfo);
+		//parseClockInfo(fullInfo);
 
 		parseInterfaceStatusInfo(fullInfo);
 		parseShowControllersInfo(fullInfo);
@@ -89,8 +91,6 @@ public class InformationHandler {// --------------------------------------------
 		if (InfoS.get(0).equals("--More--")) {
 			connection.send(" ");
 		}
-
-		// parseClockInfo(fullInfo);
 
 	}
 
@@ -230,7 +230,7 @@ public class InformationHandler {// --------------------------------------------
 					}
 
 					intmod.setShutdown(false);
-					while (!infoarray[j].contains("!")) {
+					while ((!infoarray[j].contains("!")) || (j < 10)) {
 						if (infoarray[j].contains("shutdown")) {
 							intmod.setShutdown(true);
 
@@ -264,12 +264,15 @@ public class InformationHandler {// --------------------------------------------
 
 	// tratar clock
 
-	public void parseClockInfo(String info) {
+	public void parseClockInfo(String info) {		
+		String[] infoarray = info.split("\\r");
+		for (int i = 0; i < infoarray.length; i++) {
+			if (infoarray[i].contains(" UTC ")) {
+				String[] temparray = info.split(" ");
 
-		if ((info.contains(":")) && (info.contains("."))) {
-			String[] temparray = info.split(" ");
-			GuiSol.setGUIClock(temparray[4] + " " + temparray[3] + " " + temparray[5] + " " + temparray[0].substring(0, 8));
+				GuiSol.setGUIClock(temparray[4] + " " + temparray[3] + " " + temparray[5] + " " + temparray[0].substring(0, 8));
 
+			}
 		}
 
 	}
@@ -296,7 +299,7 @@ public class InformationHandler {// --------------------------------------------
 	public ArrayList<String> getInfoPossibilities() {
 		ArrayList<String> possibilities = new ArrayList<>();
 		possibilities.add("!");
-		possibilities.add("*");
+		// possibilities.add("*");
 		possibilities.add("<");
 		possibilities.add("domain server (");
 		possibilities.add("Interface FastEthernet");
@@ -307,18 +310,18 @@ public class InformationHandler {// --------------------------------------------
 		possibilities.add(" --More--");
 		possibilities.add("end");
 		possibilities.add("%");
-		possibilities.add("Jan");
-		possibilities.add("Feb");
-		possibilities.add("Mar");
-		possibilities.add("Apr");
-		possibilities.add("May");
-		possibilities.add("Jun");
-		possibilities.add("Jul");
-		possibilities.add("Aug");
-		possibilities.add("Sep");
-		possibilities.add("Oct");
-		possibilities.add("Nov");
-		possibilities.add("Dec");
+		// possibilities.add("Jan");
+		// possibilities.add("Feb");
+		// possibilities.add("Mar");
+		// possibilities.add("Apr");
+		// possibilities.add("May");
+		// possibilities.add("Jun");
+		// possibilities.add("Jul");
+		// possibilities.add("Aug");
+		// possibilities.add("Sep");
+		// possibilities.add("Oct");
+		// possibilities.add("Nov");
+		// possibilities.add("Dec");
 
 		return possibilities;
 	}
