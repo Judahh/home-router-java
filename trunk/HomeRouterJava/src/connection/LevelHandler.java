@@ -119,7 +119,7 @@ public class LevelHandler {
     public String[] getMsgPossibilities() {
         return this.msgPossibilities;
     }
-
+    
     public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         try {
             checkCount++;
@@ -138,6 +138,88 @@ public class LevelHandler {
                     if (i > 0 && i < this.prompt.getPromptValues().length - 2) {
                         setRouterName(Mreceived);
                     }
+
+                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
+                        checkLevel();
+                    }
+                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1]))||Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
+                        sendCommand("\r\n");
+                    }
+                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 3]))) {
+                        sendCommand("terminal\r\n");
+                    }
+                    checkCount = 0;
+                    checkPCount = 0;
+                    return true;
+                }
+            }
+            // ---------------------------------------------------------------------------------------------------
+            // Aqui em baixo ele ira verificar se foi uma informacao se for ele
+            // manda para o metodo que a tratara
+            // sera algo parecido com:
+            for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
+                if (Sreceived == this.info.getInfoPossibilities().get(i)) {
+                    System.out.println("INFO:" + Sreceived);
+                    this.info.checkInfo(Sreceived);
+                    checkLevel();
+                    checkCount = 0;
+                    checkPCount = 0;
+                    return true;
+                }
+            }
+            // ---------------------------------------------------------------------------------------------------
+            for (int i = 0; i < this.auth.getAuthValues().length; i++) {
+                if (Sreceived.equals(this.auth.getAuth(this.auth.getAuthValues()[i]))) {
+                    if (i < 4) {
+                        // -----------Usuario errado ou
+                        // falta----------------------------------------------------------
+                        // sendCommand(auth.getUser());
+                        if (checkCount > 1) {
+                            auth.setUser(null);
+                        }
+                        sendCommand(auth.getUser()+"\r\n");
+                        //sendCommand("ciscoUser\r\n");// pegar user por GUI
+                        
+                    } else {
+                        // -------------senha errada ou
+                        // falta---------------------------------------------------------
+                        // sendCommand(auth.getPassword());
+                        if (checkPCount > 1) {
+                            auth.setPassword(null,(level>0));
+                        }
+                        sendCommand(auth.getPassword(level>0)+"\r\n");
+                        //sendCommand("cisco\r\n");// pegar pass por GUI
+                    }
+                    checkCount = 0;
+                    checkPCount = 0;
+                    return true;
+                }
+            }
+            checkLevel();
+        } catch (Exception e) {
+            checkCount = 0;
+            checkPCount = 0;
+            e.printStackTrace();
+        }
+        checkCount = 0;
+        checkPCount = 0;
+        return true;
+    }
+
+    public boolean checkLevel(String Level) {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        try {
+            checkCount++;
+            checkPCount++;
+            ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
+            String Sreceived = arrayReceived.get(0);
+            String Mreceived = arrayReceived.get(1);
+            // ---------------------------------------------------------------------------------------------------
+            // TO DO:tem que ver pergunta ao entrar no config!!
+            for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
+                if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[i]))) {
+                    this.prompt.setLevel(i);
+                    System.out.println("Level:" + i);
+                    this.level = i;
 
                     if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
                         checkLevel();
