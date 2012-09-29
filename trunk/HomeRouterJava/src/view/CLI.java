@@ -99,18 +99,18 @@ public class CLI extends javax.swing.JPanel {
 		// vlan 10.255.0.150
 		GuiSol.setvTelnet(vTelnet);		
 
-		if (vTelnet.Login()) {
-			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
-			// Login.setVisible(false);
-			// jName.setText(vTelnet.getRouterName()+":");
-			// vTelnet.getClock();
-			// ih.parseClockInfo(ConsolejTextArea.getText());
-
-			// vTelnet.goToLevelRouter(3); //teste
-		}
+//		if (vTelnet.Login()) {
+//			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
+//			// Login.setVisible(false);
+//			// jName.setText(vTelnet.getRouterName()+":");
+//			// vTelnet.getClock();
+//			// ih.parseClockInfo(ConsolejTextArea.getText());
+//
+//			// vTelnet.goToLevelRouter(3); //teste
+//		}
 
 		// Essas 6 linhas embaixo usam show controllers e show run
-		vTelnet.getClock();
+		// vTelnet.getClock();
 
 		vTelnet.showRun();
 
