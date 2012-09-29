@@ -336,6 +336,15 @@ public class InformationHandler{// ---------------------------------------------
 
 		return possibilities;
 	}
+        
+        private ArrayList<String> getCommandPossibilities(){
+                ArrayList<String> possibilities=new ArrayList<>();
+		CommandHandler CMDHandler=new CommandHandler(0);
+                for(int i=0;i<CMDHandler.getPromptValues().length;i++){
+                    possibilities.add(CMDHandler.getPrompt(CMDHandler.getPromptValues()[i]));
+                }
+		return possibilities;
+	}
 
 	public ArrayList<String> getInfoPossibilities(){
 		ArrayList<String> possibilities=new ArrayList<>();
