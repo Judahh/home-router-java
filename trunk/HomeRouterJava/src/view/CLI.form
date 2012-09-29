@@ -1091,8 +1091,8 @@
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="levelselectorJComboBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="53" max="32767" attributes="0"/>
-                      <Component id="CommandjTextField" min="-2" pref="298" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="CommandjTextField" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="SendjButton" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
@@ -1102,7 +1102,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jToolBar4" min="-2" pref="127" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jToolBar3" max="32767" attributes="0"/>
+              <Component id="jToolBar3" pref="97" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jToolBar2" min="-2" pref="78" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
