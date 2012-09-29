@@ -11,6 +11,7 @@ import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 
 import unused.ConnectWindow;
 
@@ -44,6 +45,10 @@ public class MainInterface extends javax.swing.JFrame{
 		CLICount=0;
 		connections=new ArrayList<String>();
 	}
+
+        public JTabbedPane getjTabbedPane1() {
+            return jTabbedPane1;
+        }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -321,7 +326,7 @@ public class MainInterface extends javax.swing.JFrame{
 																// cli);
 				CLI cli=new CLI(HostjTextField.getText(),
 						Integer.parseInt(PortjTextField.getText()),
-						jTabbedPane1, CLICount, this);
+						CLICount, this);
 				jTabbedPane1.setComponentAt(CLICount, cli);
 				cliArray.add(cli);
 

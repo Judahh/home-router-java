@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 import connection.RouterHandler;
+import view.MainInterface;
 
 /**
  * 
@@ -42,13 +43,14 @@ public class GUISolutionModel {
 
 	private JTabbedPane interfacesPane;
 
-	private JTabbedPane Pane;
+        private MainInterface MainGUI;
+        
 	private int PaneIndex;
 
 	private RouterHandler vTelnet;
 
 	public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
-			JList StaticEstablishedRoutes, JList interfaceStatus, JList serialStatus, JTabbedPane interfacesPane, JTabbedPane Pane,
+			JList StaticEstablishedRoutes, JList interfaceStatus, JList serialStatus, JTabbedPane interfacesPane, MainInterface MainGUI,
 			int PaneIndex) {
 		this.Console = Console;
 		this.interfaceStatus = interfaceStatus;
@@ -58,7 +60,7 @@ public class GUISolutionModel {
 		this.Type = Type;
 		this.Ios = Ios;
 
-		this.Pane = Pane;
+		this.MainGUI = MainGUI;
 		this.PaneIndex = PaneIndex;
 
 		this.interfacesPane = interfacesPane;
@@ -76,7 +78,7 @@ public class GUISolutionModel {
 	}
 
 	public void setGUIRouterName(String RouterName) {
-		Pane.setTitleAt(PaneIndex, RouterName);
+		this.MainGUI.getjTabbedPane1().setTitleAt(PaneIndex, RouterName);
 	}
 
 	public void setGUIClock(String Clock) {

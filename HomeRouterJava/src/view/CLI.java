@@ -81,7 +81,7 @@ public class CLI extends javax.swing.JPanel {
 		initComponents();
 	}
 
-	public CLI(String host, int port, JTabbedPane Tab, int index, MainInterface mi) throws ConnectException, SocketException, IOException {
+	public CLI(String host, int port,int index, MainInterface mi) throws ConnectException, SocketException, IOException {
 		initComponents();
 
 		this.mi = mi;
@@ -92,7 +92,7 @@ public class CLI extends javax.swing.JPanel {
 		interfaceStatusList.setModel(new DefaultListModel<String>());
 
 		GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, ClockjLabel, InterfacesjLabel, TypejLabel, IosjLabel, DyRjList,
-				RjList, interfaceStatusList, interfaceSerialTypeList, interfacesJTabbedPane, Tab, index);
+				RjList, interfaceStatusList, interfaceSerialTypeList, interfacesJTabbedPane, mi, index);
 
 		vTelnet = new RouterHandler(host, port, GuiSol);
 
