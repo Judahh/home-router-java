@@ -1047,7 +1047,6 @@ public class CLI extends javax.swing.JPanel {
 		if (cb.getSelectedIndex() == 0) {
 			SettingsjFrame.setVisible(false);
 			vTelnet.disconnect();
-			mi.killCLI(host, index);
 		} else {
 			vTelnet.setLevel(cb.getSelectedIndex());
 		}

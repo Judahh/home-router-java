@@ -23,7 +23,9 @@ public class ConnectionHandler {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
-	GUISolutionModel GuiSol;
+        private int port;
+        private String host;
+	private GUISolutionModel GuiSol;
 
 	public ConnectionHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
 		this.GuiSol = GuiSol;
@@ -34,6 +36,22 @@ public class ConnectionHandler {
 		out = new PrintStream(telnet.getOutputStream());
 
 	}
+
+        public String getHost() {
+            return host;
+        }
+
+        public void setHost(String host) {
+            this.host = host;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public void setPort(int port) {
+            this.port = port;
+        }
 
 	public InputStream getIn() {
 		return in;
@@ -190,6 +208,7 @@ public class ConnectionHandler {
 	public void disconnect() {
 		try {
 			telnet.disconnect();
+                        GuiSol.killTab(host);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

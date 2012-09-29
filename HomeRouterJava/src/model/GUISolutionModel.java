@@ -76,7 +76,11 @@ public class GUISolutionModel {
 		FEArray = new ArrayList<FastEthernet>();
 		SArray = new ArrayList<Serial>();
 	}
-
+        
+        public void killTab(String host) {
+		this.MainGUI.killCLI(host, PaneIndex);
+	}
+        
 	public void setGUIRouterName(String RouterName) {
 		this.MainGUI.getjTabbedPane1().setTitleAt(PaneIndex, RouterName);
 	}
