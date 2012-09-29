@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 import connection.RouterHandler;
+import javax.swing.*;
 import view.MainInterface;
 
 /**
@@ -75,6 +76,10 @@ public class GUISolutionModel {
 
 		FEArray = new ArrayList<FastEthernet>();
 		SArray = new ArrayList<Serial>();
+	}
+        
+        public void showMessageDialog(String message) {
+		JOptionPane.showMessageDialog(this.MainGUI,message);
 	}
         
         public void killTab(String host) {

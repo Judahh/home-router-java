@@ -10,6 +10,7 @@ import java.io.PrintStream;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import model.GUISolutionModel;
 
@@ -29,11 +30,13 @@ public class ConnectionHandler {
 
 	public ConnectionHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
 		this.GuiSol = GuiSol;
-		// Connect to the specified server
-		telnet.connect(host, port);
+                this.host=host;
+                this.port=port;
+		//Connect to the specified server
+		this.telnet.connect(host, port);
 		// Get input and output stream references
-		in = telnet.getInputStream();
-		out = new PrintStream(telnet.getOutputStream());
+		this.in = telnet.getInputStream();
+		this.out = new PrintStream(telnet.getOutputStream());
 
 	}
 
@@ -180,6 +183,7 @@ public class ConnectionHandler {
 				
 			}
 		} catch (Exception e) {
+                        GuiSol.showMessageDialog("This connection was closed by server!");
 			sb.setLength(0);
 			e.printStackTrace();
 		}
