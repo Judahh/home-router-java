@@ -308,17 +308,23 @@ public class MainInterface extends javax.swing.JFrame{
 	// fecha a aba caso voc� d� exit
 
 	public void killCLI(String host, int index){
+                for(int i=0;i<connections.size();i++){
+                    System.out.println("E:"+connections.get(i));
+                }
 		connections.remove(host);
 		jTabbedPane1.removeTabAt(index);
 		CLICount--;
-
+                System.out.println("KILLED:"+host);
+                for(int i=0;i<connections.size();i++){
+                    System.out.println("E:"+connections.get(i));
+                }
 	}
 
 	private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt){// GEN-FIRST:event_ConnectButtonActionPerformed
 		try{
 			if(connections.contains(HostjTextField.getText())){
 				JOptionPane.showMessageDialog(this,
-						"This connection is already open");
+						"This connection is already open!");
 			}else{
 				CLICount++;
 				connections.add(HostjTextField.getText());
@@ -333,11 +339,11 @@ public class MainInterface extends javax.swing.JFrame{
 			}
 
 		}catch(UnknownHostException e){
-			JOptionPane.showMessageDialog(this, "Unknown Exception");
+			JOptionPane.showMessageDialog(this, "Unknown Exception!");
 			e.printStackTrace();
 		}catch(ConnectException e){
 			// se n�o se conectar, mata a aba que vai criar
-			JOptionPane.showMessageDialog(this, "Connection refused");
+			JOptionPane.showMessageDialog(this, "Connection refused!");
 			killCLI(HostjTextField.getText(), CLICount);
 			e.printStackTrace();
 		}catch(IOException e){
@@ -345,7 +351,7 @@ public class MainInterface extends javax.swing.JFrame{
 			System.out.println("WOW!");
 			killCLI(HostjTextField.getText(), CLICount);
 
-			JOptionPane.showMessageDialog(this, "Enter an IP address");
+			JOptionPane.showMessageDialog(this, "Enter an IP address!");
 			e.printStackTrace();
 		}
 
