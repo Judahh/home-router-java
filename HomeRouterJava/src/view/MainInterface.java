@@ -308,16 +308,9 @@ public class MainInterface extends javax.swing.JFrame{
 	// fecha a aba caso voc� d� exit
 
 	public void killCLI(String host, int index){
-                for(int i=0;i<connections.size();i++){
-                    System.out.println("E:"+connections.get(i));
-                }
 		connections.remove(host);
 		jTabbedPane1.removeTabAt(index);
 		CLICount--;
-                System.out.println("KILLED:"+host);
-                for(int i=0;i<connections.size();i++){
-                    System.out.println("E:"+connections.get(i));
-                }
 	}
 
 	private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt){// GEN-FIRST:event_ConnectButtonActionPerformed

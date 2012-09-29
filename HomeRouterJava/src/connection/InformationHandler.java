@@ -89,6 +89,7 @@ public class InformationHandler{// ---------------------------------------------
 		parseShowControllersInfo(InfoS.get(1));
 
 		if(fullInfo.contains("Bad passwords")){
+                        GuiSol.showMessageDialog("Bad passwords!");
 			connection.disconnect();
 		}
 		if(InfoS.get(0).equals("--More--")){
@@ -97,7 +98,7 @@ public class InformationHandler{// ---------------------------------------------
 
 	}
 
-	// verifica se a interface serial é master ou slave
+	// verifica se a interface serial ï¿½ master ou slave
 	public void parseShowControllersInfo(String info){
 		// impede que se adicionem interfaces repetidas
 		ArrayList<String> interfaces=new ArrayList<String>();
