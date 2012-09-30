@@ -140,6 +140,17 @@ public class ConnectionHandler {
 		}
 		return null;
 	}
+        
+//        private boolean isConnected(){
+//            if(m==j && 65535==(int)ch){
+//                m++;
+//                if(j==3){
+//                    disconnect();
+//                }
+//            }
+//            j++;
+//            return true;
+//        }
 
 	public ArrayList<String> arrayListReadUntil(String[] pattern) {
 
@@ -160,9 +171,11 @@ public class ConnectionHandler {
 //				ch = (char) in.read();
 //			}
 //			System.out.println("ascii "+Integer.valueOf(ch));
+                        int j=0;
 			System.out.println("Recebido:");
                         this.GuiSol.appendConsole("Recebido:");
 			while (!found) {
+                                System.out.println("R:"+(int) ch);
 				System.out.print(ch);
 				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
@@ -179,8 +192,16 @@ public class ConnectionHandler {
 						}
 					}
 				}
+                                //
+                                if(65535==(int)ch){
+                                    j++;
+                                    if(j>=3){
+                                        disconnect();
+                                        return null;
+                                    }
+                                }
+                                //
 				ch = (char) in.read();
-				
 			}
 		} catch (Exception e) {
                         GuiSol.showMessageDialog("This connection was closed by server!");
