@@ -37,7 +37,6 @@ public class ConnectionHandler {
 		// Get input and output stream references
 		this.in = telnet.getInputStream();
 		this.out = new PrintStream(telnet.getOutputStream());
-
 	}
 
         public String getHost() {

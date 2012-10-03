@@ -4,6 +4,7 @@
  */
 package connection;
 
+import java.util.ArrayList;
 import model.IdentifierModel;
 
 /**
@@ -53,6 +54,14 @@ public class CommandHandler {
 
 	public Prompt[] getPromptValues() {
 		return Prompt.values();
+	}
+        
+        public ArrayList<String> getArrayPromptValues() {
+                ArrayList<String> values=new ArrayList<>();
+                for (int index = 0; index < Prompt.values().length; index++) {
+                    values.add(getPrompt(Prompt.values()[index]));
+                }
+		return values;
 	}
 
 	public enum Prompt {

@@ -327,12 +327,9 @@ public class InformationHandler{// ---------------------------------------------
 		possibilities.add(" Global XOT commands");
 		possibilities.add(" Virtual Private Dialup Network");
 		possibilities.add(" Configured from console by");
-		possibilities
-				.add("Unrecognized host or address, or protocol not running");
+		possibilities.add("Unrecognized host or address, or protocol not running");
 		possibilities.add(" percent (");
-
-		possibilities
-				.add("Unknown command or computer name, or unable to find computer address");
+		possibilities.add("Unknown command or computer name, or unable to find computer address");
 
 		return possibilities;
 	}
