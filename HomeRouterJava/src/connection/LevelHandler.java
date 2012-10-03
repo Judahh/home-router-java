@@ -92,12 +92,8 @@ public class LevelHandler {
     }
 
     public void getAllMsgPossibilities() {
-        // String[] possibilities=new
-        // String[]{"Login: ","login: ","User: ","user: ","Password: ","password: ","Pass: ","pass: "};
         ArrayList<String> Possibilities = new ArrayList<>();
-        // Possibilities.addAll(Arrays.asList(possibilities));
         Possibilities = this.info.getInfoPossibilities();
-
 
         for (int i = 0; i < this.auth.getAuthValues().length; i++) {
             Possibilities.add(this.auth.getAuth(this.auth.getAuthValues()[i]));
