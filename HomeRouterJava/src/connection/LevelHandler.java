@@ -26,7 +26,7 @@ public class LevelHandler {
     private AuthenticationHandler auth;
     private InformationHandler info;
     private CommandHandler prompt;
-    private String[] msgPossibilities;
+    private ArrayList<String> msgPossibilities;
 
     public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
         auth = new AuthenticationHandler(0, GuiSol);
@@ -94,25 +94,14 @@ public class LevelHandler {
     public void getAllMsgPossibilities() {
         ArrayList<String> Possibilities = new ArrayList<>();
         Possibilities = this.info.getInfoPossibilities();
+        
+        Possibilities.addAll(this.auth.getArrayAuthValues());
+        Possibilities.addAll(this.prompt.getArrayPromptValues());
 
-        for (int i = 0; i < this.auth.getAuthValues().length; i++) {
-            Possibilities.add(this.auth.getAuth(this.auth.getAuthValues()[i]));
-        }
-        for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
-            Possibilities.add(this.prompt.getPrompt(this.prompt.getPromptValues()[i]));
-        }
-
-        String[] possibilitiesV = new String[Possibilities.size()];
-
-        for (int i = 0; i < possibilitiesV.length; i++) {
-            possibilitiesV[i] = Possibilities.get(i);
-        }
-
-        this.msgPossibilities = possibilitiesV;
-        return;
+        this.msgPossibilities=Possibilities;
     }
 
-    public String[] getMsgPossibilities() {
+    public ArrayList<String> getMsgPossibilities() {
         return this.msgPossibilities;
     }
     

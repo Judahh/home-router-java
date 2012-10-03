@@ -105,7 +105,7 @@ public class AuthenticationHandler {
     
     public ArrayList<String> getArrayAuthValues() {
         ArrayList<String> values=new ArrayList<>();
-        for (int index = 0; index < CommandHandler.Prompt.values().length; index++) {
+        for (int index = 0; index < Auth.values().length; index++) {
             values.add(getAuth(Auth.values()[index]));
         }
         return values;
