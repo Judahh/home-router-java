@@ -4,6 +4,7 @@
  */
 package connection;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.GUISolutionModel;
 
@@ -101,9 +102,16 @@ public class AuthenticationHandler {
     public Auth[] getAuthValues() {
         return Auth.values();
     }
+    
+    public ArrayList<String> getArrayAuthValues() {
+        ArrayList<String> values=new ArrayList<>();
+        for (int index = 0; index < CommandHandler.Prompt.values().length; index++) {
+            values.add(getAuth(Auth.values()[index]));
+        }
+        return values;
+    }
 
     public enum Auth {
-
         Login0, Login1, Login2, Login3, Pass0, Pass1, Pass2, Pass3
     }
 
