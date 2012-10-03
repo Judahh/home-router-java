@@ -79,80 +79,65 @@ public class ConnectionHandler {
 		this.telnet = telnet;
 	}
 
-	private String readUntil(String pattern) {
-		StringBuffer sb = null;
-		try {
-			char lastChar = pattern.charAt(pattern.length() - 1);
-			sb = new StringBuffer();
-
-			boolean found = false;
-			char ch = (char) in.read();
-
-			while (!found) {
-				System.out.print(ch);
-                                this.GuiSol.appendConsole(ch);
-				sb.append(ch);
-				if (ch == lastChar) {
-					if (sb.toString().endsWith(pattern)) {
-						return sb.toString();
-					}
-				}
-				ch = (char) in.read();
-			}
-		} catch (Exception e) {
-			sb.setLength(0);
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private String readUntil(String[] pattern) {
-
+        public ArrayList<String> arrayListReadUntil(ArrayList<String> pattern) {
 		StringBuffer sb = null;
 
 		try {
-			char lastChar[] = new char[pattern.length];
-			for (int i = 0; i < pattern.length; i++) {
-				lastChar[i] = pattern[i].charAt(pattern[i].length() - 1);
+			ArrayList<String> Array = new ArrayList<String>();
+			char lastChar[] = new char[pattern.size()];
+			for (int i = 0; i < pattern.size(); i++) {
+				lastChar[i] = pattern.get(i).charAt(pattern.get(i).length() - 1);
 			}
 			sb = new StringBuffer();
 
 			boolean found = false;
 			char ch = (char) in.read();
-
+			//se der pau vc comenta isso
+//			while((ch==13)||(ch==10)||(ch==7)){
+//				ch = (char) in.read();
+//			}
+//			System.out.println("ascii "+Integer.valueOf(ch));
+                        int j=0;
+			System.out.println("Recebido:");
+                        this.GuiSol.appendConsole("Recebido:");
 			while (!found) {
+                                System.out.println("R:"+(int) ch);
 				System.out.print(ch);
 				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
-				for (int i = pattern.length - 1; i >= 0; i--) {
+                                if(ch=='!'){
+                                    System.out.println();
+                                }
+				for (int i = pattern.size() - 1; i >= 0; i--) {
 					if (ch == lastChar[i]) {
-						if (sb.toString().endsWith(pattern[i])) {
-							return pattern[i];
+						if (sb.toString().endsWith(pattern.get(i))) {
+							Array.add(pattern.get(i));
+							Array.add(sb.toString());
+							System.out.println();
+							return Array;
 						}
 					}
 				}
+                                //
+                                if(65535==(int)ch){
+                                    j++;
+                                    if(j>=3){
+                                        disconnect();
+                                        return null;
+                                    }
+                                }
+                                //
 				ch = (char) in.read();
 			}
 		} catch (Exception e) {
+                        GuiSol.showMessageDialog("This connection was closed by server!");
 			sb.setLength(0);
 			e.printStackTrace();
 		}
 		return null;
 	}
         
-//        private boolean isConnected(){
-//            if(m==j && 65535==(int)ch){
-//                m++;
-//                if(j==3){
-//                    disconnect();
-//                }
-//            }
-//            j++;
-//            return true;
-//        }
-
 	public ArrayList<String> arrayListReadUntil(String[] pattern) {
-
 		StringBuffer sb = null;
 
 		try {
