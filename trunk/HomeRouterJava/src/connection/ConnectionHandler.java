@@ -131,7 +131,7 @@ public class ConnectionHandler {
 		} catch (Exception e) {
                         GuiSol.showMessageDialog("This connection was closed by server!");
 			sb.setLength(0);
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return null;
 	}
