@@ -68,7 +68,7 @@ public class InformationHandler{// ---------------------------------------------
 		return GuiSol;
 	}
 
-	public void checkInfo(String FirstPartInfo){
+	public void checkInfo(String FirstPartInfo){//retornar prompt do router
 		String[] possibilities=new String[getEndInfoPossibilities().size()];
 		for(int i=0; i < getEndInfoPossibilities().size(); i++){
 			possibilities[i]=getEndInfoPossibilities().get(i);
@@ -316,7 +316,7 @@ public class InformationHandler{// ---------------------------------------------
 	}
 
 	// toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
-	private ArrayList<String> getEndInfoPossibilities(){
+	private ArrayList<String> getEndInfoPossibilities(){//trocar por as possibilidades de prompt do router + --More--
 		ArrayList<String> possibilities=new ArrayList<>();
 		possibilities.add("--More--");
 		possibilities.add("Invalid input detected at '^' marker.");

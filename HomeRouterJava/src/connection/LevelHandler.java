@@ -145,8 +145,8 @@ public class LevelHandler {
             for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
                 if (Sreceived == this.info.getInfoPossibilities().get(i)) {
                     System.out.println("INFO:" + Sreceived);
-                    this.info.checkInfo(Sreceived);
-                    checkLevel();
+                    this.info.checkInfo(Sreceived);//virar parametro do check level
+                    checkLevel();//usar check level com parametro check level
                     checkCount = 0;
                     checkPCount = 0;
                     return true;
@@ -227,8 +227,8 @@ public class LevelHandler {
             for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
                 if (Sreceived == this.info.getInfoPossibilities().get(i)) {
                     System.out.println("INFO:" + Sreceived);
-                    this.info.checkInfo(Sreceived);
-                    checkLevel();
+                    this.info.checkInfo(Sreceived);//virar parametro do check level
+                    checkLevel();//usar check level com parametro check level
                     checkCount = 0;
                     checkPCount = 0;
                     return true;

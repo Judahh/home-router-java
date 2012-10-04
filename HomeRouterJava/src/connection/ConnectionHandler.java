@@ -98,10 +98,9 @@ public class ConnectionHandler {
 //			}
 //			System.out.println("ascii "+Integer.valueOf(ch));
                         int j=0;
-			System.out.println("Recebido:");
-                        this.GuiSol.appendConsole("Recebido:");
+//			System.out.println("Recebido:");
+//                        this.GuiSol.appendConsole("Recebido:");
 			while (!found) {
-                                System.out.println("R:"+(int) ch);
 				System.out.print(ch);
 				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
@@ -156,10 +155,9 @@ public class ConnectionHandler {
 //			}
 //			System.out.println("ascii "+Integer.valueOf(ch));
                         int j=0;
-			System.out.println("Recebido:");
-                        this.GuiSol.appendConsole("Recebido:");
+//			System.out.println("Recebido:");
+//                        this.GuiSol.appendConsole("Recebido:");
 			while (!found) {
-                                System.out.println("R:"+(int) ch);
 				System.out.print(ch);
 				this.GuiSol.appendConsole(ch);
 				sb.append(ch);
@@ -207,10 +205,9 @@ public class ConnectionHandler {
 	}
 
 	public void send(String value) {
-		
 		write(value);
-		System.out.println("Enviado:" + value);
-                this.GuiSol.appendConsole("Enviado:" + value);
+//		System.out.println("Enviado:" + value);
+//                this.GuiSol.appendConsole("Enviado:" + value);
 		System.out.println();
 	}
 
