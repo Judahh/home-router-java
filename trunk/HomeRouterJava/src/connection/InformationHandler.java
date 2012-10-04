@@ -85,7 +85,7 @@ public class InformationHandler {// --------------------------------------------
 
         checkError(fullInfo);
 
-        if (InfoS.get(0).equals("--More--")) {
+        if (InfoS.get(0).equals("--More--")) {//usar more do get info possibilities 
             checkInfo("--More--");
             //connection.send(" ");
         }
