@@ -18,7 +18,7 @@ public class IdentifierModel {
 	}
 
 	public String getInterface() {
-		if (interfaceCod == 0) {
+		if (interfaceCod <= 0) {
 			return "FastEthernet";
 		} else {
 			return "Serial";

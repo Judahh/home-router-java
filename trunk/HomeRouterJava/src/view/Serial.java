@@ -65,7 +65,7 @@ public class Serial extends javax.swing.JPanel {
         MaskjTextField = new javax.swing.JTextField();
         TxjTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        ClockRatejComboBox = new javax.swing.JComboBox<String>();
+        ClockRatejComboBox = new javax.swing.JComboBox();
         CanceljButton = new javax.swing.JButton();
         OkjButton = new javax.swing.JButton();
 
@@ -81,7 +81,7 @@ public class Serial extends javax.swing.JPanel {
 
         jLabel2.setText("Clock Rate:");
 
-        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "1200", "2400", "4800", "9600", "19200", "38400", "56000", "64000", "72000", "125000", "128000", "148000", "250000", "500000", "800000", "1000000", "1300000", "2000000", "4000000", "Not Set" }));
+        ClockRatejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1200", "2400", "4800", "9600", "19200", "38400", "56000", "64000", "72000", "125000", "128000", "148000", "250000", "500000", "800000", "1000000", "1300000", "2000000", "4000000", "Not Set" }));
         ClockRatejComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClockRatejComboBoxActionPerformed(evt);
@@ -155,11 +155,11 @@ public class Serial extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(TxjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OkjButton)
                     .addComponent(CanceljButton))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -182,7 +182,7 @@ public class Serial extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CanceljButton;
-    public javax.swing.JComboBox<String> ClockRatejComboBox;
+    public javax.swing.JComboBox ClockRatejComboBox;
     public javax.swing.JTextField IpjTextField;
     public javax.swing.JTextField MaskjTextField;
     private javax.swing.JButton OkjButton;
