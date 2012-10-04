@@ -4,6 +4,8 @@
  */
 package connection;
 
+import connection.CommandHandler;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -68,7 +70,7 @@ public class InformationHandler {// --------------------------------------------
         return GuiSol;
     }
 
-    public void checkInfo(String FirstPartInfo) {//retornar prompt do router
+    public String checkInfo(String FirstPartInfo) {//retornar prompt do router
         if (FirstPartInfo.contains("More")) {
             connection.send(" ");
         }
@@ -84,14 +86,27 @@ public class InformationHandler {// --------------------------------------------
         parseShowControllersInfo(InfoS.get(1));
 
         checkError(fullInfo);
-
-        if (InfoS.get(0).equals("--More--")) {//usar more do get info possibilities 
-            checkInfo("--More--");
-            //connection.send(" ");
+        
+        if (InfoS.get(0).equals(getEndInfoPossibilities().get(0))) { 
+            return checkInfo(getEndInfoPossibilities().get(0));
         }
-
+        
+        for (int i = 1; i < getEndInfoPossibilities().size(); i++) {
+            if(InfoS.get(0).equals(getEndInfoPossibilities().get(i))){
+                setRouterName(InfoS.get(1),InfoS.get(0));
+                return getEndInfoPossibilities().get(i);
+            }
+        }
+        return null;
     }
 
+    public void setRouterName(String routerName,String end) {//fazer
+        int index;
+        for (index = routerName.length()-end.length() ; routerName.charAt(index)!='\n'; index--) {
+        }
+        GuiSol.setGUIRouterName(routerName.substring(index+1, routerName.length()-end.length()));
+    }
+    
     private void checkError(String fullInfo) {
         if (fullInfo.contains("%")) {
             String error = fullInfo.substring(fullInfo.indexOf('%') + 1);
@@ -311,17 +326,19 @@ public class InformationHandler {// --------------------------------------------
     private ArrayList<String> getEndInfoPossibilities() {//trocar por as possibilidades de prompt do router + --More--
         ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("--More--");
-        possibilities.add("Invalid input detected at '^' marker.");
-        possibilities.add("Bad passwords");
-        possibilities.add("end");
-        possibilities.add(" transmitter CTS losts");
-        possibilities.add("X25 protocol-specific configuration");
-        possibilities.add(" Global XOT commands");
-        possibilities.add(" Virtual Private Dialup Network");
-        possibilities.add(" Configured from console by");
-        possibilities.add("Unrecognized host or address, or protocol not running");
-        possibilities.add(" percent (");
-        possibilities.add("Unknown command or computer name, or unable to find computer address");
+        CommandHandler CMDHandler=new CommandHandler(0);
+        possibilities.addAll(CMDHandler.getArrayPromptValues());
+//        possibilities.add("Invalid input detected at '^' marker.");
+//        possibilities.add("Bad passwords");
+//        possibilities.add("end");
+//        possibilities.add(" transmitter CTS losts");
+//        possibilities.add("X25 protocol-specific configuration");
+//        possibilities.add(" Global XOT commands");
+//        possibilities.add(" Virtual Private Dialup Network");
+//        possibilities.add(" Configured from console by");
+//        possibilities.add("Unrecognized host or address, or protocol not running");
+//        possibilities.add(" percent (");
+//        possibilities.add("Unknown command or computer name, or unable to find computer address");
 
         return possibilities;
     }
