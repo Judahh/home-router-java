@@ -200,7 +200,7 @@ public class ConnectionHandler {
             out.flush();
             out.flush();
         } catch (Exception e) {
-            out.flush();
+            //out.flush();
             e.printStackTrace();
         }
     }

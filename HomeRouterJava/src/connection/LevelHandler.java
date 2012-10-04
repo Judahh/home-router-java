@@ -73,22 +73,14 @@ public class LevelHandler {
     public String getRouterName() {
         return routerInfo.getRouterName();
     }
-
-    public void setRouterName(String routerName) {
-        // fazer parte pare ir ate # ou > ou (
-        int end = routerName.length() - 1;
-        for (int i = routerName.length() - 1; i >= 0; i--) {
-            if (routerName.charAt(i) == '(' || routerName.charAt(i) == '#' || routerName.charAt(i) == '>') {
-                end = i;
-            }
+    
+    public void setRouterName(String routerName,String end) {//fazer
+        int index;
+        for (index = routerName.length()-end.length() ; routerName.charAt(index)!='\n'; index--) {
         }
-        for (int i = routerName.length() - 1; i >= 0; i--) {
-            if (routerName.charAt(i) == '\n' || routerName.charAt(i) == ' ') {
-                this.routerInfo.setRouterName(routerName.substring(i + 1, end));
-                this.info.getGUISol().setGUIRouterName(this.routerInfo.getRouterName());// mostrar mudanca na GUI
-                return;
-            }
-        }
+        this.routerInfo.setRouterName(routerName.substring(index+1, routerName.length()-end.length()));
+        this.info.getGUISol().setGUIRouterName(this.routerInfo.getRouterName());
+        System.out.println("Router Name:"+this.routerInfo.getRouterName());
     }
 
     public void getAllMsgPossibilities() {
@@ -121,7 +113,7 @@ public class LevelHandler {
                     this.level = i;
 
                     if (i > 0 && i < this.prompt.getPromptValues().length - 2) {
-                        setRouterName(Mreceived);
+                        setRouterName(Mreceived, Sreceived);
                     }
 
                     if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
@@ -145,8 +137,7 @@ public class LevelHandler {
             for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
                 if (Sreceived == this.info.getInfoPossibilities().get(i)) {
                     System.out.println("INFO:" + Sreceived);
-                    this.info.checkInfo(Sreceived);//virar parametro do check level
-                    checkLevel();//usar check level com parametro check level
+                    checkLevel(this.info.checkInfo(Sreceived));
                     checkCount = 0;
                     checkPCount = 0;
                     return true;
@@ -193,11 +184,10 @@ public class LevelHandler {
 
     public boolean checkLevel(String Level) {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         try {
+            System.out.println("Entrou!!!");
             checkCount++;
             checkPCount++;
-            ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
-            String Sreceived = arrayReceived.get(0);
-            String Mreceived = arrayReceived.get(1);
+            String Sreceived = Level;
             // ---------------------------------------------------------------------------------------------------
             // TO DO:tem que ver pergunta ao entrar no config!!
             for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
@@ -227,8 +217,7 @@ public class LevelHandler {
             for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
                 if (Sreceived == this.info.getInfoPossibilities().get(i)) {
                     System.out.println("INFO:" + Sreceived);
-                    this.info.checkInfo(Sreceived);//virar parametro do check level
-                    checkLevel();//usar check level com parametro check level
+                    checkLevel(this.info.checkInfo(Sreceived));
                     checkCount = 0;
                     checkPCount = 0;
                     return true;
