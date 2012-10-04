@@ -17,20 +17,32 @@ public class IdentifierModel {
 
 	}
 
-	public String getInterface() {
+	public String getInterface() {//ver porta de voz
 		if (interfaceCod <= 0) {
-			return "FastEthernet";
-		} else {
-			return "Serial";
-		}
-
+                    return "Ethernet";
+                }
+                switch(interfaceCod){
+                    case 1:
+                        return "FastEthernet";
+                    case 2:
+                        return "GigabitEthernet";
+                    case 3:
+                        return "TenGigabitEthernet";
+                    case 4:
+                        return "POS";
+                    case 5:
+                        return "ATM";
+                }
+		return "Serial";
 	}
 
 	public void setInterfaceCod(int interfaceCod) {
 		if (interfaceCod <= 0) {
-			this.interfaceCod = 0;
-		} else {
-			this.interfaceCod = 1;
+                    this.interfaceCod = 0;
+		}if (interfaceCod > 6) {
+                    this.interfaceCod = 6;
+                }else{
+                    this.interfaceCod = interfaceCod;
 		}
 
 	}
