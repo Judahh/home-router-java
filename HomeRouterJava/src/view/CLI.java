@@ -21,127 +21,111 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import util.Validation;
 import model.GUISolutionModel;
 
 /**
- * 
+ *
  * @author JH
  */
 public class CLI extends javax.swing.JPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-	 * ....................... Creates new form CLI
-	 */
-	RouterHandler vTelnet;
-	private MainInterface mi;
-	private int index;
-	private String host;
-	private String version;
-	private DefaultListModel<String> staticListModel;
-	private DefaultListModel<String> dynamicListModel;
-	private DefaultListModel<String> statusListModel;
-	public InformationHandler ih;
-	private Timer timer;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    /**
+     * ....................... Creates new form CLI
+     */
+    RouterHandler vTelnet;
+    private MainInterface mi;
+    private int index;
+    private String host;
+    private int port;
+    private String version;
+    private DefaultListModel<String> staticListModel;
+    private DefaultListModel<String> dynamicListModel;
+    private DefaultTableModel statusTableModel;
+    public InformationHandler ih;
+    private Timer timer;
 
-	// classe interna que pinta a lista de status das interfaces de verde ou
-	// vermelho
+    // classe interna que pinta a lista de status das interfaces de verde ou
+    // vermelho
+    private static class GreenRedCellRenderer extends DefaultListCellRenderer {
 
-	private static class GreenRedCellRenderer extends DefaultListCellRenderer {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
 
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-			String line = (String) value;
-			if (line.contains("is down")) {
-				c.setBackground(Color.red);
-			} else {
-				c.setBackground(Color.green);
-			}
-			return c;
-		}
-	}
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            String line = (String) value;
+            if (line.contains("is down")) {
+                c.setBackground(Color.red);
+            } else {
+                c.setBackground(Color.green);
+            }
+            return c;
+        }
+    }
 
-	public CLI() {
-		initComponents();
-	}
+    public CLI() {
+        initComponents();
+    }
 
-	public CLI(String host, int port,int index, MainInterface mi) throws ConnectException, SocketException, IOException {
-		initComponents();
+    public CLI(String host, int port, int index, MainInterface mi) throws ConnectException, SocketException, IOException {
+        initComponents();
 
-		this.mi = mi;
-		this.host = host;
-		this.index = index;
+        this.mi = mi;
+        this.host = host;
+        this.port = port;
+        this.index = index;
 
-		interfaceStatusList.setCellRenderer(new GreenRedCellRenderer());
-		interfaceStatusList.setModel(new DefaultListModel<String>());
+        //statusTableModel.setCellRenderer(new GreenRedCellRenderer());
+        //InterfaceStatusjTable.setModel(new DefaultTableModel());
 
-		GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, ClockjLabel, InterfacesjLabel, TypejLabel, IosjLabel, DyRjList,
-				RjList, interfaceStatusList, interfaceSerialTypeList, interfacesJTabbedPane, mi, index);
+        GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, ClockjLabel, InterfacesjLabel, TypejLabel, IosjLabel, DyRjList,
+                RjList, null, interfaceSerialTypeList, interfacesJTabbedPane, mi, index);
 
-		vTelnet = new RouterHandler(host, port, GuiSol);
+        vTelnet = new RouterHandler(host, port, GuiSol);
 
-		// vlan 10.255.0.150
-		GuiSol.setvTelnet(vTelnet);		
+        // vlan 10.255.0.150
+        GuiSol.setvTelnet(vTelnet);
 
-//		if (vTelnet.Login()) {
-//			// jTabbedPane1.addTab(vTelnet.getRouterName(), new CLI());
-//			// Login.setVisible(false);
-//			// jName.setText(vTelnet.getRouterName()+":");
-//			// vTelnet.getClock();
-//			// ih.parseClockInfo(ConsolejTextArea.getText());
-//
-//			// vTelnet.goToLevelRouter(3); //teste
-//		}
+        // Essas 6 linhas embaixo usam show controllers e show run
+        // vTelnet.getClock();
+        vTelnet.showRun();
+    }
 
-		// Essas 6 linhas embaixo usam show controllers e show run
-		// vTelnet.getClock();
+    public String getRouterName() {
+        return vTelnet.getRouterName();
+    }
 
-		vTelnet.showRun();
-
-		// String info = ConsolejTextArea.getText();
-
-		// ih.parseShowRunInfo(info);
-
-	}
-
-	public String getRouterName() {
-		return vTelnet.getRouterName();
-	}
-
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
-	// <editor-fold defaultstate="collapsed"
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
+    // <editor-fold defaultstate="collapsed"
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -208,10 +192,9 @@ public class CLI extends javax.swing.JPanel {
         ConnectivityPingButton = new javax.swing.JButton();
         CommandHelpjFrame = new javax.swing.JFrame();
         InterfacesStatusjFrame = new javax.swing.JFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        interfaceStatusList = new javax.swing.JList();
         jLabel16 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        InterfaceStatusjTable = new javax.swing.JTable();
         InterfacesSerialTypejFrame = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -765,7 +748,6 @@ public class CLI extends javax.swing.JPanel {
         InterfacesStatusjFrame.setTitle("Interface Status");
         InterfacesStatusjFrame.setLocationByPlatform(true);
         InterfacesStatusjFrame.setMinimumSize(new java.awt.Dimension(285, 350));
-        InterfacesStatusjFrame.setResizable(false);
         InterfacesStatusjFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 InterfacesStatusjFrameComponentHidden(evt);
@@ -775,49 +757,48 @@ public class CLI extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(300, 264));
-
-        jScrollPane4.setViewportView(interfaceStatusList);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Interface Status");
+
+        InterfaceStatusjTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Interface", "IP Address", "OK?", "Method", "Status", "Protocol"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(InterfaceStatusjTable);
 
         javax.swing.GroupLayout InterfacesStatusjFrameLayout = new javax.swing.GroupLayout(InterfacesStatusjFrame.getContentPane());
         InterfacesStatusjFrame.getContentPane().setLayout(InterfacesStatusjFrameLayout);
         InterfacesStatusjFrameLayout.setHorizontalGroup(
             InterfacesStatusjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(InterfacesStatusjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel16)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(jLabel16)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
+                .addContainerGap())
         );
         InterfacesStatusjFrameLayout.setVerticalGroup(
             InterfacesStatusjFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InterfacesStatusjFrameLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         InterfacesSerialTypejFrame.setTitle("Serial Type");
@@ -943,7 +924,7 @@ public class CLI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -958,187 +939,203 @@ public class CLI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-	private void InterfacesStatusjFrameComponentHidden(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesStatusjFrameComponentHidden
-		timer.cancel();
-	}// GEN-LAST:event_InterfacesStatusjFrameComponentHidden
+    private void InterfacesStatusjFrameComponentHidden(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesStatusjFrameComponentHidden
+        timer.cancel();
+    }// GEN-LAST:event_InterfacesStatusjFrameComponentHidden
 
-	private void InterfacesSerialTypejFrameComponentShown(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesSerialTypejFrameComponentShown
-		vTelnet.getSynchroState();
-		// ih.parseShowControllersInfo(ConsolejTextArea.getText());
-	}// GEN-LAST:event_InterfacesSerialTypejFrameComponentShown
+    private void InterfacesSerialTypejFrameComponentShown(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesSerialTypejFrameComponentShown
+        vTelnet.getSynchroState();
+        // ih.parseShowControllersInfo(ConsolejTextArea.getText());
+    }// GEN-LAST:event_InterfacesSerialTypejFrameComponentShown
 
-	private void showupdateInterfaceStatusJButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_showupdateInterfaceStatusJButtonActionPerformed
+    private void showupdateInterfaceStatusJButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_showupdateInterfaceStatusJButtonActionPerformed
+    }// GEN-LAST:event_showupdateInterfaceStatusJButtonActionPerformed
 
-	}// GEN-LAST:event_showupdateInterfaceStatusJButtonActionPerformed
+    private void InterfacesStatusjFrameComponentShown(java.awt.event.ComponentEvent evt) {
+        try {
+            // GEN-FIRST:event_InterfacesStatusjFrameComponentShown
+            // thread para atualizar status das interfaces
+            statusTableModel = (DefaultTableModel) InterfaceStatusjTable.getModel();
+            GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, null, null, null, null, null,
+                    null, statusTableModel, null, interfacesJTabbedPane, mi, index);
+            
+            final RouterHandler bTelnet = new RouterHandler(host, port, GuiSol);
+            
+            System.out.println("Num of Rows:"+statusTableModel.getRowCount());
+            System.out.println("Num of Rows:"+statusTableModel.getColumnCount());
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            
+            GuiSol.setvTelnet(bTelnet);
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    InterfaceStatusjTable.setModel(bTelnet.getGUISolution().getStatusTableModel());
+                    bTelnet.showIpInterfaceBrief();
+                }
+            }, 0, 5000);// 5 segundos
+        } // GEN-LAST:event_InterfacesStatusjFrameComponentShown
+        catch (ConnectException ex) {
+            Logger.getLogger(CLI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SocketException ex) {
+            Logger.getLogger(CLI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CLI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-	private void InterfacesStatusjFrameComponentShown(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesStatusjFrameComponentShown
-		// thread para atualizar status das interfaces
-		timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				statusListModel = (DefaultListModel<String>) interfaceStatusList.getModel();
-				if (!statusListModel.isEmpty()) {
-					statusListModel.removeAllElements();
-				}
+    }// GEN-LAST:event_InterfacesStatusjFrameComponentShown
 
-				vTelnet.showRun();
+    private void RRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_RRemovejButtonActionPerformed
 
-				// ih.parseInterfaceStatusInfo(ConsolejTextArea.getText());
-			}
-		}, 0, 5000);// 5 segundos
+        String route = (String) RjList.getSelectedValue();
+        vTelnet.removeStaticRoute(route);
+        staticListModel = (DefaultListModel<String>) RjList.getModel();
+        staticListModel.remove(RjList.getSelectedIndex());
+        RjList.setModel(staticListModel);
+    }// GEN-LAST:event_RRemovejButtonActionPerformed
 
-	}// GEN-LAST:event_InterfacesStatusjFrameComponentShown
+    private void PasswordOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_PasswordOkjButtonActionPerformed
+        // TODO completar:
+        String secretpass = new String(SecretjPasswordField.getPassword());
+        String vtypass = new String(VTYjPasswordField.getPassword());
+        String enablepass = new String(EnablejPasswordField.getPassword());
 
-	private void RRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_RRemovejButtonActionPerformed
+        if (secretpass.equalsIgnoreCase(enablepass)) {
+            JOptionPane.showMessageDialog(this, "Enable secret must be different from enable password.");
+        } else {
 
-		String route = (String) RjList.getSelectedValue();
-		vTelnet.removeStaticRoute(route);
-		staticListModel = (DefaultListModel<String>) RjList.getModel();
-		staticListModel.remove(RjList.getSelectedIndex());
-		RjList.setModel(staticListModel);
-	}// GEN-LAST:event_RRemovejButtonActionPerformed
+            if (secretpass.length() > 0) {
+                vTelnet.setEnableSecretPass(secretpass);
+            }
+            if (vtypass.length() > 0) {
+                vTelnet.setVTYPass(vtypass);
 
-	private void PasswordOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_PasswordOkjButtonActionPerformed
-		// TODO completar:
-		String secretpass = new String(SecretjPasswordField.getPassword());
-		String vtypass = new String(VTYjPasswordField.getPassword());
-		String enablepass = new String(EnablejPasswordField.getPassword());
+            }
 
-		if (secretpass.equalsIgnoreCase(enablepass)) {
-			JOptionPane.showMessageDialog(this, "Enable secret must be different from enable password.");
-		} else {
+            if (enablepass.length() > 0) {
+                vTelnet.setEnablePass(enablepass);
+            }
+        }
 
-			if (secretpass.length() > 0) {
-				vTelnet.setEnableSecretPass(secretpass);
-			}
-			if (vtypass.length() > 0) {
-				vTelnet.setVTYPass(vtypass);
 
-			}
+    }// GEN-LAST:event_PasswordOkjButtonActionPerformed
 
-			if (enablepass.length() > 0) {
-				vTelnet.setEnablePass(enablepass);
-			}
-		}
-		
+    private void AddDyRoutejButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AddDyRoutejButton1ActionPerformed
+        Validation v = Validation.getInstance();
+        if (v.validateIP(DyRNetworkjTextField1.getText())) {
+            vTelnet.setDynamicRoute(DyRNetworkjTextField1.getText());
+            dynamicListModel = (DefaultListModel<String>) DyRjList.getModel();
+            dynamicListModel.addElement(DyRNetworkjTextField1.getText());
+            DyRjList.setModel(dynamicListModel);
+            DyRNetworkjTextField1.setText("");
+        }
+    }// GEN-LAST:event_AddDyRoutejButton1ActionPerformed
 
-	}// GEN-LAST:event_PasswordOkjButtonActionPerformed
+    private void ConnectivityPingButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ConnectivityPingButtonActionPerformed
+        Validation v = Validation.getInstance();
+        if (v.validateIP(ConnectivityIPTextField.getText())) {
+            vTelnet.ping(ConnectivityIPTextField.getText());
+        }
+    }// GEN-LAST:event_ConnectivityPingButtonActionPerformed
 
-	private void AddDyRoutejButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AddDyRoutejButton1ActionPerformed
-		Validation v = Validation.getInstance();
-		if (v.validateIP(DyRNetworkjTextField1.getText())) {
-			vTelnet.setDynamicRoute(DyRNetworkjTextField1.getText());
-			dynamicListModel = (DefaultListModel<String>) DyRjList.getModel();
-			dynamicListModel.addElement(DyRNetworkjTextField1.getText());
-			DyRjList.setModel(dynamicListModel);
-			DyRNetworkjTextField1.setText("");
-		}
-	}// GEN-LAST:event_AddDyRoutejButton1ActionPerformed
+    private void levelselectorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_levelselectorJComboBoxActionPerformed
+        JComboBox cb = (JComboBox) evt.getSource();
+        if (cb.getSelectedIndex() == 0) {
+            SettingsjFrame.setVisible(false);
+            vTelnet.disconnect();
+        } else {
+            vTelnet.setLevel(cb.getSelectedIndex());
+        }
+    }// GEN-LAST:event_levelselectorJComboBoxActionPerformed
 
-	private void ConnectivityPingButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ConnectivityPingButtonActionPerformed
-		Validation v = Validation.getInstance();
-		if (v.validateIP(ConnectivityIPTextField.getText())) {
-			vTelnet.ping(ConnectivityIPTextField.getText());
-		}
-	}// GEN-LAST:event_ConnectivityPingButtonActionPerformed
+    private void TimejFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_TimejFormattedTextFieldActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_TimejFormattedTextFieldActionPerformed
 
-	private void levelselectorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_levelselectorJComboBoxActionPerformed
-		JComboBox cb = (JComboBox) evt.getSource();
-		if (cb.getSelectedIndex() == 0) {
-			SettingsjFrame.setVisible(false);
-			vTelnet.disconnect();
-		} else {
-			vTelnet.setLevel(cb.getSelectedIndex());
-		}
-	}// GEN-LAST:event_levelselectorJComboBoxActionPerformed
+    private void AddRoutejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AddRoutejButtonActionPerformed
+        Validation v = Validation.getInstance();
+        if (v.validateIP(RNetworkjTextField.getText())
+                && (v.validateMask(RMaskjTextField.getText()) && (v.validateIP(RNextHopjTextField.getText())))) {
+            vTelnet.setStaticRoute(RNetworkjTextField.getText(), RMaskjTextField.getText(), RNextHopjTextField.getText());
 
-	private void TimejFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_TimejFormattedTextFieldActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_TimejFormattedTextFieldActionPerformed
+            staticListModel = (DefaultListModel<String>) RjList.getModel();
+            staticListModel.addElement(RNetworkjTextField.getText() + " with mask " + RMaskjTextField.getText() + " via "
+                    + RNextHopjTextField.getText());
+            RjList.setModel(staticListModel);
 
-	private void AddRoutejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AddRoutejButtonActionPerformed
-		Validation v = Validation.getInstance();
-		if (v.validateIP(RNetworkjTextField.getText())
-				&& (v.validateMask(RMaskjTextField.getText()) && (v.validateIP(RNextHopjTextField.getText())))) {
-			vTelnet.setStaticRoute(RNetworkjTextField.getText(), RMaskjTextField.getText(), RNextHopjTextField.getText());
+            RNetworkjTextField.setText("");
+            RMaskjTextField.setText("");
+            RNextHopjTextField.setText("");
 
-			staticListModel = (DefaultListModel<String>) RjList.getModel();
-			staticListModel.addElement(RNetworkjTextField.getText() + " with mask " + RMaskjTextField.getText() + " via "
-					+ RNextHopjTextField.getText());
-			RjList.setModel(staticListModel);
+        }
+    }// GEN-LAST:event_AddRoutejButtonActionPerformed
 
-			RNetworkjTextField.setText("");
-			RMaskjTextField.setText("");
-			RNextHopjTextField.setText("");
+    private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SendjButtonActionPerformed
+        if (vTelnet != null) {
+            vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+            CommandjTextField.setText("");
+        }
+    }// GEN-LAST:event_SendjButtonActionPerformed
 
-		}
-	}// GEN-LAST:event_AddRoutejButtonActionPerformed
+    private void CommandjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CommandjTextFieldActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_CommandjTextFieldActionPerformed
 
-	private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SendjButtonActionPerformed
-		if (vTelnet != null) {
-			vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
-			CommandjTextField.setText("");
-		}
-	}// GEN-LAST:event_SendjButtonActionPerformed
+    private void CommandjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_CommandjTextFieldKeyPressed
+        // se apertar enter, fazer o mesmo do botÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½o send
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            if (CommandjTextField.getText().equalsIgnoreCase("exit") && (vTelnet.getLevel() < 3)) {
+                vTelnet.disconnect();
+                mi.killCLI(host, index);
 
-	private void CommandjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CommandjTextFieldActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_CommandjTextFieldActionPerformed
+            } else {
+                if (vTelnet != null) {
+                    vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+                    CommandjTextField.setText("");
+                }
 
-	private void CommandjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_CommandjTextFieldKeyPressed
-		// se apertar enter, fazer o mesmo do botï¿½o send
-		int key = evt.getKeyCode();
-		if (key == KeyEvent.VK_ENTER) {
-			if (CommandjTextField.getText().equalsIgnoreCase("exit") && (vTelnet.getLevel() < 3)) {
-				vTelnet.disconnect();
-				mi.killCLI(host, index);
+            }
 
-			} else {
-				if (vTelnet != null) {
-					vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
-					CommandjTextField.setText("");
-				}
+        }
 
-			}
+    }// GEN-LAST:event_CommandjTextFieldKeyPressed
 
-		}
+    private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_DyRRemovejButtonActionPerformed
+        String route = (String) DyRjList.getSelectedValue();
+        vTelnet.removeDynamicRoute(route);
+        dynamicListModel = (DefaultListModel<String>) DyRjList.getModel();
+        dynamicListModel.remove(DyRjList.getSelectedIndex());
+        DyRjList.setModel(dynamicListModel);
+    }// GEN-LAST:event_DyRRemovejButtonActionPerformed
 
-	}// GEN-LAST:event_CommandjTextFieldKeyPressed
+    private void GlobalOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_GlobalOkjButtonActionPerformed
+        if (!HostNamejTextField.getText().equals("")) {
+            vTelnet.setRouterName(HostNamejTextField.getText());
+            this.setName(HostNamejTextField.getText());
+        }
 
-	private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_DyRRemovejButtonActionPerformed
-		String route = (String) DyRjList.getSelectedValue();
-		vTelnet.removeDynamicRoute(route);
-		dynamicListModel = (DefaultListModel<String>) DyRjList.getModel();
-		dynamicListModel.remove(DyRjList.getSelectedIndex());
-		DyRjList.setModel(dynamicListModel);
-	}// GEN-LAST:event_DyRRemovejButtonActionPerformed
+        Validation v = Validation.getInstance();
+        if ((!DatejFormattedTextField.getText().equals("")) && (!TimejFormattedTextField.getText().equals(""))) {
+            if (v.validateDate(DatejFormattedTextField.getText(), TimejFormattedTextField.getText())) {
+                vTelnet.setDateTime(DatejFormattedTextField.getText(), TimejFormattedTextField.getText());
 
-	private void GlobalOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_GlobalOkjButtonActionPerformed
-		if (!HostNamejTextField.getText().equals("")) {
-			vTelnet.setRouterName(HostNamejTextField.getText());
-			this.setName(HostNamejTextField.getText());
-		}
+            }
+        }
 
-		Validation v = Validation.getInstance();
-		if ((!DatejFormattedTextField.getText().equals("")) && (!TimejFormattedTextField.getText().equals(""))) {
-			if (v.validateDate(DatejFormattedTextField.getText(), TimejFormattedTextField.getText())) {
-				vTelnet.setDateTime(DatejFormattedTextField.getText(), TimejFormattedTextField.getText());
+    }// GEN-LAST:event_GlobalOkjButtonActionPerformed
 
-			}
-		}
+    private void VlanOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_VlanOkjButtonActionPerformed
+        if (!VlanNumberjTextField.getText().equals("") && !VlanNamejTextField.getText().equals("")) {
+            vTelnet.setVLanConfig(VlanNumberjTextField.getText(), VlanNamejTextField.getText());
 
-	}// GEN-LAST:event_GlobalOkjButtonActionPerformed
+            VlanNumberjTextField.setText("");
+            VlanNamejTextField.setText("");
+        }
 
-	private void VlanOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_VlanOkjButtonActionPerformed
-		if (!VlanNumberjTextField.getText().equals("") && !VlanNamejTextField.getText().equals("")) {
-			vTelnet.setVLanConfig(VlanNumberjTextField.getText(), VlanNamejTextField.getText());
-
-			VlanNumberjTextField.setText("");
-			VlanNamejTextField.setText("");
-		}
-
-	}// GEN-LAST:event_VlanOkjButtonActionPerformed
-
+    }// GEN-LAST:event_VlanOkjButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDyRoutejButton1;
     private javax.swing.JButton AddRoutejButton;
@@ -1157,6 +1154,7 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JButton GlobalCanceljButton;
     private javax.swing.JButton GlobalOkjButton;
     private javax.swing.JTextField HostNamejTextField;
+    private javax.swing.JTable InterfaceStatusjTable;
     public javax.swing.JFrame InterfacesConfigjFrame;
     public javax.swing.JFrame InterfacesSerialTypejFrame;
     public javax.swing.JFrame InterfacesStatusjFrame;
@@ -1182,7 +1180,6 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JTextField VlanNumberjTextField;
     private javax.swing.JButton VlanOkjButton;
     private javax.swing.JList interfaceSerialTypeList;
-    private javax.swing.JList interfaceStatusList;
     private javax.swing.JTabbedPane interfacesJTabbedPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1203,7 +1200,6 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -1213,8 +1209,8 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane4;

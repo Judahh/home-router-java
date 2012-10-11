@@ -19,9 +19,6 @@ import model.RouterInfoModel;
  */
 public class LevelHandler {
 
-    private int level;
-    private int checkCount;
-    private int checkPCount;
     private RouterInfoModel routerInfo;
     private AuthenticationHandler auth;
     private InformationHandler info;
@@ -29,17 +26,17 @@ public class LevelHandler {
     private ArrayList<String> msgPossibilities;
 
     public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
-        auth = new AuthenticationHandler(0, GuiSol);
         prompt = new CommandHandler(0);
         routerInfo = new RouterInfoModel();
-        info = new InformationHandler(host, port, GuiSol);
+        ConnectionHandler connection = new ConnectionHandler(host, port, GuiSol);
+        info = new InformationHandler(connection);
+        auth = new AuthenticationHandler(0, connection);
         getAllMsgPossibilities();
-        checkCount = 0;
     }
 
     public int getLevel() {
         this.checkLevel();
-        return level;
+        return prompt.getLevel();
     }
 
     public InformationHandler getInfo() {
@@ -73,198 +70,120 @@ public class LevelHandler {
     public String getRouterName() {
         return routerInfo.getRouterName();
     }
-    
-    public void setRouterName(String routerName,String end) {//fazer
+
+    public void setRouterName(String routerName, String end) {//fazer
         int index;
-        for (index = routerName.length()-end.length() ; routerName.charAt(index)!='\n'; index--) {
+        for (index = routerName.length() - end.length(); routerName.charAt(index) != '\n'; index--) {
         }
-        this.routerInfo.setRouterName(routerName.substring(index+1, routerName.length()-end.length()));
+        this.routerInfo.setRouterName(routerName.substring(index + 1, routerName.length() - end.length()));
         this.info.getGUISol().setGUIRouterName(this.routerInfo.getRouterName());
-        System.out.println("Router Name:"+this.routerInfo.getRouterName());
+        System.out.println("Router Name:" + this.routerInfo.getRouterName());
     }
 
-    public void getAllMsgPossibilities() {
-        ArrayList<String> Possibilities = new ArrayList<>();
-        Possibilities = this.info.getInfoPossibilities();
-        
-        Possibilities.addAll(this.auth.getArrayAuthValues());
+    private void getAllMsgPossibilities() {
+        ArrayList<String> Possibilities = this.info.getInfoPossibilities();
+
+        Possibilities.addAll(this.auth.getArrayAuthValues());//valores da authenticacao
         Possibilities.addAll(this.prompt.getArrayPromptValues());
 
-        this.msgPossibilities=Possibilities;
+        this.msgPossibilities = Possibilities;
     }
 
     public ArrayList<String> getMsgPossibilities() {
         return this.msgPossibilities;
     }
-    
-    public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        try {
-            checkCount++;
-            checkPCount++;
-            ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
-            String Sreceived = arrayReceived.get(0);
-            String Mreceived = arrayReceived.get(1);
-            // ---------------------------------------------------------------------------------------------------
-            // TO DO:tem que ver pergunta ao entrar no config!!
-            for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
-                if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[i]))) {
-                    this.prompt.setLevel(i);
-                    System.out.println("Level:" + i);
-                    this.level = i;
 
-                    if (i > 0 && i < this.prompt.getPromptValues().length - 2) {
-                        setRouterName(Mreceived, Sreceived);
-                    }
+    private boolean isPrompt(String stringReceived, String msgReceived) {
+        System.out.println("IS LEVEL?");
+        // ---------------------------------------------------------------------------------------------------
+        // TO DO:tem que ver pergunta ao entrar no config!!
+        for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
+            if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[i]))) {
+                this.prompt.setLevel(i);//System.out.println("Level:" + i);
 
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
-                        checkLevel();
-                    }
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1]))||Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
-                        sendCommand("\r\n");
-                    }
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 3]))) {
-                        sendCommand("terminal\r\n");
-                    }
-                    checkCount = 0;
-                    checkPCount = 0;
-                    return true;
+                if ((i > 0) && (i < this.prompt.getPromptValues().length - 2) && (msgReceived != null)) {
+                    setRouterName(msgReceived, stringReceived);
                 }
-            }
-            // ---------------------------------------------------------------------------------------------------
-            // Aqui em baixo ele ira verificar se foi uma informacao se for ele
-            // manda para o metodo que a tratara
-            // sera algo parecido com:
-            for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
-                if (Sreceived == this.info.getInfoPossibilities().get(i)) {
-                    System.out.println("INFO:" + Sreceived);
-                    checkLevel(this.info.checkInfo(Sreceived));
-                    checkCount = 0;
-                    checkPCount = 0;
-                    return true;
+
+                if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
+                    checkLevel();
                 }
-            }
-            // ---------------------------------------------------------------------------------------------------
-            for (int i = 0; i < this.auth.getAuthValues().length; i++) {
-                if (Sreceived.equals(this.auth.getAuth(this.auth.getAuthValues()[i]))) {
-                    if (i < 4) {
-                        // -----------Usuario errado ou
-                        // falta----------------------------------------------------------
-                        // sendCommand(auth.getUser());
-                        if (checkCount > 1) {
-                            auth.setUser(null);
-                        }
-                        sendCommand(auth.getUser()+"\r\n");
-                        //sendCommand("ciscoUser\r\n");// pegar user por GUI
-                        
-                    } else {
-                        // -------------senha errada ou
-                        // falta---------------------------------------------------------
-                        // sendCommand(auth.getPassword());
-                        if (checkPCount > 1) {
-                            auth.setPassword(null,(level>0));
-                        }
-                        sendCommand(auth.getPassword(level>0)+"\r\n");
-                        //sendCommand("cisco\r\n");// pegar pass por GUI
-                    }
-                    checkCount = 0;
-                    checkPCount = 0;
-                    return true;
+                if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1])) || stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
+                    sendCommand("\r\n");
                 }
+                if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 3]))) {
+                    sendCommand("terminal\r\n");
+                }
+                return true;
             }
-            checkLevel();
-        } catch (Exception e) {
-            checkCount = 0;
-            checkPCount = 0;
-            e.printStackTrace();
         }
-        checkCount = 0;
-        checkPCount = 0;
+        return false;
+    }
+
+    public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        if (info.isConnected()) {
+            try {
+                ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
+                String Sreceived = arrayReceived.get(0);
+                String Mreceived = arrayReceived.get(1);
+
+                if (this.auth.isAuth(Sreceived, prompt.getLevel())) {
+                    return true;
+                }
+
+                if (isPrompt(Sreceived, Mreceived)) {
+                    return true;
+                }
+
+                if (this.info.isInfo(Sreceived)) {
+                    checkLevel(this.info.checkInfo(Sreceived));
+                    return true;
+                }
+
+                checkLevel();
+            } catch (Exception e) {
+                this.info.getGUISol().showMessageDialog("This client can't send data to server!");
+                e.printStackTrace();
+            }
+        }
         return true;
     }
 
     public boolean checkLevel(String Level) {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        try {
-            System.out.println("Entrou!!!");
-            checkCount++;
-            checkPCount++;
-            String Sreceived = Level;
-            // ---------------------------------------------------------------------------------------------------
-            // TO DO:tem que ver pergunta ao entrar no config!!
-            for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
-                if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[i]))) {
-                    this.prompt.setLevel(i);
-                    System.out.println("Level:" + i);
-                    this.level = i;
+        if (info.isConnected()) {
+            try {
+                System.out.println("Entrou:" + Level + "!!!");
+                String Sreceived = Level;
 
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
-                        checkLevel();
-                    }
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1]))||Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
-                        sendCommand("\r\n");
-                    }
-                    if (Sreceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 3]))) {
-                        sendCommand("terminal\r\n");
-                    }
-                    checkCount = 0;
-                    checkPCount = 0;
+                if (this.auth.isAuth(Sreceived, prompt.getLevel())) {
                     return true;
                 }
-            }
-            // ---------------------------------------------------------------------------------------------------
-            // Aqui em baixo ele ira verificar se foi uma informacao se for ele
-            // manda para o metodo que a tratara
-            // sera algo parecido com:
-            for (int i = 0; i < this.info.getInfoPossibilities().size(); i++) {
-                if (Sreceived == this.info.getInfoPossibilities().get(i)) {
-                    System.out.println("INFO:" + Sreceived);
+
+                if (isPrompt(Sreceived, null)) {
+                    return true;
+                }
+
+                if (this.info.isInfo(Sreceived)) {
                     checkLevel(this.info.checkInfo(Sreceived));
-                    checkCount = 0;
-                    checkPCount = 0;
                     return true;
                 }
+
+                checkLevel();
+            } catch (Exception e) {
+                this.info.getGUISol().showMessageDialog("This client can't send data to server!");
+                //e.printStackTrace();
             }
-            // ---------------------------------------------------------------------------------------------------
-            for (int i = 0; i < this.auth.getAuthValues().length; i++) {
-                if (Sreceived.equals(this.auth.getAuth(this.auth.getAuthValues()[i]))) {
-                    if (i < 4) {
-                        // -----------Usuario errado ou
-                        // falta----------------------------------------------------------
-                        // sendCommand(auth.getUser());
-                        if (checkCount > 1) {
-                            auth.setUser(null);
-                        }
-                        sendCommand(auth.getUser()+"\r\n");
-                        //sendCommand("ciscoUser\r\n");// pegar user por GUI
-                        
-                    } else {
-                        // -------------senha errada ou
-                        // falta---------------------------------------------------------
-                        // sendCommand(auth.getPassword());
-                        if (checkPCount > 1) {
-                            auth.setPassword(null,(level>0));
-                        }
-                        sendCommand(auth.getPassword(level>0)+"\r\n");
-                        //sendCommand("cisco\r\n");// pegar pass por GUI
-                    }
-                    checkCount = 0;
-                    checkPCount = 0;
-                    return true;
-                }
-            }
-            checkLevel();
-        } catch (Exception e) {
-            checkCount = 0;
-            checkPCount = 0;
-            e.printStackTrace();
         }
-        checkCount = 0;
-        checkPCount = 0;
         return true;
     }
 
     public void sendCommand(String command) {
-        this.info.getConnection().send(command);
-        checkLevel();
+        if (info.isConnected()) {
+            this.info.getConnection().send(command);
+            checkLevel();
+        } else {
+            this.info.getConnection().disconnect();
+        }
     }
 
     private void sendLevel(int Level) {
@@ -323,55 +242,66 @@ public class LevelHandler {
 
     private void reduceLevelUntil(int Level) {
         while (prompt.getLevel() > Level) {
-            reduceLevel();
+            if (info.isConnected()) {
+                reduceLevel();
+            } else {
+                return;
+            }
         }
     }
 
     private void riseLevelUntil(int Level) {
         while (prompt.getLevel() < Level) {
-            if ((prompt.getLevel() < 3) || (prompt.getLevel() == 6) || (prompt.getLevel() == 9) || (prompt.getLevel() == 23)) {
-                riseLevel(0);
-            } else if (prompt.getLevel() == 3) {
-                if (Level > 3 && Level < 39) {
-                    if ((Level != 7) && (Level != 10) && (Level != 24)) {
-                        if ((Level < 18) || (Level > 20)) {
-                            riseLevel(Level);
+            if (info.isConnected()) {
+                if ((prompt.getLevel() < 3) || (prompt.getLevel() == 6) || (prompt.getLevel() == 9) || (prompt.getLevel() == 23)) {
+                    riseLevel(0);
+                } else if (prompt.getLevel() == 3) {
+                    if (Level > 3 && Level < 39) {
+                        if ((Level != 7) && (Level != 10) && (Level != 24)) {
+                            if ((Level < 18) || (Level > 20)) {
+                                riseLevel(Level);
+                            } else {
+                                riseLevel(17);
+                            }
                         } else {
-                            riseLevel(17);
+                            riseLevel(Level - 1);
                         }
                     } else {
-                        riseLevel(Level - 1);
+                        reduceLevel();
                     }
-                } else {
-                    reduceLevel();
+                } else if (prompt.getLevel() == 17) {
+                    if (Level > 17 && Level < 21) {
+                        riseLevel(Level);
+                    } else {
+                        reduceLevel();
+                    }
+                } else if (prompt.getLevel() == 39) {
+                    if (Level == 40 || Level == 41) {
+                        riseLevel(Level);
+                    } else {
+                        reduceLevel();
+                    }
+                } else if (prompt.getLevel() == 41) {
+                    if (Level == 42 || Level == 43) {
+                        sendLevel(Level);
+                    } else {
+                        reduceLevel();
+                    }
                 }
-            } else if (prompt.getLevel() == 17) {
-                if (Level > 17 && Level < 21) {
-                    riseLevel(Level);
-                } else {
-                    reduceLevel();
-                }
-            } else if (prompt.getLevel() == 39) {
-                if (Level == 40 || Level == 41) {
-                    riseLevel(Level);
-                } else {
-                    reduceLevel();
-                }
-            } else if (prompt.getLevel() == 41) {
-                if (Level == 42 || Level == 43) {
-                    sendLevel(Level);
-                } else {
-                    reduceLevel();
-                }
+            } else {
+                return;
             }
-
         }
     }
 
     public void goToLevel(int Level) {
         while (prompt.getLevel() != Level) {
-            reduceLevelUntil(Level);
-            riseLevelUntil(Level);
+            if (info.isConnected()) {
+                reduceLevelUntil(Level);
+                riseLevelUntil(Level);
+            } else {
+                return;
+            }
         }
     }
 }

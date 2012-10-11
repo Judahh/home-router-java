@@ -6,7 +6,6 @@ package connection;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.GUISolutionModel;
 
 /**
  *
@@ -14,26 +13,38 @@ import model.GUISolutionModel;
  */
 public class AuthenticationHandler {
 
+    private int checkCount;
+    private int checkPCount;
+    private int checkPECount;
+    private ConnectionHandler connection;
     private Auth auth;
     private String passwordVTY;
     private String passwordEnable;
     private String user;
-    GUISolutionModel GuiSol;
+    ArrayList<String> arrayAuthValues;
 
-    public AuthenticationHandler(Auth auth,GUISolutionModel GuiSol) {
+    public AuthenticationHandler(Auth auth, ConnectionHandler connection) {
         this.auth = auth;
-        this.GuiSol=GuiSol;
-        passwordVTY = null;
-        passwordEnable = null;
-        user = null;
+        this.passwordVTY = null;
+        this.passwordEnable = null;
+        this.user = null;
+        this.connection = connection;
+        this.checkCount = 0;
+        this.checkPCount = 0;
+        this.checkPECount = 0;
+        arrayAuthValuesMaker();
     }
 
-    public AuthenticationHandler(int i,GUISolutionModel GuiSol) {
+    public AuthenticationHandler(int i, ConnectionHandler connection) {
         this.auth = Auth.values()[i];
-        this.GuiSol=GuiSol;
-        passwordVTY = null;
-        passwordEnable = null;
-        user = null;
+        this.passwordVTY = null;
+        this.passwordEnable = null;
+        this.user = null;
+        this.connection = connection;
+        this.checkCount = 0;
+        this.checkPCount = 0;
+        this.checkPECount = 0;
+        arrayAuthValuesMaker();
     }
 
     public Auth getAuthentication() {
@@ -44,25 +55,28 @@ public class AuthenticationHandler {
         this.auth = auth;
     }
 
-    public String getPassword(boolean Enable) {
+    private String getPassword(boolean Enable) {
         if (Enable) {
+            System.out.println("GET ENABLE");
             return getPasswordB();
         }
+        System.out.println("GET DISABLE");
         return getPassword();
     }
 
-    public String getPassword() {
+    private String getPassword() {
         if (passwordVTY == null) {
-            passwordVTY = JOptionPane.showInputDialog("VTY Password:", "cisco");
-            //setar pass na interface
+            passwordVTY = this.connection.getGuiSol().getPassword();
         }
         return passwordVTY;
     }
 
     public void setPassword(String password, boolean Enable) {
         if (Enable) {
+            System.out.println("SET ENABLE");
             this.passwordEnable = password;
         } else {
+            System.out.println("SET DISABLE");
             this.passwordVTY = password;
         }
     }
@@ -71,9 +85,9 @@ public class AuthenticationHandler {
         this.passwordVTY = password;
     }
 
-    public String getPasswordB() {
+    private String getPasswordB() {
         if (passwordEnable == null) {
-            passwordEnable = JOptionPane.showInputDialog("Enable Password:", "cisco");
+            passwordEnable = this.connection.getGuiSol().getEnablePassword();
             //setar pass na interface
         }
         return passwordEnable;
@@ -85,9 +99,9 @@ public class AuthenticationHandler {
 
     public String getUser() {
         if (user == null) {
-           user = JOptionPane.showInputDialog("User:", "Cisco");
-           //setar user na interface
-        } 
+            user = this.connection.getGuiSol().getUser();
+            //setar user na interface
+        }
         return user;
     }
 
@@ -102,16 +116,21 @@ public class AuthenticationHandler {
     public Auth[] getAuthValues() {
         return Auth.values();
     }
-    
-    public ArrayList<String> getArrayAuthValues() {
-        ArrayList<String> values=new ArrayList<>();
+
+    private void arrayAuthValuesMaker() {
+        ArrayList<String> values = new ArrayList<>();
         for (int index = 0; index < Auth.values().length; index++) {
             values.add(getAuth(Auth.values()[index]));
         }
-        return values;
+        this.arrayAuthValues = values;
+    }
+
+    public ArrayList<String> getArrayAuthValues() {
+        return this.arrayAuthValues;
     }
 
     public enum Auth {
+
         Login0, Login1, Login2, Login3, Pass0, Pass1, Pass2, Pass3
     }
 
@@ -122,23 +141,55 @@ public class AuthenticationHandler {
     public String getAuth(Auth auth) {
         switch (auth) {
             case Login0:
-                return "Login: ";
+                return "Login:";
             case Login1:
-                return "login: ";
+                return "login:";
             case Login2:
-                return "User: ";
+                return "User:";
             case Login3:
-                return "user: ";
+                return "user:";
             case Pass0:
-                return "Password: ";
+                return "Password:";
             case Pass1:
-                return "password: ";
+                return "password:";
             case Pass2:
-                return "Pass: ";
+                return "Pass:";
             case Pass3:
-                return "pass: ";
+                return "pass:";
             default:
                 return "######";
         }
+    }
+
+    public boolean isAuth(String stringReceived, int level) {
+        System.out.println("IS AUTH?");
+        for (int i = 0; i < getAuthValues().length; i++) {
+            if (stringReceived.equals(getAuth(getAuthValues()[i]))) {
+                if (i < 4) {
+                    // -----------Usuario errado ou falta----------------------------------------------------------
+                    if (checkCount > 0) {
+                        setUser(null);
+                    }
+                    connection.send(getUser() + "\r\n");
+                    checkCount++;
+                } else {
+                    // -------------senha errada ou falta---------------------------------------------------------
+                    if (checkPECount > 0) {
+                        setPassword(null, (level > 0));
+                    }
+                    connection.send(getPassword(level > 0) + "\r\n");
+                    if (level > 0) {
+                        checkPECount++;
+                    } else {
+                        checkPCount++;
+                    }
+                }
+                return true;
+            }
+        }
+        this.checkCount = 0;
+        this.checkPCount = 0;
+        this.checkPECount = 0;
+        return false;
     }
 }
