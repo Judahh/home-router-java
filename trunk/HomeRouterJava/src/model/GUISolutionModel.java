@@ -16,244 +16,291 @@ import javax.swing.JTextArea;
 
 import connection.RouterHandler;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import view.MainInterface;
 
 /**
- * 
+ *
  * @author JH
  */
 public class GUISolutionModel {
-	private JTextArea Console;
-	private JList interfaceStatus;
-	private JList serialStatus;
-	private JLabel Clock;
-	private JLabel Interfaces;
-	private JLabel Type;// Master ou Slave
-	private JLabel Ios;// Ios e versao
 
-	private JList<String> DynamicEstablishedRoutes;
-	private JList<String> StaticEstablishedRoutes;
+    private JTextArea Console;
+    private JList serialStatus;
+    private JLabel Clock;
+    private JLabel Interfaces;
+    private JLabel Type;// Master ou Slave
+    private JLabel Ios;// Ios e versao
+    private JList<String> DynamicEstablishedRoutes;
+    private JList<String> StaticEstablishedRoutes;
+    private DefaultListModel<String> staticListModel;
+    private DefaultListModel<String> dynamicListModel;
+    //private DefaultListModel<String> statusListModel;
+    private DefaultListModel<String> serialStatusListModel;
+    private DefaultTableModel statusTableModel;
+    private ArrayList<FastEthernet> FEArray;
+    private ArrayList<Serial> SArray;
+    private JTabbedPane interfacesPane;
+    private MainInterface MainGUI;
+    private int PaneIndex;
+    private RouterHandler vTelnet;
 
-	private DefaultListModel<String> staticListModel;
-	private DefaultListModel<String> dynamicListModel;
-	private DefaultListModel<String> statusListModel;
-	private DefaultListModel<String> serialStatusListModel;
+    public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
+            JList StaticEstablishedRoutes, DefaultTableModel statusTableModel, JList serialStatus, JTabbedPane interfacesPane, MainInterface MainGUI,
+            int PaneIndex) {
+        this.Console = Console;
+        this.serialStatus = serialStatus;
+        this.Clock = Clock;
+        this.Interfaces = Interfaces;
+        this.Type = Type;
+        this.Ios = Ios;
 
-	private ArrayList<FastEthernet> FEArray;
-	private ArrayList<Serial> SArray;
+        this.MainGUI = MainGUI;
+        this.PaneIndex = PaneIndex;
 
-	private JTabbedPane interfacesPane;
+        this.interfacesPane = interfacesPane;
 
-        private MainInterface MainGUI;
-        
-	private int PaneIndex;
+        this.DynamicEstablishedRoutes = DynamicEstablishedRoutes;
+        this.StaticEstablishedRoutes = StaticEstablishedRoutes;
 
-	private RouterHandler vTelnet;
+        staticListModel = new DefaultListModel();
+        dynamicListModel = new DefaultListModel();
+        //statusListModel = new DefaultListModel();
+        this.statusTableModel = statusTableModel;
+        serialStatusListModel = new DefaultListModel();
 
-	public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
-			JList StaticEstablishedRoutes, JList interfaceStatus, JList serialStatus, JTabbedPane interfacesPane, MainInterface MainGUI,
-			int PaneIndex) {
-		this.Console = Console;
-		this.interfaceStatus = interfaceStatus;
-		this.serialStatus = serialStatus;
-		this.Clock = Clock;
-		this.Interfaces = Interfaces;
-		this.Type = Type;
-		this.Ios = Ios;
+        FEArray = new ArrayList<FastEthernet>();
+        SArray = new ArrayList<Serial>();
+    }
 
-		this.MainGUI = MainGUI;
-		this.PaneIndex = PaneIndex;
+    public DefaultTableModel getStatusTableModel() {
+        return statusTableModel;
+    }
 
-		this.interfacesPane = interfacesPane;
+    public String getPassword() {
+        return JOptionPane.showInputDialog("VTY Password:", "cisco");
+    }
 
-		this.DynamicEstablishedRoutes = DynamicEstablishedRoutes;
-		this.StaticEstablishedRoutes = StaticEstablishedRoutes;
+    public String getEnablePassword() {
+        return JOptionPane.showInputDialog("Enable Password:", "cisco");
+    }
 
-		staticListModel = new DefaultListModel();
-		dynamicListModel = new DefaultListModel();
-		statusListModel = new DefaultListModel();
-		serialStatusListModel = new DefaultListModel();
+    public String getUser() {
+        return JOptionPane.showInputDialog("User:", "Cisco");
+    }
 
-		FEArray = new ArrayList<FastEthernet>();
-		SArray = new ArrayList<Serial>();
-	}
-        
-        public void showMessageDialog(String message) {
-		JOptionPane.showMessageDialog(this.MainGUI,message);
-	}
-        
-        public void killTab(String host) {
-		this.MainGUI.killCLI(host, PaneIndex);
-	}
-        
-	public void setGUIRouterName(String RouterName) {
-		this.MainGUI.getjTabbedPane1().setTitleAt(PaneIndex, RouterName);
-	}
+    public void showMessageDialog(String message) {
+        JOptionPane.showMessageDialog(this.MainGUI, message, "Information", 1);
+    }
 
-	public void setGUIClock(String Clock) {
-		this.Clock.setText(Clock);
-	}
+    public void showErrorDialog(String message) {
+        JOptionPane.showMessageDialog(Console, message, "Error!", 0);
+    }
 
-	public void appendConsole(String string) {
-		this.Console.append(string);
-	}
+    public void killTab(String host) {
+        this.MainGUI.killCLI(host, PaneIndex);
+    }
 
-	public void appendConsole(char character) {
-		this.Console.append(character + "");
-	}
+    public void setGUIRouterName(String RouterName) {
+        this.MainGUI.getjTabbedPane1().setTitleAt(PaneIndex, RouterName);
+    }
 
-	public void setGUIInterfaces(String Iterfaces) {
-		this.Interfaces.setText(Iterfaces);
-	}
+    public void setGUIClock(String Clock) {
+        this.Clock.setText(Clock);
+    }
 
-	public void setSerialType(String type) {
+    public void appendConsole(String string) {
+        this.Console.append(string);
+    }
 
-		serialStatusListModel.addElement(type);
-	}
+    public void appendConsole(char character) {
+        this.Console.append(character + "");
+    }
 
-	public void setIos(String ios) {
-		this.Ios.setText(ios.trim());
-	}
+    public void setGUIInterfaces(String Iterfaces) {
+        this.Interfaces.setText(Iterfaces);
+    }
 
-	public void addDynamicRoute(String route) {
-		dynamicListModel.addElement(route);
-		// this.DynamicEstablishedRoutes.add
-	}
+    public void setSerialType(String type) {
 
-	public void addStaticModel() {
-		StaticEstablishedRoutes.setModel(staticListModel);
-	}
+        serialStatusListModel.addElement(type);
+    }
 
-	public void addDynamicModel() {
-		DynamicEstablishedRoutes.setModel(dynamicListModel);
-	}
+    public void setIos(String ios) {
+        this.Ios.setText(ios.trim());
+    }
 
-	public void addStatusModel() {
-		interfaceStatus.setModel(statusListModel);
-	}
+    public void addDynamicRoute(String route) {
+        dynamicListModel.addElement(route);
+        // this.DynamicEstablishedRoutes.add
+    }
 
-	public void addSerialStatusModel() {
-		serialStatus.setModel(serialStatusListModel);
-	}
+    public void addStaticModel() {
+        StaticEstablishedRoutes.setModel(staticListModel);
+    }
 
-	public void addInterfaceStatus(String status) {
+    public void addDynamicModel() {
+        DynamicEstablishedRoutes.setModel(dynamicListModel);
+    }
 
-		statusListModel.addElement(status);
-	}
+    public void addStatusModel(ArrayList<String>Status) {
+        if(statusTableModel!=null){
+//            System.out.println("Valores Antigos:");
+//            for (int index = 0;index < statusTableModel.getRowCount(); index++) {
+//                System.out.println("V:"+statusTableModel.getValueAt(0, index));
+//            }
+            
+            for (int index = 0;index < statusTableModel.getRowCount(); index++) {
+                if (statusTableModel.getValueAt(index, 0).equals(Status.get(0))) {
+                    for (int i = 0; i < statusTableModel.getColumnCount() ; i++) {
+                        statusTableModel.setValueAt(Status.get(i), index, i);
+                        System.out.println("Refresh Valor("+index+","+i+"):"+Status.get(i));
+                    }
+                    return;
+                }else{
+                    System.out.println("Valor:"+Status.get(0)+", Nao existe");
+                }
+            }
+            statusTableModel.addRow(new Object[]{Status.get(0), Status.get(1), Status.get(2), Status.get(3), Status.get(4), Status.get(5)});
+            System.out.println("Novo Valor:"+Status.get(0));
+        }
+    }
+    
+    public void addStatusModel(String Interface, String Ip, String Ok, String Method, String Status, String Protocol) {
+        if(statusTableModel!=null){
+            int index;
+            for (index = 0; (index < statusTableModel.getRowCount()); index++) {
+                if (statusTableModel.getValueAt(0, index).equals(Interface)) {
+                    statusTableModel.setValueAt(Ip, 1, index);
+                    statusTableModel.setValueAt(Ok, 2, index);
+                    statusTableModel.setValueAt(Method, 3, index);
+                    statusTableModel.setValueAt(Status, 4, index);
+                    statusTableModel.setValueAt(Protocol, 5, index);
+                    return;
+                }
+            }
+            if (index == statusTableModel.getRowCount() - 1) {
+                statusTableModel.addRow(new Object[]{Interface, Ip, Ok, Method, Status, Protocol});
+            }
+        }
+    }
 
-	public void removeDynamicRoute(String Route) {
+    public void addSerialStatusModel() {
+        serialStatus.setModel(serialStatusListModel);
+    }
 
-	}
+//    public void addInterfaceStatus(String status) {
+//        statusListModel.addElement(status);
+//    }
 
-	public void removeDynamicRoute(int RouteIndex) {
+    public void removeDynamicRoute(String Route) {
+    }
 
-	}
+    public void removeDynamicRoute(int RouteIndex) {
+    }
 
-	public void addStaticRoute(String route) {
-		staticListModel.addElement(route);
-	}
+    public void addStaticRoute(String route) {
+        staticListModel.addElement(route);
+    }
 
-	public void removeStaticRoute(String Route) {
+    public void removeStaticRoute(String Route) {
+    }
 
-	}
+    public void removeStaticRoute(int RouteIndex) {
+    }
 
-	public void removeStaticRoute(int RouteIndex) {
+    public void addFastEthernetInterface(String port) {
+        FastEthernet FE = new FastEthernet();
+        FE.setvTelnet(vTelnet);
 
-	}
+        FE.setNumber(port);
+        FEArray.add(FE);
+        this.interfacesPane.add("Fast Ethernet " + port, FE);
+    }
 
-	public void addFastEthernetInterface(String port) {
-		FastEthernet FE = new FastEthernet();
-		FE.setvTelnet(vTelnet);
+    public JTextArea getConsole() {
+        return Console;
+    }
 
-		FE.setNumber(port);
-		FEArray.add(FE);
-		this.interfacesPane.add("Fast Ethernet " + port, FE);
-	}
+    public void setConsole(JTextArea console) {
+        Console = console;
+    }
 
-	public JTextArea getConsole() {
-		return Console;
-	}
+    public void setFastEthernetPortStatus(int index, boolean On) {
+        FEArray.get(index).PortStatusjCheckBox.setSelected(On);
+    }
 
-	public void setConsole(JTextArea console) {
-		Console = console;
-	}
+    public void setFastEthernetBandwidth(int index, String bw) {
+        if (bw.equals("10")) {
+            FEArray.get(index).jRadioButton10mbps.setSelected(true);
+            FEArray.get(index).BandwidthjCheckBox.setSelected(false);
+        } else if (bw.equals("100")) {
+            FEArray.get(index).jRadioButton100mbps.setSelected(true);
+            FEArray.get(index).BandwidthjCheckBox.setSelected(false);
+        } else if (bw.equalsIgnoreCase("auto")) {
+            FEArray.get(index).BandwidthjCheckBox.setSelected(true);
+        }
 
-	public void setFastEthernetPortStatus(int index, boolean On) {
-		FEArray.get(index).PortStatusjCheckBox.setSelected(On);
-	}
+    }
 
-	public void setFastEthernetBandwidth(int index, String bw) {
-		if (bw.equals("10")) {
-			FEArray.get(index).jRadioButton10mbps.setSelected(true);
-			FEArray.get(index).BandwidthjCheckBox.setSelected(false);
-		} else if (bw.equals("100")) {
-			FEArray.get(index).jRadioButton100mbps.setSelected(true);
-			FEArray.get(index).BandwidthjCheckBox.setSelected(false);
-		} else if (bw.equalsIgnoreCase("auto")) {
-			FEArray.get(index).BandwidthjCheckBox.setSelected(true);
-		}
+    public void setFastEthernetMac(int index, String MAC) {
+        FEArray.get(index).MacjTextField.setText(MAC);
+    }
 
-	}
+    public void setFastEthernetIp(int index, String IP) {
+        FEArray.get(index).IpjTextField.setText(IP);
+    }
 
-	public void setFastEthernetMac(int index, String MAC) {
-		FEArray.get(index).MacjTextField.setText(MAC);
-	}
+    public void setFastEthernetMask(int index, String Mask) {
+        FEArray.get(index).MaskjTextField.setText(Mask);
+    }
 
-	public void setFastEthernetIp(int index, String IP) {
-		FEArray.get(index).IpjTextField.setText(IP);
-	}
+    public void setFastEthernetTx(int index, String Tx) {
+        FEArray.get(index).TxjTextField.setText(Tx);
+    }
 
-	public void setFastEthernetMask(int index, String Mask) {
-		FEArray.get(index).MaskjTextField.setText(Mask);
-	}
+    public void setFastEthernetDuplex(int index, String duplex) {
+        if (duplex.contains("half")) {
+            FEArray.get(index).HalfDuplexJRadioButton.setSelected(true);
+        }
 
-	public void setFastEthernetTx(int index, String Tx) {
-		FEArray.get(index).TxjTextField.setText(Tx);
-	}
+    }
 
-	public void setFastEthernetDuplex(int index, String duplex) {
-		if (duplex.contains("half")) {
-			FEArray.get(index).HalfDuplexJRadioButton.setSelected(true);
-		}
+    public void addSerialInterface(String port) {
+        Serial S = new Serial();
+        S.setvTelnet(vTelnet);
+        S.setNumber(port);
 
-	}
+        SArray.add(S);
 
-	public void addSerialInterface(String port) {
-		Serial S = new Serial();
-		S.setvTelnet(vTelnet);
-		S.setNumber(port);
+        this.interfacesPane.add("Serial " + port, S);
+    }
 
-		SArray.add(S);
+    public void setSerialPortStatus(int index, boolean On) {
+        SArray.get(index).PortStatusjCheckBox.setSelected(On);
+    }
 
-		this.interfacesPane.add("Serial " + port, S);
-	}
+    public void setSerialClockRate(int index, int item) {
+        SArray.get(index).ClockRatejComboBox.setSelectedIndex(item);
+    }
 
-	public void setSerialPortStatus(int index, boolean On) {
-		SArray.get(index).PortStatusjCheckBox.setSelected(On);
-	}
+    public void setSerialIp(int index, String IP) {
+        SArray.get(index).IpjTextField.setText(IP);
+    }
 
-	public void setSerialClockRate(int index, int item) {
-		SArray.get(index).ClockRatejComboBox.setSelectedIndex(item);
-	}
+    public void setSerialMask(int index, String Mask) {
+        SArray.get(index).MaskjTextField.setText(Mask);
+    }
 
-	public void setSerialIp(int index, String IP) {
-		SArray.get(index).IpjTextField.setText(IP);
-	}
+    public void setSerialTx(int index, int Tx) {
+        SArray.get(index).TxjTextField.setText(Integer.toString(Tx));
+    }
 
-	public void setSerialMask(int index, String Mask) {
-		SArray.get(index).MaskjTextField.setText(Mask);
-	}
+    public RouterHandler getvTelnet() {
+        return vTelnet;
+    }
 
-	public void setSerialTx(int index, int Tx) {
-		SArray.get(index).TxjTextField.setText(Integer.toString(Tx));
-	}
-
-	public RouterHandler getvTelnet() {
-		return vTelnet;
-	}
-
-	public void setvTelnet(RouterHandler vTelnet) {
-		this.vTelnet = vTelnet;
-	}
-
+    public void setvTelnet(RouterHandler vTelnet) {
+        this.vTelnet = vTelnet;
+    }
 }
