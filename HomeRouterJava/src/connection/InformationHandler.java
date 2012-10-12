@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -72,6 +73,59 @@ public class InformationHandler {// --------------------------------------------
         return this.connection.getGuiSol();
     }
 
+//    public String checkInfo(String FirstPartInfo) {//retornar prompt do router
+//        System.out.println("IS INFO?");
+//        if (isConnected()) {
+//            if (FirstPartInfo.contains("More")) {
+//                connection.send(" ");
+//            } else {
+//                for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
+//                    if (FirstPartInfo.contains(getEndInfoPossibilities().get(index))) {
+//                        connection.send("\r\n");
+//                    }
+//                }
+//            }
+//
+//            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInfoPossibilities());
+//
+//            String fullInfo = FirstPartInfo + InfoS.get(1);
+//            
+//            System.out.println("---------------------------------");
+//            System.out.println();
+//            System.out.println();
+//            System.out.println("FullInfo:");
+//            System.out.println(fullInfo.split("--More--")[0]);
+//            System.out.println();
+//            System.out.println();
+//            System.out.println("---------------------------------");
+//
+//            parseClockInfo(fullInfo);
+//            parseShowRunInfo(fullInfo);
+//            parseInterfaceStatusInfo(fullInfo);
+//            parseShowControllersInfo(InfoS.get(1));
+//            
+//            if(!showInfo(fullInfo)){
+//                if(showError(fullInfo)){
+//                    //ouve erro!
+//                }
+//            } 
+//
+//            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
+//                return checkInfo(getEndInfoPossibilities().get(0));//checa se ainda existe informacao
+//            }
+//            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
+//                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
+//                    setRouterName(InfoS.get(1), InfoS.get(0), index);
+//                    return getEndInfoPossibilities().get(index);
+//                }
+//            }
+//            if (InfoS.get(0).contains("More")) {
+//                return checkInfo(getEndInfoPossibilities().get(0));
+//            }
+//        }
+//        return null;
+//    }
+    
     public String checkInfo(String FirstPartInfo) {//retornar prompt do router
         System.out.println("IS INFO?");
         if (isConnected()) {
@@ -86,33 +140,100 @@ public class InformationHandler {// --------------------------------------------
             }
 
             ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInfoPossibilities());
-
             String fullInfo = FirstPartInfo + InfoS.get(1);
 
+            if (InfoS.get(0).contains("More")) {
+                return checkInfo(true, fullInfo.split("--More--")[0]);
+            }
+
+            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
+                return checkInfo(false, getEndInfoPossibilities().get(0));
+            }
+
+            String lastInfo = null;
+            String routerName = null;
+            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
+                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
+                    routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
+                    lastInfo = getEndInfoPossibilities().get(index);
+                    index = getEndInfoPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+                }
+            }
+
+            fullInfo = fullInfo.split(routerName + lastInfo)[0];
             parseClockInfo(fullInfo);
             parseShowRunInfo(fullInfo);
-
             parseInterfaceStatusInfo(fullInfo);
             parseShowControllersInfo(InfoS.get(1));
-            
-            if(!showInfo(fullInfo)){
-                if(showError(fullInfo)){
+
+            if (!showInfo(fullInfo)) {
+                if (showError(fullInfo)) {
                     //ouve erro!
                 }
             }
 
-            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
-                return checkInfo(getEndInfoPossibilities().get(0));
-            }
-            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
-                    setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    return getEndInfoPossibilities().get(index);//checa se ainda existe informacao
+            System.out.println("---------------------------------");
+            System.out.println("FullInfo:");
+            System.out.println(fullInfo);
+            System.out.println("---------------------------------");
+
+            return lastInfo;
+        }
+        return null;
+    }
+
+    public String checkInfo(boolean more, String FirstPartInfo) {//retornar prompt do router
+        System.out.println("IS INFO?");
+        if (isConnected()) {
+            if (more) {
+                connection.send(" ");
+            } else {
+                for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
+                    if (FirstPartInfo.contains(getEndInfoPossibilities().get(index))) {
+                        connection.send("\r\n");
+                    }
                 }
             }
+
+            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInfoPossibilities());
+            String fullInfo = FirstPartInfo + InfoS.get(1);
+
             if (InfoS.get(0).contains("More")) {
-                return checkInfo(getEndInfoPossibilities().get(0));
+                return checkInfo(true, fullInfo.split("--More--")[0]);
             }
+
+            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
+                return checkInfo(false, getEndInfoPossibilities().get(0));
+            }
+
+            String lastInfo = null;
+            String routerName = null;
+            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
+                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
+                    routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
+                    lastInfo = getEndInfoPossibilities().get(index);
+                    index = getEndInfoPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+                }
+            }
+
+            fullInfo = fullInfo.split(routerName + lastInfo)[0];
+            parseClockInfo(fullInfo);
+            parseShowRunInfo(fullInfo);
+            parseInterfaceStatusInfo(fullInfo);
+            parseShowControllersInfo(InfoS.get(1));
+
+            if (!showInfo(fullInfo)) {
+                if (showError(fullInfo)) {
+                    //ouve erro!
+                }
+            }
+
+            System.out.println("---------------------------------");
+            System.out.println("FullInfo:");
+            System.out.println(fullInfo);
+            System.out.println("---------------------------------");
+
+            return lastInfo;
         }
         return null;
     }
@@ -124,7 +245,7 @@ public class InformationHandler {// --------------------------------------------
         return false;
     }
 
-    public void setRouterName(String routerName, String end, int index) {
+    public String setRouterName(String routerName, String end, int index) {
         if (isConnected()) {
             CommandHandler CMDHandler = new CommandHandler(0);
             if ((index > 0) && (index < CMDHandler.getArrayPromptValues().size() - 3)) {
@@ -132,24 +253,32 @@ public class InformationHandler {// --------------------------------------------
                 }
                 String RouterName = routerName.substring(index + 1, routerName.length() - end.length());
                 this.connection.getGuiSol().setGUIRouterName(RouterName);
+                return RouterName;
             }
         }
+        return null;
     }
 
     private boolean showError(String fullInfo) {
         if (fullInfo.contains("%")) {
             String error = fullInfo.substring(fullInfo.indexOf('%') + 1);
+            while((error.charAt(error.length()-1)=='\n')||(error.charAt(error.length()-1)=='\r')||(error.charAt(error.length()-1)=='.')){
+                error=error.substring(0, error.length()-1);
+            }
             this.connection.getGuiSol().showErrorDialog(error + "!");
             return true;
         }
         return false;
     }
-    
+
     private boolean showInfo(String fullInfo) {
         if (fullInfo.contains("!")) {
-            String error = fullInfo.substring(fullInfo.indexOf('!') + 1);
-            if(!(error.contains("!")||error.contains("end"))){
-                this.connection.getGuiSol().showMessageDialog(error + "!");
+            String info = fullInfo.substring(fullInfo.indexOf('!') + 1);
+            while((info.charAt(info.length()-1)=='\n')||(info.charAt(info.length()-1)=='\r')||(info.charAt(info.length()-1)=='.')){
+                info=info.substring(0, info.length()-1);
+            }
+            if (!(info.contains("!") || info.contains("end"))) {
+                this.connection.getGuiSol().showMessageDialog(info + "!");
                 return true;
             }
         }
@@ -177,10 +306,7 @@ public class InformationHandler {// --------------------------------------------
                                 this.connection.getGuiSol().setSerialType(infoarray[i].trim() + " is slave");
                             }
                         }
-
-
                     }
-
                 }
             }
         }
@@ -344,42 +470,43 @@ public class InformationHandler {// --------------------------------------------
 //
 //    }
     
-    public void parseInterfaceStatusInfo(String info) {//usar show ip Interface Brief
+    public void parseInterfaceStatusInfo(String info) {//usa show ip Interface Brief
         String[] infoarray = info.split("\r\n");
-        ArrayList<String>[] infoMatrix=new ArrayList[infoarray.length];
-        for(int i=0;i<infoarray.length;i++){
-            //System.out.println("Array["+i+"]:"+infoarray[i]);
-            infoMatrix[i]=new ArrayList<>();
-            String[] array = infoarray[i].split(" ");
-            System.out.println("First:"+array[0]+"---");
-            for (int j = 0; j < array.length; j++) {
-                if(!"".equals(array[j])){
-                    if(infoMatrix[i].size()>0){
-                        if("administratively".equals(infoMatrix[i].get(infoMatrix[i].size()-1))){
-                            infoMatrix[i].set(infoMatrix[i].size()-1,infoMatrix[i].get(infoMatrix[i].size()-1)+" "+array[j]);
-                        }else{
-                            infoMatrix[i].add(array[j]); 
-                        }
-                    }else{
-                        infoMatrix[i].add(array[j]); 
-                    }
-                    System.out.println("ArrayChild["+(infoMatrix[i].size()-1)+"]:"+infoMatrix[i].get(infoMatrix[i].size()-1));
+        ArrayList<String>[] infoMatrix = new ArrayList[infoarray.length];
+        for (int i = 0; i < infoarray.length; i++) {
 
-                    if((infoMatrix[i].size()==6)){
-                        if(i>0){
-                            this.connection.getGuiSol().addStatusModel(infoMatrix[i]);
-                        }else{
-                            if(i==0){
-                                if((!"Interface".equals(infoMatrix[i].get(0)))||(!"IP-Address".equals(infoMatrix[i].get(1)))||(!"OK?".equals(infoMatrix[i].get(2)))||(!"Method".equals(infoMatrix[i].get(3)))||(!"Status".equals(infoMatrix[i].get(4)))||(!"Protocol".equals(infoMatrix[i].get(5)))){
-                                    return;
-                                }
-                            }
-                        }
+            infoMatrix[i] = new ArrayList<>();
+            String pattern = "\\s+";
+            Pattern splitter = Pattern.compile(pattern);
+            String[] array = splitter.split(infoarray[i]);
+            if (i == 0) {
+                if ((!"Interface".equals(array[0])) || (!"IP-Address".equals(array[1])) || (!"OK?".equals(array[2])) || (!"Method".equals(array[3])) || (!"Status".equals(array[4])) || (!"Protocol".equals(array[5]))) {
+                    for (int j = 0; j < array.length; j++) {
+                        System.out.println("D:" + array[j] + "---");
+                    }
+                    return;
+                }
+            }
+            for (int j = 0; j < array.length; j++) {
+                if (infoMatrix[i].size() > 0) {
+                    if ("administratively".equals(infoMatrix[i].get(infoMatrix[i].size() - 1))) {
+                        infoMatrix[i].set(infoMatrix[i].size() - 1, infoMatrix[i].get(infoMatrix[i].size() - 1) + " " + array[j]);
+                    } else {
+                        infoMatrix[i].add(array[j]);
+                    }
+                } else {
+                    infoMatrix[i].add(array[j]);
+                }
+                System.out.println("ArrayChild[" + (infoMatrix[i].size() - 1) + "]:" + infoMatrix[i].get(infoMatrix[i].size() - 1));
+
+                if ((infoMatrix[i].size() == 6)) {
+                    if (i > 0) {
+                        this.connection.getGuiSol().addStatusModel(infoMatrix[i]);
                     }
                 }
             }
         }
-        
+
     }
 
     // tratar clock

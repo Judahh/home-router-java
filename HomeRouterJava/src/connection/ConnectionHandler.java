@@ -158,6 +158,7 @@ public class ConnectionHandler {
     public void send(String value) {
         if(telnet.isConnected()){
             write(value);
+            System.out.println(value);
             this.GuiSol.appendConsole(value);
         }
     }

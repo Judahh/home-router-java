@@ -30,7 +30,7 @@ public class LevelHandler {
         routerInfo = new RouterInfoModel();
         ConnectionHandler connection = new ConnectionHandler(host, port, GuiSol);
         info = new InformationHandler(connection);
-        auth = new AuthenticationHandler(0, connection);
+        auth = new AuthenticationHandler(connection);
         getAllMsgPossibilities();
     }
 
