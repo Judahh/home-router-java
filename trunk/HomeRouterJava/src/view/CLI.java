@@ -43,7 +43,7 @@ public class CLI extends javax.swing.JPanel {
     /**
      * ....................... Creates new form CLI
      */
-    RouterHandler vTelnet;
+    RouterHandler globalRouterHandler;
     private MainInterface mi;
     private int index;
     private String host;
@@ -88,24 +88,21 @@ public class CLI extends javax.swing.JPanel {
         this.port = port;
         this.index = index;
 
-        //statusTableModel.setCellRenderer(new GreenRedCellRenderer());
-        //InterfaceStatusjTable.setModel(new DefaultTableModel());
-
         GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, ClockjLabel, InterfacesjLabel, TypejLabel, IosjLabel, DyRjList,
                 RjList, null, interfaceSerialTypeList, interfacesJTabbedPane, mi, index);
 
-        vTelnet = new RouterHandler(host, port, GuiSol);
+        globalRouterHandler = new RouterHandler(host, port, GuiSol);
 
         // vlan 10.255.0.150
-        GuiSol.setvTelnet(vTelnet);
+        GuiSol.setRouterHandler(globalRouterHandler);
 
         // Essas 6 linhas embaixo usam show controllers e show run
-        // vTelnet.getClock();
-        vTelnet.showRun();
+        //globalRouterHandler.getClock();
+        globalRouterHandler.showRun();
     }
 
     public String getRouterName() {
-        return vTelnet.getRouterName();
+        return globalRouterHandler.getRouterName();
     }
 
     /**
@@ -944,7 +941,7 @@ public class CLI extends javax.swing.JPanel {
     }// GEN-LAST:event_InterfacesStatusjFrameComponentHidden
 
     private void InterfacesSerialTypejFrameComponentShown(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesSerialTypejFrameComponentShown
-        vTelnet.getSynchroState();
+        globalRouterHandler.getSynchroState();
         // ih.parseShowControllersInfo(ConsolejTextArea.getText());
     }// GEN-LAST:event_InterfacesSerialTypejFrameComponentShown
 
@@ -956,26 +953,18 @@ public class CLI extends javax.swing.JPanel {
             // GEN-FIRST:event_InterfacesStatusjFrameComponentShown
             // thread para atualizar status das interfaces
             statusTableModel = (DefaultTableModel) InterfaceStatusjTable.getModel();
-            GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, null, null, null, null, null,
-                    null, statusTableModel, null, interfacesJTabbedPane, mi, index);
-            
-            final RouterHandler bTelnet = new RouterHandler(host, port, GuiSol);
-            
-            System.out.println("Num of Rows:"+statusTableModel.getRowCount());
-            System.out.println("Num of Rows:"+statusTableModel.getColumnCount());
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            
-            GuiSol.setvTelnet(bTelnet);
+            GUISolutionModel GuiSol = new GUISolutionModel(null, null, null, null, null, null, null, statusTableModel, null, interfacesJTabbedPane, mi, index);
+            final RouterHandler localRouterHandler = new RouterHandler(host, port, GuiSol);
+            GuiSol.setRouterHandler(localRouterHandler);
+           
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
                 public void run() {
-                    InterfaceStatusjTable.setModel(bTelnet.getGUISolution().getStatusTableModel());
-                    bTelnet.showIpInterfaceBrief();
+                    localRouterHandler.showIpInterfaceBrief();
+                    InterfaceStatusjTable.setModel(localRouterHandler.getGUISolution().getStatusTableModel());
                 }
-            }, 0, 5000);// 5 segundos
+            }, 0, 1500);// 1.5 segundos
         } // GEN-LAST:event_InterfacesStatusjFrameComponentShown
         catch (ConnectException ex) {
             Logger.getLogger(CLI.class.getName()).log(Level.SEVERE, null, ex);
@@ -990,7 +979,7 @@ public class CLI extends javax.swing.JPanel {
     private void RRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_RRemovejButtonActionPerformed
 
         String route = (String) RjList.getSelectedValue();
-        vTelnet.removeStaticRoute(route);
+        globalRouterHandler.removeStaticRoute(route);
         staticListModel = (DefaultListModel<String>) RjList.getModel();
         staticListModel.remove(RjList.getSelectedIndex());
         RjList.setModel(staticListModel);
@@ -1007,15 +996,15 @@ public class CLI extends javax.swing.JPanel {
         } else {
 
             if (secretpass.length() > 0) {
-                vTelnet.setEnableSecretPass(secretpass);
+                globalRouterHandler.setEnableSecretPass(secretpass);
             }
             if (vtypass.length() > 0) {
-                vTelnet.setVTYPass(vtypass);
+                globalRouterHandler.setVTYPass(vtypass);
 
             }
 
             if (enablepass.length() > 0) {
-                vTelnet.setEnablePass(enablepass);
+                globalRouterHandler.setEnablePass(enablepass);
             }
         }
 
@@ -1025,7 +1014,7 @@ public class CLI extends javax.swing.JPanel {
     private void AddDyRoutejButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AddDyRoutejButton1ActionPerformed
         Validation v = Validation.getInstance();
         if (v.validateIP(DyRNetworkjTextField1.getText())) {
-            vTelnet.setDynamicRoute(DyRNetworkjTextField1.getText());
+            globalRouterHandler.setDynamicRoute(DyRNetworkjTextField1.getText());
             dynamicListModel = (DefaultListModel<String>) DyRjList.getModel();
             dynamicListModel.addElement(DyRNetworkjTextField1.getText());
             DyRjList.setModel(dynamicListModel);
@@ -1036,7 +1025,7 @@ public class CLI extends javax.swing.JPanel {
     private void ConnectivityPingButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ConnectivityPingButtonActionPerformed
         Validation v = Validation.getInstance();
         if (v.validateIP(ConnectivityIPTextField.getText())) {
-            vTelnet.ping(ConnectivityIPTextField.getText());
+            globalRouterHandler.ping(ConnectivityIPTextField.getText());
         }
     }// GEN-LAST:event_ConnectivityPingButtonActionPerformed
 
@@ -1044,9 +1033,9 @@ public class CLI extends javax.swing.JPanel {
         JComboBox cb = (JComboBox) evt.getSource();
         if (cb.getSelectedIndex() == 0) {
             SettingsjFrame.setVisible(false);
-            vTelnet.disconnect();
+            globalRouterHandler.disconnect();
         } else {
-            vTelnet.setLevel(cb.getSelectedIndex());
+            globalRouterHandler.setLevel(cb.getSelectedIndex());
         }
     }// GEN-LAST:event_levelselectorJComboBoxActionPerformed
 
@@ -1058,7 +1047,7 @@ public class CLI extends javax.swing.JPanel {
         Validation v = Validation.getInstance();
         if (v.validateIP(RNetworkjTextField.getText())
                 && (v.validateMask(RMaskjTextField.getText()) && (v.validateIP(RNextHopjTextField.getText())))) {
-            vTelnet.setStaticRoute(RNetworkjTextField.getText(), RMaskjTextField.getText(), RNextHopjTextField.getText());
+            globalRouterHandler.setStaticRoute(RNetworkjTextField.getText(), RMaskjTextField.getText(), RNextHopjTextField.getText());
 
             staticListModel = (DefaultListModel<String>) RjList.getModel();
             staticListModel.addElement(RNetworkjTextField.getText() + " with mask " + RMaskjTextField.getText() + " via "
@@ -1073,8 +1062,8 @@ public class CLI extends javax.swing.JPanel {
     }// GEN-LAST:event_AddRoutejButtonActionPerformed
 
     private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SendjButtonActionPerformed
-        if (vTelnet != null) {
-            vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+        if (globalRouterHandler != null) {
+            globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
             CommandjTextField.setText("");
         }
     }// GEN-LAST:event_SendjButtonActionPerformed
@@ -1087,13 +1076,13 @@ public class CLI extends javax.swing.JPanel {
         // se apertar enter, fazer o mesmo do botÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½o send
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
-            if (CommandjTextField.getText().equalsIgnoreCase("exit") && (vTelnet.getLevel() < 3)) {
-                vTelnet.disconnect();
+            if (CommandjTextField.getText().equalsIgnoreCase("exit") && (globalRouterHandler.getLevel() < 3)) {
+                globalRouterHandler.disconnect();
                 mi.killCLI(host, index);
 
             } else {
-                if (vTelnet != null) {
-                    vTelnet.sendUserCommand(CommandjTextField.getText() + "\r\n");
+                if (globalRouterHandler != null) {
+                    globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
                     CommandjTextField.setText("");
                 }
 
@@ -1105,7 +1094,7 @@ public class CLI extends javax.swing.JPanel {
 
     private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_DyRRemovejButtonActionPerformed
         String route = (String) DyRjList.getSelectedValue();
-        vTelnet.removeDynamicRoute(route);
+        globalRouterHandler.removeDynamicRoute(route);
         dynamicListModel = (DefaultListModel<String>) DyRjList.getModel();
         dynamicListModel.remove(DyRjList.getSelectedIndex());
         DyRjList.setModel(dynamicListModel);
@@ -1113,14 +1102,14 @@ public class CLI extends javax.swing.JPanel {
 
     private void GlobalOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_GlobalOkjButtonActionPerformed
         if (!HostNamejTextField.getText().equals("")) {
-            vTelnet.setRouterName(HostNamejTextField.getText());
+            globalRouterHandler.setRouterName(HostNamejTextField.getText());
             this.setName(HostNamejTextField.getText());
         }
 
         Validation v = Validation.getInstance();
         if ((!DatejFormattedTextField.getText().equals("")) && (!TimejFormattedTextField.getText().equals(""))) {
             if (v.validateDate(DatejFormattedTextField.getText(), TimejFormattedTextField.getText())) {
-                vTelnet.setDateTime(DatejFormattedTextField.getText(), TimejFormattedTextField.getText());
+                globalRouterHandler.setDateTime(DatejFormattedTextField.getText(), TimejFormattedTextField.getText());
 
             }
         }
@@ -1129,7 +1118,7 @@ public class CLI extends javax.swing.JPanel {
 
     private void VlanOkjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_VlanOkjButtonActionPerformed
         if (!VlanNumberjTextField.getText().equals("") && !VlanNamejTextField.getText().equals("")) {
-            vTelnet.setVLanConfig(VlanNumberjTextField.getText(), VlanNamejTextField.getText());
+            globalRouterHandler.setVLanConfig(VlanNumberjTextField.getText(), VlanNamejTextField.getText());
 
             VlanNumberjTextField.setText("");
             VlanNamejTextField.setText("");

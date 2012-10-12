@@ -35,15 +35,14 @@ public class GUISolutionModel {
     private JList<String> StaticEstablishedRoutes;
     private DefaultListModel<String> staticListModel;
     private DefaultListModel<String> dynamicListModel;
-    //private DefaultListModel<String> statusListModel;
     private DefaultListModel<String> serialStatusListModel;
-    private DefaultTableModel statusTableModel;
+    private DefaultTableModel statusTableModel;//check
     private ArrayList<FastEthernet> FEArray;
     private ArrayList<Serial> SArray;
     private JTabbedPane interfacesPane;
     private MainInterface MainGUI;
     private int PaneIndex;
-    private RouterHandler vTelnet;
+    private RouterHandler routerHandler;
 
     public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
             JList StaticEstablishedRoutes, DefaultTableModel statusTableModel, JList serialStatus, JTabbedPane interfacesPane, MainInterface MainGUI,
@@ -65,7 +64,6 @@ public class GUISolutionModel {
 
         staticListModel = new DefaultListModel();
         dynamicListModel = new DefaultListModel();
-        //statusListModel = new DefaultListModel();
         this.statusTableModel = statusTableModel;
         serialStatusListModel = new DefaultListModel();
 
@@ -94,7 +92,7 @@ public class GUISolutionModel {
     }
 
     public void showErrorDialog(String message) {
-        JOptionPane.showMessageDialog(Console, message, "Error!", 0);
+        JOptionPane.showMessageDialog(this.MainGUI, message, "Error!", 0);
     }
 
     public void killTab(String host) {
@@ -109,20 +107,27 @@ public class GUISolutionModel {
         this.Clock.setText(Clock);
     }
 
+    public void setType(JLabel Type) {
+        this.Type = Type;
+    }
+    
     public void appendConsole(String string) {
-        this.Console.append(string);
+        if(Console!=null){
+            this.Console.append(string);
+        }
     }
 
     public void appendConsole(char character) {
-        this.Console.append(character + "");
+        if(Console!=null){
+            this.Console.append(character + "");
+        }
     }
 
-    public void setGUIInterfaces(String Iterfaces) {
+    public void setGUIInterfaces(String Iterfaces) {//nao esta sendo usado!--------------------------------------------------------------
         this.Interfaces.setText(Iterfaces);
     }
 
     public void setSerialType(String type) {
-
         serialStatusListModel.addElement(type);
     }
 
@@ -132,7 +137,6 @@ public class GUISolutionModel {
 
     public void addDynamicRoute(String route) {
         dynamicListModel.addElement(route);
-        // this.DynamicEstablishedRoutes.add
     }
 
     public void addStaticModel() {
@@ -145,6 +149,7 @@ public class GUISolutionModel {
 
     public void addStatusModel(ArrayList<String>Status) {
         if(statusTableModel!=null){
+            
 //            System.out.println("Valores Antigos:");
 //            for (int index = 0;index < statusTableModel.getRowCount(); index++) {
 //                System.out.println("V:"+statusTableModel.getValueAt(0, index));
@@ -165,72 +170,31 @@ public class GUISolutionModel {
             System.out.println("Novo Valor:"+Status.get(0));
         }
     }
-    
-    public void addStatusModel(String Interface, String Ip, String Ok, String Method, String Status, String Protocol) {
-        if(statusTableModel!=null){
-            int index;
-            for (index = 0; (index < statusTableModel.getRowCount()); index++) {
-                if (statusTableModel.getValueAt(0, index).equals(Interface)) {
-                    statusTableModel.setValueAt(Ip, 1, index);
-                    statusTableModel.setValueAt(Ok, 2, index);
-                    statusTableModel.setValueAt(Method, 3, index);
-                    statusTableModel.setValueAt(Status, 4, index);
-                    statusTableModel.setValueAt(Protocol, 5, index);
-                    return;
-                }
-            }
-            if (index == statusTableModel.getRowCount() - 1) {
-                statusTableModel.addRow(new Object[]{Interface, Ip, Ok, Method, Status, Protocol});
-            }
-        }
-    }
 
     public void addSerialStatusModel() {
-        serialStatus.setModel(serialStatusListModel);
-    }
-
-//    public void addInterfaceStatus(String status) {
-//        statusListModel.addElement(status);
-//    }
-
-    public void removeDynamicRoute(String Route) {
-    }
-
-    public void removeDynamicRoute(int RouteIndex) {
+        if(serialStatus!=null){
+            serialStatus.setModel(serialStatusListModel);
+        }
     }
 
     public void addStaticRoute(String route) {
         staticListModel.addElement(route);
     }
 
-    public void removeStaticRoute(String Route) {
-    }
-
-    public void removeStaticRoute(int RouteIndex) {
-    }
-
     public void addFastEthernetInterface(String port) {
         FastEthernet FE = new FastEthernet();
-        FE.setvTelnet(vTelnet);
+        FE.setvTelnet(routerHandler);
 
         FE.setNumber(port);
         FEArray.add(FE);
         this.interfacesPane.add("Fast Ethernet " + port, FE);
     }
 
-    public JTextArea getConsole() {
-        return Console;
-    }
-
-    public void setConsole(JTextArea console) {
-        Console = console;
-    }
-
-    public void setFastEthernetPortStatus(int index, boolean On) {
+    public void setFastEthernetPortStatus(int index, boolean On) {//nao esta sendo usado!--------------------------------------------------------------
         FEArray.get(index).PortStatusjCheckBox.setSelected(On);
     }
 
-    public void setFastEthernetBandwidth(int index, String bw) {
+    public void setFastEthernetBandwidth(int index, String bw) {//nao esta sendo usado!--------------------------------------------------------------
         if (bw.equals("10")) {
             FEArray.get(index).jRadioButton10mbps.setSelected(true);
             FEArray.get(index).BandwidthjCheckBox.setSelected(false);
@@ -240,26 +204,25 @@ public class GUISolutionModel {
         } else if (bw.equalsIgnoreCase("auto")) {
             FEArray.get(index).BandwidthjCheckBox.setSelected(true);
         }
-
     }
 
-    public void setFastEthernetMac(int index, String MAC) {
+    public void setFastEthernetMac(int index, String MAC) {//nao esta sendo usado!--------------------------------------------------------------
         FEArray.get(index).MacjTextField.setText(MAC);
     }
 
-    public void setFastEthernetIp(int index, String IP) {
+    public void setFastEthernetIp(int index, String IP) {//nao esta sendo usado!--------------------------------------------------------------
         FEArray.get(index).IpjTextField.setText(IP);
     }
 
-    public void setFastEthernetMask(int index, String Mask) {
+    public void setFastEthernetMask(int index, String Mask) {//nao esta sendo usado!--------------------------------------------------------------
         FEArray.get(index).MaskjTextField.setText(Mask);
     }
 
-    public void setFastEthernetTx(int index, String Tx) {
+    public void setFastEthernetTx(int index, String Tx) {//nao esta sendo usado!--------------------------------------------------------------
         FEArray.get(index).TxjTextField.setText(Tx);
     }
 
-    public void setFastEthernetDuplex(int index, String duplex) {
+    public void setFastEthernetDuplex(int index, String duplex) {//nao esta sendo usado!--------------------------------------------------------------
         if (duplex.contains("half")) {
             FEArray.get(index).HalfDuplexJRadioButton.setSelected(true);
         }
@@ -268,7 +231,7 @@ public class GUISolutionModel {
 
     public void addSerialInterface(String port) {
         Serial S = new Serial();
-        S.setvTelnet(vTelnet);
+        S.setvTelnet(routerHandler);
         S.setNumber(port);
 
         SArray.add(S);
@@ -276,31 +239,31 @@ public class GUISolutionModel {
         this.interfacesPane.add("Serial " + port, S);
     }
 
-    public void setSerialPortStatus(int index, boolean On) {
+    public void setSerialPortStatus(int index, boolean On) {//nao esta sendo usado!--------------------------------------------------------------
         SArray.get(index).PortStatusjCheckBox.setSelected(On);
     }
 
-    public void setSerialClockRate(int index, int item) {
+    public void setSerialClockRate(int index, int item) {//nao esta sendo usado!--------------------------------------------------------------
         SArray.get(index).ClockRatejComboBox.setSelectedIndex(item);
     }
 
-    public void setSerialIp(int index, String IP) {
+    public void setSerialIp(int index, String IP) {//nao esta sendo usado!--------------------------------------------------------------
         SArray.get(index).IpjTextField.setText(IP);
     }
 
-    public void setSerialMask(int index, String Mask) {
+    public void setSerialMask(int index, String Mask) {//nao esta sendo usado!--------------------------------------------------------------
         SArray.get(index).MaskjTextField.setText(Mask);
     }
 
-    public void setSerialTx(int index, int Tx) {
+    public void setSerialTx(int index, int Tx) {//nao esta sendo usado!--------------------------------------------------------------
         SArray.get(index).TxjTextField.setText(Integer.toString(Tx));
     }
 
-    public RouterHandler getvTelnet() {
-        return vTelnet;
+    public RouterHandler getRouterHandler() {
+        return routerHandler;
     }
 
-    public void setvTelnet(RouterHandler vTelnet) {
-        this.vTelnet = vTelnet;
+    public void setRouterHandler(RouterHandler routerHandler) {
+        this.routerHandler = routerHandler;
     }
 }
