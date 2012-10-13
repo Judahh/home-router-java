@@ -72,59 +72,6 @@ public class InformationHandler {// --------------------------------------------
     public GUISolutionModel getGUISol() {
         return this.connection.getGuiSol();
     }
-
-//    public String checkInfo(String FirstPartInfo) {//retornar prompt do router
-//        System.out.println("IS INFO?");
-//        if (isConnected()) {
-//            if (FirstPartInfo.contains("More")) {
-//                connection.send(" ");
-//            } else {
-//                for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-//                    if (FirstPartInfo.contains(getEndInfoPossibilities().get(index))) {
-//                        connection.send("\r\n");
-//                    }
-//                }
-//            }
-//
-//            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInfoPossibilities());
-//
-//            String fullInfo = FirstPartInfo + InfoS.get(1);
-//            
-//            System.out.println("---------------------------------");
-//            System.out.println();
-//            System.out.println();
-//            System.out.println("FullInfo:");
-//            System.out.println(fullInfo.split("--More--")[0]);
-//            System.out.println();
-//            System.out.println();
-//            System.out.println("---------------------------------");
-//
-//            parseClockInfo(fullInfo);
-//            parseShowRunInfo(fullInfo);
-//            parseInterfaceStatusInfo(fullInfo);
-//            parseShowControllersInfo(InfoS.get(1));
-//            
-//            if(!showInfo(fullInfo)){
-//                if(showError(fullInfo)){
-//                    //ouve erro!
-//                }
-//            } 
-//
-//            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
-//                return checkInfo(getEndInfoPossibilities().get(0));//checa se ainda existe informacao
-//            }
-//            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-//                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
-//                    setRouterName(InfoS.get(1), InfoS.get(0), index);
-//                    return getEndInfoPossibilities().get(index);
-//                }
-//            }
-//            if (InfoS.get(0).contains("More")) {
-//                return checkInfo(getEndInfoPossibilities().get(0));
-//            }
-//        }
-//        return null;
-//    }
     
     public String checkInfo(String FirstPartInfo) {//retornar prompt do router
         System.out.println("IS INFO?");
@@ -311,7 +258,6 @@ public class InformationHandler {// --------------------------------------------
             }
         }
         this.connection.getGuiSol().addSerialStatusModel();
-
     }
 
     public void parseShowRunInfo(String info) {//refazer que tah uma merda
