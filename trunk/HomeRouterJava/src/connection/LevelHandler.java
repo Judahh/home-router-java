@@ -105,7 +105,7 @@ public class LevelHandler {
                     return true;
                 }
                 if (this.info.isInfo(Sreceived)) {
-                    checkLevel(this.info.checkInfo(Sreceived));
+                    checkLevel(this.info.checkInformation(Sreceived));
                     return true;
                 }
                 checkLevel();
@@ -129,7 +129,7 @@ public class LevelHandler {
                     return true;
                 }
                 if (this.info.isInfo(Sreceived)) {
-                    checkLevel(this.info.checkInfo(Sreceived));
+                    checkLevel(this.info.checkInformation(Sreceived));
                     return true;
                 }
                 checkLevel();

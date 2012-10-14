@@ -44,7 +44,6 @@ import model.TimeModel;
 // ---More-- (como por exemplo no show run)(enviar:" ")(quando o metodo receber
 // isso ele ira enviar um espaco e chamara a si mesmo)
 public class InformationHandler {// ---------------------------------------------------------------------------------------------------------------------
-
     private ClockModel clock;
     private RunModel run;
     private ConnectionHandler connection;
@@ -61,8 +60,8 @@ public class InformationHandler {// --------------------------------------------
         this.interfaceTabs = new ArrayList<String>();
         this.staticRoutes = new ArrayList<String>();
         this.dynamicRoutes = new ArrayList<String>();
-        infoPossibilitiesMaker();
-        endInfoPossibilitiesMaker();
+        informationPossibilitiesMaker();
+        endInformationPossibilitiesMaker();
     }
 
     public ConnectionHandler getConnection() {
@@ -73,45 +72,45 @@ public class InformationHandler {// --------------------------------------------
         return this.connection.getGuiSol();
     }
     
-    public String checkInfo(String FirstPartInfo) {//retornar prompt do router
+    public String checkInformation(String FirstPartInfo) {//retornar prompt do router
         System.out.println("IS INFO?");
         if (isConnected()) {
             if (FirstPartInfo.contains("More")) {
                 connection.send(" ");
             } else {
-                for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-                    if (FirstPartInfo.contains(getEndInfoPossibilities().get(index))) {
+                for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
+                    if (FirstPartInfo.contains(getEndInformationPossibilities().get(index))) {
                         connection.send("\r\n");
                     }
                 }
             }
 
-            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInfoPossibilities());
+            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInformationPossibilities());
             String fullInfo = FirstPartInfo + InfoS.get(1);
 
             if (InfoS.get(0).contains("More")) {
-                return checkInfo(true, fullInfo.split("--More--")[0]);
+                return checkInformation(true, fullInfo.split("--More--")[0]);
             }
 
-            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
-                return checkInfo(false, getEndInfoPossibilities().get(0));
+            if (InfoS.get(0).contains(getEndInformationPossibilities().get(0))) {
+                return checkInformation(false, getEndInformationPossibilities().get(0));
             }
 
             String lastInfo = null;
             String routerName = null;
-            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
+            for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
+                if (InfoS.get(0).contains(getEndInformationPossibilities().get(index))) {
                     routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    lastInfo = getEndInfoPossibilities().get(index);
-                    index = getEndInfoPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+                    lastInfo = getEndInformationPossibilities().get(index);
+                    index = getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
                 }
             }
 
             fullInfo = fullInfo.split(routerName + lastInfo)[0];
-            parseClockInfo(fullInfo);
-            parseShowRunInfo(fullInfo);
-            parseInterfaceStatusInfo(fullInfo);
-            parseShowControllersInfo(InfoS.get(1));
+            parseClockInformation(fullInfo);
+            parseShowRunInformation(fullInfo);
+            parseShowIpInterfaceBriefInformation(fullInfo);
+            parseShowControllersInformation(InfoS.get(1));
 
             if (!showInfo(fullInfo)) {
                 if (showError(fullInfo)) {
@@ -129,45 +128,45 @@ public class InformationHandler {// --------------------------------------------
         return null;
     }
 
-    public String checkInfo(boolean more, String FirstPartInfo) {//retornar prompt do router
+    public String checkInformation(boolean more, String FirstPartInfo) {//retornar prompt do router
         System.out.println("IS INFO?");
         if (isConnected()) {
             if (more) {
                 connection.send(" ");
             } else {
-                for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-                    if (FirstPartInfo.contains(getEndInfoPossibilities().get(index))) {
+                for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
+                    if (FirstPartInfo.contains(getEndInformationPossibilities().get(index))) {
                         connection.send("\r\n");
                     }
                 }
             }
 
-            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInfoPossibilities());
+            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInformationPossibilities());
             String fullInfo = FirstPartInfo + InfoS.get(1);
 
             if (InfoS.get(0).contains("More")) {
-                return checkInfo(true, fullInfo.split("--More--")[0]);
+                return checkInformation(true, fullInfo.split("--More--")[0]);
             }
 
-            if (InfoS.get(0).contains(getEndInfoPossibilities().get(0))) {
-                return checkInfo(false, getEndInfoPossibilities().get(0));
+            if (InfoS.get(0).contains(getEndInformationPossibilities().get(0))) {
+                return checkInformation(false, getEndInformationPossibilities().get(0));
             }
 
             String lastInfo = null;
             String routerName = null;
-            for (int index = 1; index < getEndInfoPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(getEndInfoPossibilities().get(index))) {
+            for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
+                if (InfoS.get(0).contains(getEndInformationPossibilities().get(index))) {
                     routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    lastInfo = getEndInfoPossibilities().get(index);
-                    index = getEndInfoPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+                    lastInfo = getEndInformationPossibilities().get(index);
+                    index = getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
                 }
             }
 
             fullInfo = fullInfo.split(routerName + lastInfo)[0];
-            parseClockInfo(fullInfo);
-            parseShowRunInfo(fullInfo);
-            parseInterfaceStatusInfo(fullInfo);
-            parseShowControllersInfo(InfoS.get(1));
+            parseClockInformation(fullInfo);
+            parseShowRunInformation(fullInfo);
+            parseShowIpInterfaceBriefInformation(fullInfo);
+            parseShowControllersInformation(InfoS.get(1));
 
             if (!showInfo(fullInfo)) {
                 if (showError(fullInfo)) {
@@ -233,7 +232,7 @@ public class InformationHandler {// --------------------------------------------
     }
 
     // verifica se a interface serial ÃƒÂ¯Ã‚Â¿Ã‚Â½ master ou slave
-    public void parseShowControllersInfo(String info) {//refazer que tah uma merda
+    public void parseShowControllersInformation(String info) {//refazer que tah uma merda
         // impede que se adicionem interfaces repetidas
         ArrayList<String> interfaces = new ArrayList<String>();
         String[] infoarray = info.split("\\r");
@@ -260,7 +259,7 @@ public class InformationHandler {// --------------------------------------------
         this.connection.getGuiSol().addSerialStatusModel();
     }
 
-    public void parseShowRunInfo(String info) {//refazer que tah uma merda
+    public void parseShowRunInformation(String info) {//refazer que tah uma merda
         String[] infoarray = info.split("\\r");
         // impede que se adicionem interfaces repetidas
 
@@ -416,7 +415,7 @@ public class InformationHandler {// --------------------------------------------
 //
 //    }
     
-    public void parseInterfaceStatusInfo(String info) {//usa show ip Interface Brief
+    public void parseShowIpInterfaceBriefInformation(String info) {//usa show ip Interface Brief
         String[] infoarray = info.split("\r\n");
         ArrayList<String>[] infoMatrix = new ArrayList[infoarray.length];
         for (int i = 0; i < infoarray.length; i++) {
@@ -456,7 +455,7 @@ public class InformationHandler {// --------------------------------------------
     }
 
     // tratar clock
-    public void parseClockInfo(String info) {//refazer que tah uma merda
+    public void parseClockInformation(String info) {//refazer que tah uma merda
         String[] infoarray = info.split("\\r");
         for (int i = 0; i < infoarray.length; i++) {
             if ((infoarray[i].contains(" UTC "))
@@ -472,7 +471,7 @@ public class InformationHandler {// --------------------------------------------
 
     }
 
-    private void endInfoPossibilitiesMaker() {
+    private void endInformationPossibilitiesMaker() {
         ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("--More--");
         CommandHandler CMDHandler = new CommandHandler(connection);
@@ -484,11 +483,11 @@ public class InformationHandler {// --------------------------------------------
     }
 
     // toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
-    private ArrayList<String> getEndInfoPossibilities() {//trocar por as possibilidades de prompt do router + --More--
+    private ArrayList<String> getEndInformationPossibilities() {//trocar por as possibilidades de prompt do router + --More--
         return this.endInfoPossibilities;
     }
 
-    private void infoPossibilitiesMaker() {
+    private void informationPossibilitiesMaker() {
         ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("!");
         possibilities.add("*");
