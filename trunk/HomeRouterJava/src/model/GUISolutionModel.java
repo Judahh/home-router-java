@@ -44,6 +44,45 @@ public class GUISolutionModel {
     private int PaneIndex;
     private RouterHandler routerHandler;
 
+    public GUISolutionModel(DefaultTableModel statusTableModel, JTabbedPane interfacesPane, MainInterface MainGUI,
+            int PaneIndex) {
+        this.MainGUI = MainGUI;
+        this.PaneIndex = PaneIndex;
+
+        this.interfacesPane = interfacesPane;
+
+        staticListModel = new DefaultListModel();
+        dynamicListModel = new DefaultListModel();
+        this.statusTableModel = statusTableModel;
+        serialStatusListModel = new DefaultListModel();
+    }
+    
+    public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
+            JList StaticEstablishedRoutes, JList serialStatus, JTabbedPane interfacesPane, MainInterface MainGUI,
+            int PaneIndex) {
+        this.Console = Console;
+        this.serialStatus = serialStatus;
+        this.Clock = Clock;
+        this.Interfaces = Interfaces;
+        this.Type = Type;
+        this.Ios = Ios;
+
+        this.MainGUI = MainGUI;
+        this.PaneIndex = PaneIndex;
+
+        this.interfacesPane = interfacesPane;
+
+        this.DynamicEstablishedRoutes = DynamicEstablishedRoutes;
+        this.StaticEstablishedRoutes = StaticEstablishedRoutes;
+
+        staticListModel = new DefaultListModel();
+        dynamicListModel = new DefaultListModel();
+        serialStatusListModel = new DefaultListModel();
+
+        FEArray = new ArrayList<FastEthernet>();
+        SArray = new ArrayList<Serial>();
+    }
+    
     public GUISolutionModel(JTextArea Console, JLabel Clock, JLabel Interfaces, JLabel Type, JLabel Ios, JList DynamicEstablishedRoutes,
             JList StaticEstablishedRoutes, DefaultTableModel statusTableModel, JList serialStatus, JTabbedPane interfacesPane, MainInterface MainGUI,
             int PaneIndex) {

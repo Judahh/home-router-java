@@ -89,7 +89,7 @@ public class CLI extends javax.swing.JPanel {
         this.index = index;
 
         GUISolutionModel GuiSol = new GUISolutionModel(ConsolejTextArea, ClockjLabel, InterfacesjLabel, TypejLabel, IosjLabel, DyRjList,
-                RjList, null, interfaceSerialTypeList, interfacesJTabbedPane, mi, index);
+                RjList, interfaceSerialTypeList, interfacesJTabbedPane, mi, index);
 
         globalRouterHandler = new RouterHandler(host, port, GuiSol);
 
@@ -953,7 +953,7 @@ public class CLI extends javax.swing.JPanel {
             // GEN-FIRST:event_InterfacesStatusjFrameComponentShown
             // thread para atualizar status das interfaces
             statusTableModel = (DefaultTableModel) InterfaceStatusjTable.getModel();
-            GUISolutionModel GuiSol = new GUISolutionModel(null, null, null, null, null, null, null, statusTableModel, null, interfacesJTabbedPane, mi, index);
+            GUISolutionModel GuiSol = new GUISolutionModel(statusTableModel, interfacesJTabbedPane, mi, index);
             final RouterHandler localRouterHandler = new RouterHandler(host, port, GuiSol);
             GuiSol.setRouterHandler(localRouterHandler);
            
