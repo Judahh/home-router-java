@@ -194,7 +194,7 @@ public class InformationHandler {// --------------------------------------------
 
     public String setRouterName(String routerName, String end, int index) {
         if (isConnected()) {
-            CommandHandler CMDHandler = new CommandHandler(0);
+            CommandHandler CMDHandler = new CommandHandler(connection);
             if ((index > 0) && (index < CMDHandler.getArrayPromptValues().size() - 3)) {
                 for (index = routerName.length() - end.length(); routerName.charAt(index) != '\n'; index--) {
                 }
@@ -475,7 +475,7 @@ public class InformationHandler {// --------------------------------------------
     private void endInfoPossibilitiesMaker() {
         ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("--More--");
-        CommandHandler CMDHandler = new CommandHandler(0);
+        CommandHandler CMDHandler = new CommandHandler(connection);
         possibilities.addAll(CMDHandler.getArrayPromptValues());
 //        for(int i = 1; i < getInfoPossibilities().size(); i++) {
 //            possibilities.add(getInfoPossibilities().get(i));

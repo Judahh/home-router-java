@@ -26,9 +26,9 @@ public class LevelHandler {
     private ArrayList<String> msgPossibilities;
 
     public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
-        prompt = new CommandHandler(0);
         routerInfo = new RouterInfoModel();
         ConnectionHandler connection = new ConnectionHandler(host, port, GuiSol);
+        prompt = new CommandHandler(connection);
         info = new InformationHandler(connection);
         auth = new AuthenticationHandler(connection);
         getAllMsgPossibilities();
@@ -93,53 +93,22 @@ public class LevelHandler {
         return this.msgPossibilities;
     }
 
-    private boolean isPrompt(String stringReceived, String msgReceived) {
-        System.out.println("IS LEVEL?");
-        // ---------------------------------------------------------------------------------------------------
-        // TO DO:tem que ver pergunta ao entrar no config!!
-        for (int i = 0; i < this.prompt.getPromptValues().length; i++) {
-            if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[i]))) {
-                this.prompt.setLevel(i);//System.out.println("Level:" + i);
-
-                if ((i > 0) && (i < this.prompt.getPromptValues().length - 2) && (msgReceived != null)) {
-                    setRouterName(msgReceived, stringReceived);
-                }
-
-                if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[0]))) {
-                    checkLevel();
-                }
-                if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 1])) || stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 2]))) {
-                    sendCommand("\r\n");
-                }
-                if (stringReceived.equals(this.prompt.getPrompt(this.prompt.getPromptValues()[this.prompt.getPromptValues().length - 3]))) {
-                    sendCommand("terminal\r\n");
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         if (info.isConnected()) {
             try {
                 ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
                 String Sreceived = arrayReceived.get(0);
                 String Mreceived = arrayReceived.get(1);
-
                 if (this.auth.isAuth(Sreceived, prompt.getLevel())) {
                     return true;
                 }
-
-                if (isPrompt(Sreceived, Mreceived)) {
+                if (this.prompt.isPrompt(Sreceived, Mreceived)) {
                     return true;
                 }
-
                 if (this.info.isInfo(Sreceived)) {
                     checkLevel(this.info.checkInfo(Sreceived));
                     return true;
                 }
-
                 checkLevel();
             } catch (Exception e) {
                 this.info.getGUISol().showMessageDialog("This client can't send data to server!");
@@ -154,24 +123,20 @@ public class LevelHandler {
             try {
                 System.out.println("Entrou:" + Level + "!!!");
                 String Sreceived = Level;
-
                 if (this.auth.isAuth(Sreceived, prompt.getLevel())) {
                     return true;
                 }
-
-                if (isPrompt(Sreceived, null)) {
+                if (this.prompt.isPrompt(Sreceived, null)) {
                     return true;
                 }
-
                 if (this.info.isInfo(Sreceived)) {
                     checkLevel(this.info.checkInfo(Sreceived));
                     return true;
                 }
-
                 checkLevel();
             } catch (Exception e) {
                 this.info.getGUISol().showMessageDialog("This client can't send data to server!");
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
         return true;

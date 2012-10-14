@@ -12,20 +12,16 @@ import model.IdentifierModel;
  * @author JH
  */
 public class CommandHandler {
-
     private Prompt prompt;
     private IdentifierModel identifier;
     ArrayList<String> arrayPromptValues;
+    private ConnectionHandler connection;
 
-    public CommandHandler(Prompt prompt) {
-        this.prompt = prompt;
+    public CommandHandler(ConnectionHandler connection) {
+        this.prompt = Prompt.values()[0];
         this.identifier = new IdentifierModel(1, "0/1/0");
-        identifier.setSubPort(".2");
-        arrayPromptMaker();
-    }
-
-    public CommandHandler(int level) {
-        this.prompt = Prompt.values()[level];
+        this.identifier.setSubPort(".2");
+        this.connection=connection;
         arrayPromptMaker();
     }
 
@@ -51,6 +47,23 @@ public class CommandHandler {
         }
         return index;
     }
+    
+    public boolean isPrompt(String stringReceived, String msgReceived) {
+        System.out.println("IS LEVEL?");
+        for (int i = 0; i < getPromptValues().length; i++) {
+            if (stringReceived.equals(getPrompt(getPromptValues()[i]))) {
+                setLevel(i);
+                if (stringReceived.equals(getPrompt(getPromptValues()[getPromptValues().length - 1])) || stringReceived.equals(getPrompt(getPromptValues()[getPromptValues().length - 2]))) {
+                    this.connection.send("\r\n");
+                }
+                if (stringReceived.equals(getPrompt(getPromptValues()[getPromptValues().length - 3]))) {
+                    this.connection.send("terminal\r\n");
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Prompt getLevelPrompt() {
         return this.prompt;
@@ -73,8 +86,7 @@ public class CommandHandler {
     }
 
     public enum Prompt {
-
-        Logged_Off, A, B, configB, appnB, ca_identityB, cfg_lan_Ether_10B, cfg_adap_Ether_10_1B, config_cert_chainB, config_controllerB, config_ctrl_casB, config_crypto_mapB, config_crypto_transB, config_dialpeerB, config_ext_naclB, config_std_naclB, config_hubB, config_ifB, config_if_atm_vcB, config_vc_classB, config_subifB, config_ipx_routerB, config_isakmpB, config_keychainB, config_keychain_keyB, config_lineB, config_map_classB, config_map_listB, config_modem_poolB, config_poll_grB, config_pubkeyB, config_pubkey_keyB, config_route_mapB, config_routerB, config_rtrB, config_voiceportB, lane_config_databB, mpoa_client_configB, mpoa_server_configB, tn3270_serverB, tn3270_puB, tn3270_dlurB, tn3270_dlur_sapB, tn3270_dlur_puB, configBAsk, Logged_OffAsk, Logged_OffConsoleAsk
+        LoggedOff,A, B, configB, appnB, ca_identityB, cfg_lan_Ether_10B, cfg_adap_Ether_10_1B, config_cert_chainB, config_controllerB, config_ctrl_casB, config_crypto_mapB, config_crypto_transB, config_dialpeerB, config_ext_naclB, config_std_naclB, config_hubB, config_ifB, config_if_atm_vcB, config_vc_classB, config_subifB, config_ipx_routerB, config_isakmpB, config_keychainB, config_keychain_keyB, config_lineB, config_map_classB, config_map_listB, config_modem_poolB, config_poll_grB, config_pubkeyB, config_pubkey_keyB, config_route_mapB, config_routerB, config_rtrB, config_voiceportB, lane_config_databB, mpoa_client_configB, mpoa_server_configB, tn3270_serverB, tn3270_puB, tn3270_dlurB, tn3270_dlur_sapB, tn3270_dlur_puB, configBAsk, Logged_OffAsk, Logged_OffConsoleAsk
     }
 
     public String getPrompt() {
@@ -83,8 +95,6 @@ public class CommandHandler {
 
     public String getPrompt(Prompt prompt) {
         switch (prompt) {
-            case Logged_Off:
-                return "Console port";
             case A:
                 return ">";
             case B:
