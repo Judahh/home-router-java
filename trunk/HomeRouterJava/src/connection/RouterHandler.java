@@ -128,7 +128,7 @@ public class RouterHandler {
     }
 
     public void setEnablePass(String pass) {
-        if (routerLevel.getPrompt().getLevel() != 3) {
+        if (routerLevel.getLevel() != 3) {
             this.goToLevelRouter(3);
         }
         this.routerLevel.sendCommand("enable password " + pass + "\r\n");
@@ -136,7 +136,7 @@ public class RouterHandler {
     }
 
     public void setEnableSecretPass(String secret) {
-        if (routerLevel.getPrompt().getLevel() != 3) {
+        if (routerLevel.getLevel() != 3) {
             this.goToLevelRouter(3);
         }
         this.routerLevel.sendCommand("enable secret " + secret + "\r\n");
@@ -144,7 +144,7 @@ public class RouterHandler {
     }
 
     public void showRun() {
-        if (routerLevel.getPrompt().getLevel() != 2) {
+        if (routerLevel.getLevel() != 2) {
             this.goToLevelRouter(2);
         }
 
@@ -152,7 +152,7 @@ public class RouterHandler {
     }
 
     public void showIpInterfaceBrief() {
-        if (routerLevel.getPrompt().getLevel() != 1) {
+        if (routerLevel.getLevel() != 1) {
             this.goToLevelRouter(1);
         }
 
@@ -162,7 +162,7 @@ public class RouterHandler {
     public void setFastEthernetInterface(String number, boolean portStatus, String bandwidth, String duplex, String mac, String ip,
             String mask, String tx) {
 
-        if (routerLevel.getPrompt().getLevel() != 3) {
+        if (routerLevel.getLevel() != 3) {
             this.goToLevelRouter(3);
         }
         this.routerLevel.sendCommand("interface fastethernet" + number + "\r\n");
@@ -220,7 +220,7 @@ public class RouterHandler {
 
     public boolean Login() {
         routerLevel.checkLevel();
-        if (routerLevel.getPrompt().getLevel() > 0) {
+        if (routerLevel.getLevel() > 0) {
             return true;
         }
         return false;
