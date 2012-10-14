@@ -197,7 +197,7 @@ public class LevelHandler {
     }
 
     private void reduceLevel() {
-        if(prompt.getLevel() > 45){
+        if(prompt.getLevel() > 44){
             sendCommand("\r\n");
         }else if ((prompt.getLevel() != 2) && (prompt.getLevel() > 0)) {
             sendCommand("exit\r\n");
