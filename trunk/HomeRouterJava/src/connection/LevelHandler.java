@@ -80,7 +80,7 @@ public class LevelHandler {
     }
 
     private void getAllMsgPossibilities() {
-        ArrayList<String> Possibilities = this.info.getInfoPossibilities();
+        ArrayList<String> Possibilities = this.info.getInformationPossibilities();
 
         Possibilities.addAll(this.auth.getArrayAuthValues());//valores da authenticacao
         Possibilities.addAll(this.prompt.getArrayPromptValues());
@@ -104,7 +104,7 @@ public class LevelHandler {
                 if (this.prompt.isPrompt(Sreceived, Mreceived)) {
                     return true;
                 }
-                if (this.info.isInfo(Sreceived)) {
+                if (this.info.isInformation(Sreceived)) {
                     checkLevel(this.info.checkInformation(Sreceived));
                     return true;
                 }
@@ -128,7 +128,7 @@ public class LevelHandler {
                 if (this.prompt.isPrompt(Sreceived, null)) {
                     return true;
                 }
-                if (this.info.isInfo(Sreceived)) {
+                if (this.info.isInformation(Sreceived)) {
                     checkLevel(this.info.checkInformation(Sreceived));
                     return true;
                 }
