@@ -152,7 +152,7 @@ public class LevelHandler {
     }
 
     private void sendLevel(int Level) {
-        sendCommand(this.prompt.getCMD(this.prompt.getPromptValues()[Level]));
+        sendCommand(this.prompt.getCMD(Level));
     }
 
     private void riseLevel(int SideLevel) {
@@ -198,7 +198,9 @@ public class LevelHandler {
     }
 
     private void reduceLevel() {
-        if ((prompt.getLevel() != 2) && (prompt.getLevel() > 0)) {
+        if(prompt.getLevel() > 45){
+            sendCommand("\r\n");
+        }else if ((prompt.getLevel() != 2) && (prompt.getLevel() > 0)) {
             sendCommand("exit\r\n");
         } else if (prompt.getLevel() == 2) {
             sendCommand("disable\r\n");

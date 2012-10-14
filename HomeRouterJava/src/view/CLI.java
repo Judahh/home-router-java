@@ -1076,18 +1076,10 @@ public class CLI extends javax.swing.JPanel {
         // se apertar enter, fazer o mesmo do botÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½o send
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
-            if (CommandjTextField.getText().equalsIgnoreCase("exit") && (globalRouterHandler.getLevel() < 3)) {
-                globalRouterHandler.disconnect();
-                mi.killCLI(host, index);
-
-            } else {
-                if (globalRouterHandler != null) {
-                    globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
-                    CommandjTextField.setText("");
-                }
-
+            if (globalRouterHandler != null) {
+                globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
+                CommandjTextField.setText("");
             }
-
         }
 
     }// GEN-LAST:event_CommandjTextFieldKeyPressed
