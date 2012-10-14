@@ -14,15 +14,10 @@ import java.util.regex.Pattern;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import model.*;
 
 import view.FastEthernet;
 import view.Serial;
-import model.ClockModel;
-import model.GUISolutionModel;
-import model.IdentifierModel;
-import model.InterfaceModel;
-import model.RunModel;
-import model.TimeModel;
 
 /**
  *
@@ -44,24 +39,13 @@ import model.TimeModel;
 // ---More-- (como por exemplo no show run)(enviar:" ")(quando o metodo receber
 // isso ele ira enviar um espaco e chamara a si mesmo)
 public class InformationHandler {// ---------------------------------------------------------------------------------------------------------------------
-    private ClockModel clock;
-    private RunModel run;
     private ConnectionHandler connection;
-    private String version;
-    private ArrayList<String> interfaceTabs;
-    private ArrayList<String> staticRoutes;
-    private ArrayList<String> dynamicRoutes;
-    private ArrayList<String> endInfoPossibilities;
-    private ArrayList<String> infoPossibilities;
+    private InformationModel model;
 
     public InformationHandler(ConnectionHandler connection)
             throws ConnectException, SocketException, IOException {
         this.connection = connection;
-        this.interfaceTabs = new ArrayList<String>();
-        this.staticRoutes = new ArrayList<String>();
-        this.dynamicRoutes = new ArrayList<String>();
-        informationPossibilitiesMaker();
-        endInformationPossibilitiesMaker();
+        this.model=new InformationModel();
     }
 
     public ConnectionHandler getConnection() {
@@ -78,31 +62,31 @@ public class InformationHandler {// --------------------------------------------
             if (FirstPartInfo.contains("More")) {
                 connection.send(" ");
             } else {
-                for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
-                    if (FirstPartInfo.contains(getEndInformationPossibilities().get(index))) {
+                for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+                    if (FirstPartInfo.contains(this.model.getEndInformationPossibilities().get(index))) {
                         connection.send("\r\n");
                     }
                 }
             }
 
-            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInformationPossibilities());
+            ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
             String fullInfo = FirstPartInfo + InfoS.get(1);
 
             if (InfoS.get(0).contains("More")) {
                 return checkInformation(true, fullInfo.split("--More--")[0]);
             }
 
-            if (InfoS.get(0).contains(getEndInformationPossibilities().get(0))) {
-                return checkInformation(false, getEndInformationPossibilities().get(0));
+            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(0))) {
+                return checkInformation(false, this.model.getEndInformationPossibilities().get(0));
             }
 
             String lastInfo = null;
             String routerName = null;
-            for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(getEndInformationPossibilities().get(index))) {
+            for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+                if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
                     routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    lastInfo = getEndInformationPossibilities().get(index);
-                    index = getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+                    lastInfo = this.model.getEndInformationPossibilities().get(index);
+                    index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
                 }
             }
 
@@ -134,31 +118,31 @@ public class InformationHandler {// --------------------------------------------
             if (more) {
                 connection.send(" ");
             } else {
-                for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
-                    if (FirstPartInfo.contains(getEndInformationPossibilities().get(index))) {
+                for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+                    if (FirstPartInfo.contains(this.model.getEndInformationPossibilities().get(index))) {
                         connection.send("\r\n");
                     }
                 }
             }
 
-            ArrayList<String> InfoS = connection.arrayListReadUntil(getEndInformationPossibilities());
+            ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
             String fullInfo = FirstPartInfo + InfoS.get(1);
 
             if (InfoS.get(0).contains("More")) {
                 return checkInformation(true, fullInfo.split("--More--")[0]);
             }
 
-            if (InfoS.get(0).contains(getEndInformationPossibilities().get(0))) {
-                return checkInformation(false, getEndInformationPossibilities().get(0));
+            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(0))) {
+                return checkInformation(false, this.model.getEndInformationPossibilities().get(0));
             }
 
             String lastInfo = null;
             String routerName = null;
-            for (int index = 1; index < getEndInformationPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(getEndInformationPossibilities().get(index))) {
+            for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+                if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
                     routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    lastInfo = getEndInformationPossibilities().get(index);
-                    index = getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+                    lastInfo = this.model.getEndInformationPossibilities().get(index);
+                    index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
                 }
             }
 
@@ -267,16 +251,16 @@ public class InformationHandler {// --------------------------------------------
         for (int i = 0; i < infoarray.length; i++) {
             if (infoarray[i].contains("version")) {
                 String[] tempversion = infoarray[i].split("version");
-                version = tempversion[1].trim();
-                this.connection.getGuiSol().setIos("IOS version " + version);
+                this.model.setVersion(tempversion[1].trim());
+                this.connection.getGuiSol().setIos("IOS version " + this.model.getVersion());
             }
 
             if (infoarray[i].contains("ip route")) {
                 String[] temproute = infoarray[i].split(" ");
                 String route = temproute[2] + " with mask " + temproute[3]
                         + " via " + temproute[4];
-                if (!staticRoutes.contains(route)) {
-                    staticRoutes.add(route);
+                if (!this.model.getStaticRoutes().contains(route)) {
+                    this.model.getStaticRoutes().add(route);
                     this.connection.getGuiSol().addStaticRoute(temproute[2] + " with mask "
                             + temproute[3] + " via " + temproute[4]);
                     newroutes = true;
@@ -289,8 +273,8 @@ public class InformationHandler {// --------------------------------------------
                 String cache = infoarray[j];
                 while (cache.contains("network")) {
                     String[] temproute2 = infoarray[j].split("network");
-                    if (!dynamicRoutes.contains(temproute2[1].trim())) {
-                        dynamicRoutes.add(temproute2[1].trim());
+                    if (!this.model.getDynamicRoutes().contains(temproute2[1].trim())) {
+                        this.model.getDynamicRoutes().add(temproute2[1].trim());
                         this.connection.getGuiSol().addDynamicRoute(temproute2[1].trim());
                         newroutes = true;
                     }
@@ -304,8 +288,8 @@ public class InformationHandler {// --------------------------------------------
             if (infoarray[i].contains("interface FastEthernet")) {
 
                 String[] temparray = infoarray[i].split(" ");
-                if (!interfaceTabs.contains(infoarray[i])) {
-                    interfaceTabs.add(infoarray[i]);
+                if (!this.model.getInterfaceTabs().contains(infoarray[i])) {
+                    this.model.getInterfaceTabs().add(infoarray[i]);
                     this.connection.getGuiSol().addFastEthernetInterface(temparray[1].substring(temparray[1].lastIndexOf("t") + 1));
 
                 }
@@ -314,8 +298,8 @@ public class InformationHandler {// --------------------------------------------
 
             if (infoarray[i].contains("interface Serial")) {
                 String[] temparray = infoarray[i].split(" ");
-                if (!interfaceTabs.contains(infoarray[i])) {
-                    interfaceTabs.add(infoarray[i]);
+                if (!this.model.getInterfaceTabs().contains(infoarray[i])) {
+                    this.model.getInterfaceTabs().add(infoarray[i]);
                     this.connection.getGuiSol().addSerialInterface(temparray[1].substring(temparray[1].lastIndexOf("l") + 1));
 
                 }
@@ -468,68 +452,13 @@ public class InformationHandler {// --------------------------------------------
 
             }
         }
-
     }
-
-    private void endInformationPossibilitiesMaker() {
-        ArrayList<String> possibilities = new ArrayList<>();
-        possibilities.add("--More--");
-        CommandHandler CMDHandler = new CommandHandler(connection);
-        possibilities.addAll(CMDHandler.getArrayPromptValues());
-//        for(int i = 1; i < getInfoPossibilities().size(); i++) {
-//            possibilities.add(getInfoPossibilities().get(i));
-//        }
-        this.endInfoPossibilities = possibilities;
+    
+    public ArrayList<String> getInformationPossibilities(){
+        return this.model.getInformationPossibilities();
     }
-
-    // toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
-    private ArrayList<String> getEndInformationPossibilities() {//trocar por as possibilidades de prompt do router + --More--
-        return this.endInfoPossibilities;
-    }
-
-    private void informationPossibilitiesMaker() {
-        ArrayList<String> possibilities = new ArrayList<>();
-        possibilities.add("!");
-        possibilities.add("*");
-        possibilities.add("<");
-        possibilities.add("domain server (");
-        possibilities.add("Interface");
-        possibilities.add("RX_RING_ENTRIES");
-        possibilities.add("status");
-        possibilities.add("Register");
-        possibilities.add("User-defined Address");
-        possibilities.add("--More--");
-        possibilities.add("end");
-        possibilities.add("%");
-        possibilities.add("Jan");
-        possibilities.add("Feb");
-        possibilities.add("Mar");
-        possibilities.add("Apr");
-        possibilities.add("May");
-        possibilities.add("Jun");
-        possibilities.add("Jul");
-        possibilities.add("Aug");
-        possibilities.add("Sep");
-        possibilities.add("Oct");
-        possibilities.add("Nov");
-        possibilities.add("Dec");
-
-        this.infoPossibilities = possibilities;
-    }
-
-    public ArrayList<String> getInfoPossibilities() {
-        return this.infoPossibilities;
-    }
-
-    public boolean isInfo(String stringReceived) {
-        // ---------------------------------------------------------------------------------------------------
-        // TO DO:tem que ver pergunta ao entrar no config!!
-        for (int i = 0; i < getInfoPossibilities().size(); i++) {
-            if (stringReceived.equals(getInfoPossibilities().get(i))) {
-                System.out.println("INFO:" + stringReceived);
-                return true;
-            }
-        }
-        return false;
+    
+    public boolean isInformation(String Info){
+        return this.model.isInformation(Info);
     }
 }
