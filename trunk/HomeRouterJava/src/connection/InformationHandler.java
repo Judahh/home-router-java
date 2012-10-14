@@ -42,8 +42,7 @@ public class InformationHandler {// --------------------------------------------
     private ConnectionHandler connection;
     private InformationModel model;
 
-    public InformationHandler(ConnectionHandler connection)
-            throws ConnectException, SocketException, IOException {
+    public InformationHandler(ConnectionHandler connection)throws ConnectException, SocketException, IOException {
         this.connection = connection;
         this.model=new InformationModel();
     }
@@ -96,9 +95,11 @@ public class InformationHandler {// --------------------------------------------
             parseShowIpInterfaceBriefInformation(fullInfo);
             parseShowControllersInformation(InfoS.get(1));
 
-            if (!showInfo(fullInfo)) {
-                if (showError(fullInfo)) {
-                    //ouve erro!
+            if (!showInformation(fullInfo)) {
+                if (!showWarning(fullInfo)) {
+                    if (showError(fullInfo)) {
+                        //ouve erro!
+                    }
                 }
             }
 
@@ -152,9 +153,11 @@ public class InformationHandler {// --------------------------------------------
             parseShowIpInterfaceBriefInformation(fullInfo);
             parseShowControllersInformation(InfoS.get(1));
 
-            if (!showInfo(fullInfo)) {
-                if (showError(fullInfo)) {
-                    //ouve erro!
+            if (!showInformation(fullInfo)) {
+                if (!showWarning(fullInfo)) {
+                    if (showError(fullInfo)) {
+                        //ouve erro!
+                    }
                 }
             }
 
@@ -192,25 +195,46 @@ public class InformationHandler {// --------------------------------------------
     private boolean showError(String fullInfo) {
         if (fullInfo.contains("%")) {
             String error = fullInfo.substring(fullInfo.indexOf('%') + 1);
-            while((error.charAt(error.length()-1)=='\n')||(error.charAt(error.length()-1)=='\r')||(error.charAt(error.length()-1)=='.')){
-                error=error.substring(0, error.length()-1);
+            String[] errorParts=error.split("%");
+            for (int i = 0; i < errorParts.length; i++) {
+                System.out.println("Error "+i+":"+errorParts[i]+"-----");
+                while((errorParts[i].charAt(errorParts[i].length()-1)=='\n')||(errorParts[i].charAt(errorParts[i].length()-1)=='\r')||(errorParts[i].charAt(errorParts[i].length()-1)=='.')){
+                    errorParts[i]=errorParts[i].substring(0, errorParts[i].length()-1);
+                }
+                this.connection.getGuiSol().showErrorDialog(errorParts[i] + "!");
             }
-            this.connection.getGuiSol().showErrorDialog(error + "!");
             return true;
         }
         return false;
     }
 
-    private boolean showInfo(String fullInfo) {
+    private boolean showWarning(String fullInfo) {
+        if (fullInfo.contains("*")) {
+            String warning = fullInfo.substring(fullInfo.indexOf('*') + 1);
+            warning = warning.replace('*', '~');
+            String[] warningParts=warning.split("~");
+            for (int i = 0; i < warningParts.length; i++) {
+                while((warningParts[i].charAt(warningParts[i].length()-1)=='\n')||(warningParts[i].charAt(warningParts[i].length()-1)=='\r')||(warningParts[i].charAt(warningParts[i].length()-1)=='.')){
+                    warningParts[i]=warningParts[i].substring(0, warningParts[i].length()-1);
+                }
+                this.connection.getGuiSol().showWarningDialog(warningParts[i] + "!");
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean showInformation(String fullInfo) {
         if (fullInfo.contains("!")) {
             String info = fullInfo.substring(fullInfo.indexOf('!') + 1);
-            while((info.charAt(info.length()-1)=='\n')||(info.charAt(info.length()-1)=='\r')||(info.charAt(info.length()-1)=='.')){
-                info=info.substring(0, info.length()-1);
+            String[] infoParts=info.split("!");
+            for (int i = 0; i < infoParts.length; i++) {
+                while((infoParts[i].charAt(infoParts[i].length()-1)=='\n')||(infoParts[i].charAt(infoParts[i].length()-1)=='\r')||(infoParts[i].charAt(infoParts[i].length()-1)=='.')){
+                    infoParts[i]=infoParts[i].substring(0, infoParts[i].length()-1);
+                }
+                this.connection.getGuiSol().showMessageDialog(infoParts[i] + "!");
             }
-            if (!(info.contains("!") || info.contains("end"))) {
-                this.connection.getGuiSol().showMessageDialog(info + "!");
-                return true;
-            }
+            return true;
         }
         return false;
     }
