@@ -90,6 +90,10 @@ public class GUISolutionModel {
     public void showMessageDialog(String message) {
         JOptionPane.showMessageDialog(this.MainGUI, message, "Information", 1);
     }
+    
+    public void showWarningDialog(String message) {
+        JOptionPane.showMessageDialog(this.MainGUI, message, "Warning", 2);
+    }
 
     public void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(this.MainGUI, message, "Error!", 0);
