@@ -961,6 +961,7 @@ public class CLI extends javax.swing.JPanel {
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
+                    System.out.println("RUN");
                     localRouterHandler.showIpInterfaceBrief();
                     InterfaceStatusjTable.setModel(localRouterHandler.getGUISolution().getStatusTableModel());
                 }

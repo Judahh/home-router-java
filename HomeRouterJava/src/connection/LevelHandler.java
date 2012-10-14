@@ -35,7 +35,6 @@ public class LevelHandler {
     }
 
     public int getLevel() {
-        this.checkLevel();
         return prompt.getLevel();
     }
 
