@@ -32,17 +32,6 @@ public class InformationModel {
         informationPossibilitiesMaker();
         endInformationPossibilitiesMaker();
     }
-    
-    private void endInformationPossibilitiesMaker() {
-        ArrayList<String> possibilities = new ArrayList<>();
-        possibilities.add("--More--");
-        CommandModel CMDModel = new CommandModel();
-        possibilities.addAll(CMDModel.getArrayPromptValues());
-//        for(int i = 1; i < getInfoPossibilities().size(); i++) {
-//            possibilities.add(getInfoPossibilities().get(i));
-//        }
-        this.endInfoPossibilities = possibilities;
-    }
 
     public ClockModel getClock() {
         return clock;
@@ -100,8 +89,11 @@ public class InformationModel {
         this.version = version;
     }
     
-    // toda vez q der pau adicionar uma entrada aqui com a ultima linha recebida
-    public ArrayList<String> getEndInformationPossibilities() {//trocar por as possibilidades de prompt do router + --More--
+    public ArrayList<String> getInformationPossibilities() {
+        return this.infoPossibilities;
+    }
+    
+    public ArrayList<String> getEndInformationPossibilities() {
         return this.endInfoPossibilities;
     }
 
@@ -134,17 +126,18 @@ public class InformationModel {
 
         this.infoPossibilities = possibilities;
     }
-
-    public ArrayList<String> getInformationPossibilities() {
-        return this.infoPossibilities;
+    
+    private void endInformationPossibilitiesMaker() {
+        ArrayList<String> possibilities = new ArrayList<>();
+        possibilities.add("--More--");
+        CommandModel CMDModel = new CommandModel();
+        possibilities.addAll(CMDModel.getArrayPromptValues());
+        this.endInfoPossibilities = possibilities;
     }
 
     public boolean isInformation(String stringReceived) {
-        // ---------------------------------------------------------------------------------------------------
-        // TO DO:tem que ver pergunta ao entrar no config!!
         for (int i = 0; i < getInformationPossibilities().size(); i++) {
             if (stringReceived.equals(getInformationPossibilities().get(i))) {
-                System.out.println("INFO:" + stringReceived);
                 return true;
             }
         }
