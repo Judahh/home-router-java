@@ -67,48 +67,7 @@ public class InformationHandler {// --------------------------------------------
                     }
                 }
             }
-
-            ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
-            String fullInfo = FirstPartInfo + InfoS.get(1);
-
-            if (InfoS.get(0).contains("More")) {
-                return checkInformation(true, fullInfo.split("--More--")[0]);
-            }
-
-            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(0))) {
-                return checkInformation(false, this.model.getEndInformationPossibilities().get(0));
-            }
-
-            String lastInfo = null;
-            String routerName = null;
-            for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
-                    routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    lastInfo = this.model.getEndInformationPossibilities().get(index);
-                    index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
-                }
-            }
-
-            fullInfo = fullInfo.split(routerName + lastInfo)[0];
-            parseClockInformation(fullInfo);
-            parseShowRunInformation(fullInfo);
-            parseShowIpInterfaceBriefInformation(fullInfo);
-            parseShowControllersInformation(InfoS.get(1));
-
-            if (!showInformation(fullInfo)) {
-                if (!showWarning(fullInfo)) {
-                    if (showError(fullInfo)) {
-                        //ouve erro!
-                    }
-                }
-            }
-
-            System.out.println("---------------------------------");
-            System.out.println("FullInfo:");
-            System.out.println(fullInfo);
-            System.out.println("---------------------------------");
-
-            return lastInfo;
+            return parseInformation(FirstPartInfo);
         }
         return null;
     }
@@ -125,48 +84,7 @@ public class InformationHandler {// --------------------------------------------
                     }
                 }
             }
-
-            ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
-            String fullInfo = FirstPartInfo + InfoS.get(1);
-
-            if (InfoS.get(0).contains("More")) {
-                return checkInformation(true, fullInfo.split("--More--")[0]);
-            }
-
-            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(0))) {
-                return checkInformation(false, this.model.getEndInformationPossibilities().get(0));
-            }
-
-            String lastInfo = null;
-            String routerName = null;
-            for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
-                if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
-                    routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                    lastInfo = this.model.getEndInformationPossibilities().get(index);
-                    index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
-                }
-            }
-
-            fullInfo = fullInfo.split(routerName + lastInfo)[0];
-            parseClockInformation(fullInfo);
-            parseShowRunInformation(fullInfo);
-            parseShowIpInterfaceBriefInformation(fullInfo);
-            parseShowControllersInformation(InfoS.get(1));
-
-            if (!showInformation(fullInfo)) {
-                if (!showWarning(fullInfo)) {
-                    if (showError(fullInfo)) {
-                        //ouve erro!
-                    }
-                }
-            }
-
-            System.out.println("---------------------------------");
-            System.out.println("FullInfo:");
-            System.out.println(fullInfo);
-            System.out.println("---------------------------------");
-
-            return lastInfo;
+            return parseInformation(FirstPartInfo);
         }
         return null;
     }
@@ -192,6 +110,20 @@ public class InformationHandler {// --------------------------------------------
         return null;
     }
 
+    private void showDialog(String fullInfo) {
+        if (!showInformation(fullInfo)) {
+            if (!showWarning(fullInfo)) {
+                if (showError(fullInfo)) {
+                    //ouve erro!
+                }
+            }
+        }
+        System.out.println("---------------------------------");
+        System.out.println("FullInfo:");
+        System.out.println(fullInfo);
+        System.out.println("---------------------------------");
+    }
+    
     private boolean showError(String fullInfo) {
         if (fullInfo.contains("%")) {
             String error = fullInfo.substring(fullInfo.indexOf('%') + 1);
@@ -238,7 +170,39 @@ public class InformationHandler {// --------------------------------------------
         }
         return false;
     }
+    
+    public String parseInformation(String FirstPartInfo) {
+        ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
+        String fullInfo = FirstPartInfo + InfoS.get(1);
 
+        if (InfoS.get(0).contains("More")) {
+            return checkInformation(true, fullInfo.split("--More--")[0]);
+        }
+
+        if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(0))) {
+            return checkInformation(false, this.model.getEndInformationPossibilities().get(0));
+        }
+
+        String lastInfo = null;
+        String routerName = null;
+        for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
+                routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
+                lastInfo = this.model.getEndInformationPossibilities().get(index);
+                index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+            }
+        }
+
+        fullInfo = fullInfo.split(routerName + lastInfo)[0];
+        parseClockInformation(fullInfo);
+        parseShowRunInformation(fullInfo);
+        parseShowIpInterfaceBriefInformation(fullInfo);
+        parseShowControllersInformation(InfoS.get(1));
+
+        showDialog(fullInfo);
+        return lastInfo;
+    }
+    
     // verifica se a interface serial ÃƒÂ¯Ã‚Â¿Ã‚Â½ master ou slave
     public void parseShowControllersInformation(String info) {//refazer que tah uma merda
         // impede que se adicionem interfaces repetidas
