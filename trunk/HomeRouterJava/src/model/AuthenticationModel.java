@@ -19,6 +19,15 @@ public class AuthenticationModel {
     ArrayList<String> arrayAuthValues;
     private ConnectionHandler connection;
 
+    public AuthenticationModel() {//EXCLUSIVO PARA USO DO INFORMATIONMODEL
+        this.auth = Auth.values()[0];
+        this.passwordVTY = null;
+        this.passwordEnable = null;
+        this.user = null;
+        this.connection = null;
+        arrayAuthValuesMaker();
+    }
+    
     public AuthenticationModel(Auth auth, ConnectionHandler connection) {
         this.auth = auth;
         this.passwordVTY = null;

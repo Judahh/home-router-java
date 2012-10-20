@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author JH
  */
 public class CommandModel {
+    private RouterInfoModel routerInfo;
     private Prompt prompt;
     private IdentifierModel identifier;
     private ArrayList<String> arrayPromptValues;
@@ -22,7 +23,12 @@ public class CommandModel {
         this.level=0;
         this.identifier = new IdentifierModel(1, "0/1/0");
         this.identifier.setSubPort(".2");
+        this.routerInfo = new RouterInfoModel();
         arrayPromptMaker();
+    }
+    
+    public RouterInfoModel getRouterInfo() {
+        return routerInfo;
     }
     
     public IdentifierModel getIdentifier() {
