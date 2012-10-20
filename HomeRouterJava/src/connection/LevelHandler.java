@@ -18,24 +18,16 @@ import model.RouterInfoModel;
  * @author JH
  */
 public class LevelHandler {
-
-    private RouterInfoModel routerInfo;
-    private AuthenticationHandler auth;
     private InformationHandler info;
-    private CommandHandler prompt;
     private ArrayList<String> msgPossibilities;
 
     public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
-        routerInfo = new RouterInfoModel();
         ConnectionHandler connection = new ConnectionHandler(host, port, GuiSol);
-        prompt = new CommandHandler(connection);
         info = new InformationHandler(connection);
-        auth = new AuthenticationHandler(connection);
-        getAllMsgPossibilities();
     }
 
     public int getLevel() {
-        return prompt.getLevel();
+        return info.getPrompt().getLevel();
     }
 
     public InformationHandler getInfo() {
@@ -47,19 +39,15 @@ public class LevelHandler {
     }
 
     public CommandHandler getPrompt() {
-        return prompt;
-    }
-
-    public void setPrompt(CommandHandler prompt) {
-        this.prompt = prompt;
+        return info.getPrompt();
     }
 
     public AuthenticationHandler getAuth() {
-        return auth;
+        return info.getAuth();
     }
 
     public void setAuth(AuthenticationHandler auth) {
-        this.auth = auth;
+        info.setAuth(auth);
     }
 
     public ConnectionHandler getConnection() {
@@ -67,72 +55,14 @@ public class LevelHandler {
     }
 
     public String getRouterName() {
-        return routerInfo.getRouterName();
+        return this.info.getPrompt().getRouterName();
     }
-
-    public void setRouterName(String routerName, String end) {//fazer
-        int index;
-        for (index = routerName.length() - end.length(); routerName.charAt(index) != '\n'; index--) {
-        }
-        this.routerInfo.setRouterName(routerName.substring(index + 1, routerName.length() - end.length()));
-        this.info.getGUISol().setGUIRouterName(this.routerInfo.getRouterName());
-        System.out.println("Router Name:" + this.routerInfo.getRouterName());
-    }
-
-    private void getAllMsgPossibilities() {
-        ArrayList<String> Possibilities = this.info.getInformationPossibilities();
-
-        Possibilities.addAll(this.auth.getArrayAuthValues());//valores da authenticacao
-        Possibilities.addAll(this.prompt.getArrayPromptValues());
-
-        this.msgPossibilities = Possibilities;
-    }
-
-    public ArrayList<String> getMsgPossibilities() {
-        return this.msgPossibilities;
-    }
-
+    
     public boolean checkLevel() {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         if (info.isConnected()) {
             try {
-                ArrayList<String> arrayReceived = this.info.getConnection().arrayListReadUntil(getMsgPossibilities());
-                String Sreceived = arrayReceived.get(0);
-                String Mreceived = arrayReceived.get(1);
-                if (this.auth.isAuth(Sreceived, prompt.getLevel())) {
-                    return true;
-                }
-                if (this.prompt.isPrompt(Sreceived, Mreceived)) {
-                    return true;
-                }
-                if (this.info.isInformation(Sreceived)) {
-                    checkLevel(this.info.checkInformation(Sreceived));
-                    return true;
-                }
-                checkLevel();
-            } catch (Exception e) {
-                this.info.getGUISol().showMessageDialog("This client can't send data to server!");
-                e.printStackTrace();
-            }
-        }
-        return true;
-    }
-
-    public boolean checkLevel(String Level) {// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        if (info.isConnected()) {
-            try {
-                System.out.println("Entrou:" + Level + "!!!");
-                String Sreceived = Level;
-                if (this.auth.isAuth(Sreceived, prompt.getLevel())) {
-                    return true;
-                }
-                if (this.prompt.isPrompt(Sreceived, null)) {
-                    return true;
-                }
-                if (this.info.isInformation(Sreceived)) {
-                    checkLevel(this.info.checkInformation(Sreceived));
-                    return true;
-                }
-                checkLevel();
+                this.info.checkInformation();
+                return true;
             } catch (Exception e) {
                 this.info.getGUISol().showMessageDialog("This client can't send data to server!");
                 e.printStackTrace();
@@ -151,19 +81,19 @@ public class LevelHandler {
     }
 
     private void sendLevel(int Level) {
-        sendCommand(this.prompt.getCMD(Level));
+        sendCommand(this.getPrompt().getCMD(Level));
     }
 
     private void riseLevel(int SideLevel) {
-        if ((prompt.getLevel() < 3) || (prompt.getLevel() == 6) || (prompt.getLevel() == 9) || (prompt.getLevel() == 23)) {
-            sendLevel(prompt.getLevel() + 1);
-        } else if (prompt.getLevel() == 3) {
+        if ((getPrompt().getLevel() < 3) || (getPrompt().getLevel() == 6) || (getPrompt().getLevel() == 9) || (getPrompt().getLevel() == 23)) {
+            sendLevel(getPrompt().getLevel() + 1);
+        } else if (getPrompt().getLevel() == 3) {
             riseConfigSideLevel(SideLevel);
-        } else if (prompt.getLevel() == 17) {
+        } else if (getPrompt().getLevel() == 17) {
             riseIfSideLevel(SideLevel);
-        } else if (prompt.getLevel() == 39) {
+        } else if (getPrompt().getLevel() == 39) {
             riseServerSideLevel(SideLevel);
-        } else if (prompt.getLevel() == 41) {
+        } else if (getPrompt().getLevel() == 41) {
             riseDlurSideLevel(SideLevel);
         }
     }
@@ -197,17 +127,17 @@ public class LevelHandler {
     }
 
     private void reduceLevel() {
-        if(prompt.getLevel() > 44){
+        if(getPrompt().getLevel() > 44){
             sendCommand("\r\n");
-        }else if ((prompt.getLevel() != 2) && (prompt.getLevel() > 0)) {
+        }else if ((getPrompt().getLevel() != 2) && (getPrompt().getLevel() > 0)) {
             sendCommand("exit\r\n");
-        } else if (prompt.getLevel() == 2) {
+        } else if (getPrompt().getLevel() == 2) {
             sendCommand("disable\r\n");
         }
     }
 
     private void reduceLevelUntil(int Level) {
-        while (prompt.getLevel() > Level) {
+        while (getPrompt().getLevel() > Level) {
             if (info.isConnected()) {
                 reduceLevel();
             } else {
@@ -217,11 +147,11 @@ public class LevelHandler {
     }
 
     private void riseLevelUntil(int Level) {
-        while (prompt.getLevel() < Level) {
+        while (getPrompt().getLevel() < Level) {
             if (info.isConnected()) {
-                if ((prompt.getLevel() < 3) || (prompt.getLevel() == 6) || (prompt.getLevel() == 9) || (prompt.getLevel() == 23)) {
+                if ((getPrompt().getLevel() < 3) || (getPrompt().getLevel() == 6) || (getPrompt().getLevel() == 9) || (getPrompt().getLevel() == 23)) {
                     riseLevel(0);
-                } else if (prompt.getLevel() == 3) {
+                } else if (getPrompt().getLevel() == 3) {
                     if (Level > 3 && Level < 39) {
                         if ((Level != 7) && (Level != 10) && (Level != 24)) {
                             if ((Level < 18) || (Level > 20)) {
@@ -235,19 +165,19 @@ public class LevelHandler {
                     } else {
                         reduceLevel();
                     }
-                } else if (prompt.getLevel() == 17) {
+                } else if (getPrompt().getLevel() == 17) {
                     if (Level > 17 && Level < 21) {
                         riseLevel(Level);
                     } else {
                         reduceLevel();
                     }
-                } else if (prompt.getLevel() == 39) {
+                } else if (getPrompt().getLevel() == 39) {
                     if (Level == 40 || Level == 41) {
                         riseLevel(Level);
                     } else {
                         reduceLevel();
                     }
-                } else if (prompt.getLevel() == 41) {
+                } else if (getPrompt().getLevel() == 41) {
                     if (Level == 42 || Level == 43) {
                         sendLevel(Level);
                     } else {
@@ -261,7 +191,7 @@ public class LevelHandler {
     }
 
     public void goToLevel(int Level) {
-        while (prompt.getLevel() != Level) {
+        while (getPrompt().getLevel() != Level) {
             if (info.isConnected()) {
                 reduceLevelUntil(Level);
                 riseLevelUntil(Level);

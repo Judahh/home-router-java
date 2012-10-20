@@ -114,8 +114,8 @@ public class ConnectionHandler {
                     for (int i = pattern.size() - 1; i >= 0; i--) {
                         if (ch == lastChar[i]) {
                             if (sb.toString().endsWith(pattern.get(i))) {
-                                Array.add(pattern.get(i));
-                                Array.add(sb.toString());
+                                Array.add(pattern.get(i));//0 eh pattern
+                                Array.add(sb.toString());//1 eh a string toda
                                 System.out.println();
                                 return Array;
                             }

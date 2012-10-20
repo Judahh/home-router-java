@@ -41,10 +41,30 @@ import view.Serial;
 public class InformationHandler {// ---------------------------------------------------------------------------------------------------------------------
     private ConnectionHandler connection;
     private InformationModel model;
+    private CommandHandler prompt;
+    private AuthenticationHandler auth;
 
     public InformationHandler(ConnectionHandler connection)throws ConnectException, SocketException, IOException {
         this.connection = connection;
         this.model=new InformationModel();
+        prompt = new CommandHandler(connection);
+        auth = new AuthenticationHandler(connection);
+    }
+
+    public void setAuth(AuthenticationHandler auth) {
+        this.auth = auth;
+    }
+
+    public AuthenticationHandler getAuth() {
+        return auth;
+    }
+
+    public InformationModel getModel() {
+        return model;
+    }
+
+    public CommandHandler getPrompt() {
+        return prompt;
     }
 
     public ConnectionHandler getConnection() {
@@ -55,11 +75,72 @@ public class InformationHandler {// --------------------------------------------
         return this.connection.getGuiSol();
     }
     
+    public String checkMore(String FirstPartInfo) {
+        ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
+        String fullInfo = FirstPartInfo + InfoS.get(1);
+        
+        if (InfoS.get(0).contains("More")) {
+            return checkInformation(true, fullInfo.split(this.model.getEndInformationPossibilities().get(0))[0]);
+        }
+        
+        String lastInfo = null;
+        String routerName = null;
+        for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
+                routerName = getRouterName(InfoS.get(1), InfoS.get(0));
+                lastInfo = this.model.getEndInformationPossibilities().get(index);
+                index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+            }
+        }
+        fullInfo = fullInfo.split(routerName + lastInfo)[0];
+        
+        return fullInfo;
+    }
+    
+    public String parseInformation(String fullInfo) {
+        String lastInfo = null;
+        for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
+            if (fullInfo.contains(this.model.getEndInformationPossibilities().get(index))) {
+                lastInfo = this.model.getEndInformationPossibilities().get(index);
+                index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
+            }
+        }
+        if(this.prompt.getLevel()< this.prompt.getArrayPromptValues().size() - 3){
+            fullInfo = fullInfo.split(this.prompt.getRouterName() + lastInfo)[0];
+        }else{
+            fullInfo = fullInfo.split(lastInfo)[0];
+        }
+        
+        parseClockInformation(fullInfo);
+        parseShowRunInformation(fullInfo);
+        parseShowIpInterfaceBriefInformation(fullInfo);
+        parseShowControllersInformation(fullInfo);
+        showDialog(fullInfo);
+        
+        return fullInfo;
+    }
+    
+    public void checkInformation() {//retornar prompt do router
+        if (isConnected()) {
+            ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getAllInformationPossibilities());
+            String FirstPartInfo = InfoS.get(1);
+            String Sreceived = InfoS.get(0);
+            if (this.auth.isAuth(Sreceived, this.prompt.getLevel())) {
+                return;
+            }
+            this.prompt.setRouterName(FirstPartInfo,Sreceived);
+            if (this.isInformation(Sreceived)) {
+                this.checkInformation(FirstPartInfo);
+            }
+        }
+    }
+    
     public String checkInformation(String FirstPartInfo) {//retornar prompt do router
         System.out.println("IS INFO?");
         if (isConnected()) {
             if (FirstPartInfo.contains("More")) {
                 connection.send(" ");
+                return checkMore(FirstPartInfo);
             } else {
                 for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
                     if (FirstPartInfo.contains(this.model.getEndInformationPossibilities().get(index))) {
@@ -77,6 +158,7 @@ public class InformationHandler {// --------------------------------------------
         if (isConnected()) {
             if (more) {
                 connection.send(" ");
+                return checkMore(FirstPartInfo);
             } else {
                 for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
                     if (FirstPartInfo.contains(this.model.getEndInformationPossibilities().get(index))) {
@@ -96,18 +178,8 @@ public class InformationHandler {// --------------------------------------------
         return false;
     }
 
-    public String setRouterName(String routerName, String end, int index) {
-        if (isConnected()) {
-            CommandHandler CMDHandler = new CommandHandler(connection);
-            if ((index > 0) && (index < CMDHandler.getArrayPromptValues().size() - 3)) {
-                for (index = routerName.length() - end.length(); routerName.charAt(index) != '\n'; index--) {
-                }
-                String RouterName = routerName.substring(index + 1, routerName.length() - end.length());
-                this.connection.getGuiSol().setGUIRouterName(RouterName);
-                return RouterName;
-            }
-        }
-        return null;
+    public String getRouterName(String routerName, String end) {
+        return this.prompt.getRouterName(routerName, end);
     }
 
     private void showDialog(String fullInfo) {
@@ -169,38 +241,6 @@ public class InformationHandler {// --------------------------------------------
             return true;
         }
         return false;
-    }
-    
-    public String parseInformation(String FirstPartInfo) {
-        ArrayList<String> InfoS = connection.arrayListReadUntil(this.model.getEndInformationPossibilities());
-        String fullInfo = FirstPartInfo + InfoS.get(1);
-
-        if (InfoS.get(0).contains("More")) {
-            return checkInformation(true, fullInfo.split("--More--")[0]);
-        }
-
-        if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(0))) {
-            return checkInformation(false, this.model.getEndInformationPossibilities().get(0));
-        }
-
-        String lastInfo = null;
-        String routerName = null;
-        for (int index = 1; index < this.model.getEndInformationPossibilities().size(); index++) {
-            if (InfoS.get(0).contains(this.model.getEndInformationPossibilities().get(index))) {
-                routerName = setRouterName(InfoS.get(1), InfoS.get(0), index);
-                lastInfo = this.model.getEndInformationPossibilities().get(index);
-                index = this.model.getEndInformationPossibilities().size();//saida(depois trocar)-----------------------------------------------------------------
-            }
-        }
-
-        fullInfo = fullInfo.split(routerName + lastInfo)[0];
-        parseClockInformation(fullInfo);
-        parseShowRunInformation(fullInfo);
-        parseShowIpInterfaceBriefInformation(fullInfo);
-        parseShowControllersInformation(InfoS.get(1));
-
-        showDialog(fullInfo);
-        return lastInfo;
     }
     
     // verifica se a interface serial ÃƒÂ¯Ã‚Â¿Ã‚Â½ master ou slave

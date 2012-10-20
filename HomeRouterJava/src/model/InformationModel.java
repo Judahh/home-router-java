@@ -19,6 +19,7 @@ public class InformationModel {
     private ArrayList<String> dynamicRoutes;
     private ArrayList<String> endInfoPossibilities;
     private ArrayList<String> infoPossibilities;
+    private ArrayList<String> allInfoPossibilities;
 
     public InformationModel() {
         this.clock =new ClockModel();
@@ -29,8 +30,10 @@ public class InformationModel {
         this.dynamicRoutes = new ArrayList<String>();
         this.endInfoPossibilities = new ArrayList<String>();
         this.infoPossibilities = new ArrayList<String>();
+        this.allInfoPossibilities = new ArrayList<String>();
         informationPossibilitiesMaker();
         endInformationPossibilitiesMaker();
+        getAllInformationPossibilitiesMaker();
     }
 
     public ClockModel getClock() {
@@ -127,6 +130,20 @@ public class InformationModel {
         this.infoPossibilities = possibilities;
     }
     
+    private void getAllInformationPossibilitiesMaker() {
+        ArrayList<String> possibilities= new ArrayList<>();
+        possibilities.add("--More--");
+        AuthenticationModel AuthModel = new AuthenticationModel();
+        possibilities.addAll(AuthModel.getArrayAuthValues());//valores da authenticacao
+        CommandModel CMDModel = new CommandModel();
+        possibilities.addAll(CMDModel.getArrayPromptValues());
+        this.allInfoPossibilities = possibilities;
+    }
+
+    public ArrayList<String> getAllInformationPossibilities() {
+        return this.allInfoPossibilities;
+    }
+    
     private void endInformationPossibilitiesMaker() {
         ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("--More--");
@@ -136,8 +153,8 @@ public class InformationModel {
     }
 
     public boolean isInformation(String stringReceived) {
-        for (int i = 0; i < getInformationPossibilities().size(); i++) {
-            if (stringReceived.equals(getInformationPossibilities().get(i))) {
+        for (int i = 0; i < getEndInformationPossibilities().size(); i++) {
+            if (stringReceived.equals(getEndInformationPossibilities().get(i))) {
                 return true;
             }
         }

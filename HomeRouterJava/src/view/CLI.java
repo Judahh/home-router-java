@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 import util.Validation;
 import model.GUISolutionModel;
+import thread.Init;
 
 /**
  *
@@ -95,10 +96,8 @@ public class CLI extends javax.swing.JPanel {
 
         // vlan 10.255.0.150
         GuiSol.setRouterHandler(globalRouterHandler);
-
-        // Essas 6 linhas embaixo usam show controllers e show run
-        //globalRouterHandler.getClock();
-        globalRouterHandler.showRun();
+        Init init=new Init(globalRouterHandler);
+        init.start();
     }
 
     public String getRouterName() {
