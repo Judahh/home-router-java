@@ -154,15 +154,23 @@ public class GUISolutionModel {
         this.Type = Type;
     }
     
+    public void autoVerticalBardown(){
+        if(this.Console.getText().length()>1){
+            this.Console.setCaretPosition(this.Console.getText().length()-1);
+        }
+    }
+    
     public void appendConsole(String string) {
         if(Console!=null){
             this.Console.append(string);
+            autoVerticalBardown();
         }
     }
 
     public void appendConsole(char character) {
         if(Console!=null){
             this.Console.append(character + "");
+            autoVerticalBardown();
         }
     }
 
