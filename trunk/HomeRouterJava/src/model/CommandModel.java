@@ -169,7 +169,7 @@ public class CommandModel {
             case Logged_OffAsk:
                 return "Press ENTER to get the prompt.";
             case Logged_OffConsoleAsk:
-                return "Press RETURN to get started.";
+                return "Press RETURN to get started!";
             default:
                 return "######";
         }
