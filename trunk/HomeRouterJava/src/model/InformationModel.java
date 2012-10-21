@@ -11,6 +11,8 @@ import java.util.ArrayList;
  * @author JH
  */
 public class InformationModel {
+    private boolean showPossibleCommands;
+    private boolean help;
     private ClockModel clock;
     private RunModel run;
     private String version;
@@ -34,6 +36,38 @@ public class InformationModel {
         informationPossibilitiesMaker();
         endInformationPossibilitiesMaker();
         getAllInformationPossibilitiesMaker();
+    }
+
+    public ArrayList<String> getAllInfoPossibilities() {
+        return allInfoPossibilities;
+    }
+
+    public void setAllInfoPossibilities(ArrayList<String> allInfoPossibilities) {
+        this.allInfoPossibilities = allInfoPossibilities;
+    }
+
+    public boolean isHelp() {
+        return help;
+    }
+
+    public void setHelp(boolean help) {
+        this.help = help;
+    }
+
+    public ArrayList<String> getInfoPossibilities() {
+        return infoPossibilities;
+    }
+
+    public void setInfoPossibilities(ArrayList<String> infoPossibilities) {
+        this.infoPossibilities = infoPossibilities;
+    }
+
+    public boolean isShowPossibleCommands() {
+        return showPossibleCommands;
+    }
+
+    public void setShowPossibleCommands(boolean showPossibleCommands) {
+        this.showPossibleCommands = showPossibleCommands;
     }
 
     public ClockModel getClock() {

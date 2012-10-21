@@ -44,6 +44,13 @@ public class InformationHandler {// --------------------------------------------
     private CommandHandler prompt;
     private AuthenticationHandler auth;
 
+    public InformationHandler(ConnectionHandler connection, AuthenticationHandler auth)throws ConnectException, SocketException, IOException {
+        this.connection = connection;
+        this.model=new InformationModel();
+        this.prompt = new CommandHandler(connection);
+        this.auth = auth;
+    }
+    
     public InformationHandler(ConnectionHandler connection)throws ConnectException, SocketException, IOException {
         this.connection = connection;
         this.model=new InformationModel();
@@ -51,6 +58,22 @@ public class InformationHandler {// --------------------------------------------
         auth = new AuthenticationHandler(connection);
     }
 
+    public boolean isHelp() {
+        return this.model.isHelp();
+    }
+
+    public void setHelp(boolean help) {
+        this.model.setHelp(help);
+    }
+    
+    public boolean isShowPossibleCommands() {
+        return this.model.isShowPossibleCommands();
+    }
+
+    public void setShowPossibleCommands(boolean showPossibleCommands) {
+        this.model.setShowPossibleCommands(showPossibleCommands);
+    }
+    
     public void setAuth(AuthenticationHandler auth) {
         this.auth = auth;
     }

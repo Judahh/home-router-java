@@ -26,6 +26,10 @@ public class RouterHandler {
 
     private LevelHandler routerLevel;
 
+    public RouterHandler(String host, int port, GUISolutionModel GuiSol, AuthenticationHandler auth) throws ConnectException, SocketException, IOException {
+        this.routerLevel = new LevelHandler(host, port, GuiSol, auth);
+    }
+    
     public RouterHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
         this.routerLevel = new LevelHandler(host, port, GuiSol);
     }
@@ -44,6 +48,26 @@ public class RouterHandler {
         this.routerLevel.getPrompt().getIdentifier().setSubPort(subPort);
     }
 
+    public boolean isHelp() {
+        return this.routerLevel.isHelp();
+    }
+
+    public void setHelp(boolean help) {
+        this.routerLevel.setHelp(help);
+    }
+    
+    public boolean isShowPossibleCommands() {
+        return this.routerLevel.isShowPossibleCommands();
+    }
+
+    public void setShowPossibleCommands(boolean showPossibleCommands) {
+        this.routerLevel.setShowPossibleCommands(showPossibleCommands);
+    }
+    
+    public AuthenticationHandler getAuthenticationHandler(){
+        return this.routerLevel.getAuth();
+    }
+    
     public void goToLevelRouter(int Level) {
         routerLevel.goToLevel(Level);
     }

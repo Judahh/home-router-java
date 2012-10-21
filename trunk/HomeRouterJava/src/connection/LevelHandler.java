@@ -21,11 +21,32 @@ public class LevelHandler {
     private InformationHandler info;
     private ArrayList<String> msgPossibilities;
 
+    public LevelHandler(String host, int port, GUISolutionModel GuiSol, AuthenticationHandler auth) throws ConnectException, SocketException, IOException {
+        ConnectionHandler connection = new ConnectionHandler(host, port, GuiSol);
+        info = new InformationHandler(connection, auth);
+    }
+    
     public LevelHandler(String host, int port, GUISolutionModel GuiSol) throws ConnectException, SocketException, IOException {
         ConnectionHandler connection = new ConnectionHandler(host, port, GuiSol);
         info = new InformationHandler(connection);
     }
 
+    public boolean isHelp() {
+        return this.info.isHelp();
+    }
+
+    public void setHelp(boolean help) {
+        this.info.setHelp(help);
+    }
+    
+    public boolean isShowPossibleCommands() {
+        return this.info.isShowPossibleCommands();
+    }
+
+    public void setShowPossibleCommands(boolean showPossibleCommands) {
+        this.info.setShowPossibleCommands(showPossibleCommands);
+    }
+    
     public int getLevel() {
         return info.getPrompt().getLevel();
     }

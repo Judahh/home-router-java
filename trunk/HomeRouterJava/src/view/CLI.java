@@ -1009,7 +1009,7 @@ public class CLI extends javax.swing.JPanel {
             // thread para atualizar status das interfaces
             statusTableModel = (DefaultTableModel) InterfaceStatusjTable.getModel();
             GUISolutionModel GuiSol = new GUISolutionModel(statusTableModel, interfacesJTabbedPane, mi, index);
-            final RouterHandler localRouterHandler = new RouterHandler(host, port, GuiSol);
+            final RouterHandler localRouterHandler = new RouterHandler(host, port, GuiSol,globalRouterHandler.getAuthenticationHandler());
             GuiSol.setRouterHandler(localRouterHandler);
            
             timer = new Timer();
@@ -1119,6 +1119,16 @@ public class CLI extends javax.swing.JPanel {
 
     private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SendjButtonActionPerformed
         if (globalRouterHandler != null) {
+            if (CommandjTextField.getText().contains("?")) {
+                if(CommandjTextField.getText().contains(" ?")){
+                    globalRouterHandler.setShowPossibleCommands(true);
+                    //abre o a janela do help e manda esse comando por lah
+                    System.out.println("ESPACO!!!!!");
+                }else{
+                    globalRouterHandler.setHelp(true);
+                    System.out.println("INTERROGA!!!!!");
+                }
+            }
             globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
             CommandjTextField.setText("");
         }
@@ -1137,7 +1147,17 @@ public class CLI extends javax.swing.JPanel {
                 CommandjTextField.setText("");
             }
         }
-
+        if (key == KeyEvent.VK_SLASH) {
+            if (CommandjTextField.getText().contains("?")) {
+                if(CommandjTextField.getText().contains(" ?")){
+                    globalRouterHandler.setShowPossibleCommands(true);
+                    System.out.println("ESPACO!!!!!");
+                }else{
+                    globalRouterHandler.setHelp(true);
+                    System.out.println("INTERROGA!!!!!");
+                }
+            }
+        }
     }// GEN-LAST:event_CommandjTextFieldKeyPressed
 
     private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_DyRRemovejButtonActionPerformed
