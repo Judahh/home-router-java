@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 import util.Validation;
 import model.GUISolutionModel;
+import model.SuggestionBoxModel;
 import thread.Init;
 
 /**
@@ -96,7 +97,7 @@ public class CLI extends javax.swing.JPanel {
 
         // vlan 10.255.0.150
         GuiSol.setRouterHandler(globalRouterHandler);
-        Init init=new Init(globalRouterHandler);
+        Init init = new Init(globalRouterHandler);
         init.start();
     }
 
@@ -203,7 +204,6 @@ public class CLI extends javax.swing.JPanel {
         interfaceSerialTypeList = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         ConsolejTextArea = new javax.swing.JTextArea();
-        CommandjTextField = new javax.swing.JTextField();
         SendjButton = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         ClockjLabel = new javax.swing.JLabel();
@@ -214,6 +214,7 @@ public class CLI extends javax.swing.JPanel {
         jToolBar4 = new javax.swing.JToolBar();
         IosjLabel = new javax.swing.JLabel();
         levelselectorJComboBox = new javax.swing.JComboBox();
+        CommandjComboBox = new javax.swing.JComboBox();
 
         SettingsjFrame.setTitle("Settings");
         SettingsjFrame.setLocationByPlatform(true);
@@ -907,12 +908,6 @@ public class CLI extends javax.swing.JPanel {
         ConsolejTextArea.setRows(5);
         jScrollPane1.setViewportView(ConsolejTextArea);
 
-        CommandjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CommandjTextFieldKeyPressed(evt);
-            }
-        });
-
         SendjButton.setText("Send");
         SendjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -948,6 +943,17 @@ public class CLI extends javax.swing.JPanel {
             }
         });
 
+        CommandjComboBox.setEditable(true);
+        SuggestionBoxModel sbm = new SuggestionBoxModel(CommandjComboBox);
+        //set the model on the combobox
+        CommandjComboBox.setModel(sbm);
+        CommandjComboBox.addItemListener(sbm);//set the model as the item listener also
+        CommandjComboBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CommandjComboBoxKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -958,8 +964,8 @@ public class CLI extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(CommandjTextField)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CommandjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SendjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -979,9 +985,9 @@ public class CLI extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CommandjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SendjButton)
-                    .addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(levelselectorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CommandjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -990,6 +996,27 @@ public class CLI extends javax.swing.JPanel {
                     .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CommandjComboBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandjComboBoxKeyReleased
+        int key = evt.getKeyCode();
+        String string = (String) CommandjComboBox.getSelectedItem();
+        if (key == KeyEvent.VK_ENTER) {
+            globalRouterHandler.sendUserCommand(string + "\r\n");
+            CommandjComboBox.setSelectedItem("");
+        } else {
+            if (key == KeyEvent.VK_SLASH) {
+                if (string.contains("?")) {
+                    if (string.contains(" ?")) {
+                        globalRouterHandler.setShowPossibleCommands(true);
+                        System.out.println("ESPACO!!!!!");
+                    } else {
+                        globalRouterHandler.setHelp(true);
+                        System.out.println("INTERROGA!!!!!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_CommandjComboBoxKeyReleased
 
     private void InterfacesStatusjFrameComponentHidden(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesStatusjFrameComponentHidden
         timer.cancel();
@@ -1009,11 +1036,12 @@ public class CLI extends javax.swing.JPanel {
             // thread para atualizar status das interfaces
             statusTableModel = (DefaultTableModel) InterfaceStatusjTable.getModel();
             GUISolutionModel GuiSol = new GUISolutionModel(statusTableModel, interfacesJTabbedPane, mi, index);
-            final RouterHandler localRouterHandler = new RouterHandler(host, port, GuiSol,globalRouterHandler.getAuthenticationHandler());
+            final RouterHandler localRouterHandler = new RouterHandler(host, port, GuiSol, globalRouterHandler.getAuthenticationHandler());
             GuiSol.setRouterHandler(localRouterHandler);
-           
+
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
+
                 @Override
                 public void run() {
                     System.out.println("RUN");
@@ -1119,46 +1147,21 @@ public class CLI extends javax.swing.JPanel {
 
     private void SendjButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SendjButtonActionPerformed
         if (globalRouterHandler != null) {
-            if (CommandjTextField.getText().contains("?")) {
-                if(CommandjTextField.getText().contains(" ?")){
+            String Field = (String) CommandjComboBox.getSelectedItem();
+            if (Field.contains("?")) {
+                if (Field.contains(" ?")) {
                     globalRouterHandler.setShowPossibleCommands(true);
                     //abre o a janela do help e manda esse comando por lah
                     System.out.println("ESPACO!!!!!");
-                }else{
+                } else {
                     globalRouterHandler.setHelp(true);
                     System.out.println("INTERROGA!!!!!");
                 }
             }
-            globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
-            CommandjTextField.setText("");
+            globalRouterHandler.sendUserCommand(Field + "\r\n");
+            CommandjComboBox.setSelectedItem("");
         }
     }// GEN-LAST:event_SendjButtonActionPerformed
-
-    private void CommandjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CommandjTextFieldActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_CommandjTextFieldActionPerformed
-
-    private void CommandjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_CommandjTextFieldKeyPressed
-        // se apertar enter, fazer o mesmo do botÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½o send
-        int key = evt.getKeyCode();
-        if (key == KeyEvent.VK_ENTER) {
-            if (globalRouterHandler != null) {
-                globalRouterHandler.sendUserCommand(CommandjTextField.getText() + "\r\n");
-                CommandjTextField.setText("");
-            }
-        }
-        if (key == KeyEvent.VK_SLASH) {
-            if (CommandjTextField.getText().contains("?")) {
-                if(CommandjTextField.getText().contains(" ?")){
-                    globalRouterHandler.setShowPossibleCommands(true);
-                    System.out.println("ESPACO!!!!!");
-                }else{
-                    globalRouterHandler.setHelp(true);
-                    System.out.println("INTERROGA!!!!!");
-                }
-            }
-        }
-    }// GEN-LAST:event_CommandjTextFieldKeyPressed
 
     private void DyRRemovejButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_DyRRemovejButtonActionPerformed
         String route = (String) DyRjList.getSelectedValue();
@@ -1198,7 +1201,7 @@ public class CLI extends javax.swing.JPanel {
     private javax.swing.JButton AddRoutejButton;
     private javax.swing.JLabel ClockjLabel;
     private javax.swing.JFrame CommandHelpjFrame;
-    private javax.swing.JTextField CommandjTextField;
+    private javax.swing.JComboBox CommandjComboBox;
     private javax.swing.JTextField ConnectivityIPTextField;
     private javax.swing.JButton ConnectivityPingButton;
     public javax.swing.JFrame ConnectivityjFrame;
