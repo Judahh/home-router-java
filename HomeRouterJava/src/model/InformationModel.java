@@ -24,6 +24,8 @@ public class InformationModel {
     private ArrayList<String> allInfoPossibilities;
 
     public InformationModel() {
+        this.help=false;
+        this.showPossibleCommands=false;
         this.clock =new ClockModel();
         this.run =new RunModel();
         this.version =new String();

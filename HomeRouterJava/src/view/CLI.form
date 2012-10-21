@@ -1204,8 +1204,8 @@
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="levelselectorJComboBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="CommandjTextField" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="CommandjComboBox" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="SendjButton" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
@@ -1230,9 +1230,9 @@
               <Component id="jScrollPane1" pref="96" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="CommandjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="SendjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="levelselectorJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CommandjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -1261,11 +1261,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="CommandjTextField">
-      <Events>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandjTextFieldKeyPressed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="SendjButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Send"/>
@@ -1343,6 +1338,20 @@
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String[] leveltypes = {&quot;Logged_Off&quot;, &quot;Default&quot;, &quot;Enable&quot;, &quot;Config&quot;, &quot;appnB&quot;, &quot;ca_identityB&quot;, &quot;cfg_lan_Ether_10B&quot;, &quot;cfg_adap_Ether_10_1B&quot;, &quot;config_cert_chainB&quot;, &quot;config_controllerB&quot;, &quot;config_ctrl_casB&quot;, &quot;config_crypto_mapB&quot;, &quot;config_crypto_transB&quot;, &quot;config_dialpeerB&quot;, &quot;config_ext_naclB&quot;, &quot;config_std_naclB&quot;, &quot;config_hubB&quot;, &quot;Interface Config&quot;, &quot;config_if_atm_vcB&quot;, &quot;config_vc_classB&quot;, &quot;config_subifB&quot;, &quot;config_ipx_routerB&quot;, &quot;config_isakmpB&quot;, &quot;config_keychainB&quot;, &quot;config_keychain_keyB&quot;, &quot;VTY&quot;, &quot;config_map_classB&quot;, &quot;config_map_listB&quot;, &quot;config_modem_poolB&quot;, &quot;config_poll_grB&quot;, &quot;config_pubkeyB&quot;, &quot;config_pubkey_keyB&quot;, &quot;config_route_mapB&quot;, &quot;Router Config&quot;, &quot;config_rtrB&quot;, &quot;config_voiceportB&quot;, &quot;lane_config_databB&quot;, &quot;mpoa_client_configB&quot;, &quot;mpoa_server_configB&quot;, &quot;tn3270_serverB&quot;, &quot;tn3270_puB&quot;, &quot;tn3270_dlurB&quot;, &quot;tn3270_dlur_sapB&quot;, &quot;tn3270_dlur_puB&quot;, &quot;configBAsk&quot;, &quot;Logged_OffAsk&quot;, &quot;Logged_OffConsoleAsk&quot;};"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="CommandjComboBox">
+      <Properties>
+        <Property name="editable" type="boolean" value="true" postCode="SuggestionBoxModel sbm = new SuggestionBoxModel(CommandjComboBox);&#xa;//set the model on the combobox"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="sbm" type="code"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandjComboBoxKeyReleased"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="CommandjComboBox.addItemListener(sbm);//set the model as the item listener also"/>
       </AuxValues>
     </Component>
   </SubComponents>
