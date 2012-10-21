@@ -10,6 +10,7 @@ import connection.RouterHandler;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -29,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 import util.Validation;
 import model.GUISolutionModel;
-import model.SuggestionBoxModel;
+//import model.SuggestionBoxModel;
 import thread.Init;
 
 /**
@@ -45,6 +46,11 @@ public class CLI extends javax.swing.JPanel {
     /**
      * ....................... Creates new form CLI
      */
+    ArrayList<String> db = new ArrayList<>();
+    ArrayList<String> data = new ArrayList<>();
+    String selection;
+    ComboBoxEditor comboBoxEditor;
+    int curruentPosition = 0;
     RouterHandler globalRouterHandler;
     private MainInterface mi;
     private int index;
@@ -79,6 +85,18 @@ public class CLI extends javax.swing.JPanel {
     }
 
     public CLI() {
+//set up our "database" of items - in practice you will usuallu have a proper db.
+        db.add("aluminium");
+        db.add("aluminium chloride");
+        db.add("iron");
+        db.add("iron oxide (2+)");
+        db.add("iron oxide (3+)");
+        db.add("sodium");
+        db.add("sodium chloride");
+        db.add("titanium");
+        db.add("selenium");
+        db.add("potassium");
+        db.add("polonium");
         initComponents();
     }
 
@@ -944,13 +962,16 @@ public class CLI extends javax.swing.JPanel {
         });
 
         CommandjComboBox.setEditable(true);
-        SuggestionBoxModel sbm = new SuggestionBoxModel(CommandjComboBox);
-        //set the model on the combobox
-        CommandjComboBox.setModel(sbm);
-        CommandjComboBox.addItemListener(sbm);//set the model as the item listener also
+        CommandjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "show run" }));
         CommandjComboBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CommandjComboBoxKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CommandjComboBoxKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CommandjComboBoxKeyTyped(evt);
             }
         });
 
@@ -1017,6 +1038,48 @@ public class CLI extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_CommandjComboBoxKeyReleased
+
+    private void CommandjComboBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandjComboBoxKeyPressed
+        int key = evt.getKeyCode();
+        String string = (String) CommandjComboBox.getSelectedItem();
+        if (key == KeyEvent.VK_ENTER) {
+            globalRouterHandler.sendUserCommand(string + "\r\n");
+            CommandjComboBox.setSelectedItem("");
+        } else {
+            if (key == KeyEvent.VK_SLASH) {
+                if (string.contains("?")) {
+                    if (string.contains(" ?")) {
+                        globalRouterHandler.setShowPossibleCommands(true);
+                        System.out.println("ESPACO!!!!!");
+                    } else {
+                        globalRouterHandler.setHelp(true);
+                        System.out.println("INTERROGA!!!!!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_CommandjComboBoxKeyPressed
+
+    private void CommandjComboBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandjComboBoxKeyTyped
+        int key = evt.getKeyCode();
+        String string = (String) CommandjComboBox.getSelectedItem();
+        if (key == KeyEvent.VK_ENTER) {
+            globalRouterHandler.sendUserCommand(string + "\r\n");
+            CommandjComboBox.setSelectedItem("");
+        } else {
+            if (key == KeyEvent.VK_SLASH) {
+                if (string.contains("?")) {
+                    if (string.contains(" ?")) {
+                        globalRouterHandler.setShowPossibleCommands(true);
+                        System.out.println("ESPACO!!!!!");
+                    } else {
+                        globalRouterHandler.setHelp(true);
+                        System.out.println("INTERROGA!!!!!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_CommandjComboBoxKeyTyped
 
     private void InterfacesStatusjFrameComponentHidden(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_InterfacesStatusjFrameComponentHidden
         timer.cancel();
