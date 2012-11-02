@@ -121,15 +121,17 @@ public class ConnectionHandler {
                             }
                         }
                     }
-                    //
+                    
                     if (65535 == (int) ch) {
                         j++;
                         if (j >= 3) {
                             disconnect();
                             return null;
                         }
+                    }else{
+                        j=0;
                     }
-                    //
+                    
                     ch = (char) in.read();
                 }
             } catch (Exception e) {
